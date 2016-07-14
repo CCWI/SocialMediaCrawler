@@ -4,7 +4,7 @@ Installationsanleitung:
   2. Datenbank db_socialmediacrawler erstellen
   3. Benutzer 'crawler' mit Passwort 'start123' für 'alle Hosts' UND 'localhost' erstellen.
   4. Tomcat 7 installieren
-  5. Server.xml, Web.xml und tomcat-user.xml austauschen
+  5. server.xml, web.xml und tomcat-user.xml austauschen
   6. Authentifizierungskeys im Projekt SocialMediaCrawler ergänzen:
 
 Die Authentifizierungskeys sind bei den verschiednen Schnittstellen zu beantragen.
