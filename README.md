@@ -1,6 +1,4 @@
-# SocialMediaCrawler
-Social Media Crawler des CCWI
-SOCIALMEDIACRAWLER
+CCWI SOCIALMEDIACRAWLER
 Installationsanleitung:
   1. MySql installieren
   2. Datenbank db_socialmediacrawler erstellen
