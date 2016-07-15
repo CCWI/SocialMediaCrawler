@@ -1,4 +1,19 @@
 CCWI SOCIALMEDIACRAWLER
+
+Projekt Checkout - Eclipse
+  1. Eclipse herunterladen
+  2. EGit und Mylyn Connector installieren (https://www.frank-rahn.de/github-mit-eclipse-egit/)
+  3. Eclipse -> Open Perspective (kleines Fensterymbol rechts oben) -> Git
+  4. Clone a Git repository -> GitHub -> "SocialMediaCrawler" eingeben und search klicken
+  5. "CCWI/SocialMediaCrawler" auswählen -> next -> master -> finish
+  6. Wechseln in JavaEE Perspektive -> File -> Import -> Git
+  7. Projects from Git -> Existing local repository -> "SocialMediaCrawler" auswählen -> next
+  8. "Import existing Eclipse project" -> "Working Tree" auswählen -> next -> Finish
+  9. Nach vollständigem Import -> rechts Klick auf Projekt -> Properties -> Java Build Path
+  10. Libraries -> "reflection-0.9.8.jar" auswählen und "edit" klicken
+  11. Die lib befindet sich ebenfalls im GitHub Projekt und wurde bereits mit ausgecheckt
+  12. Beispiel Pfad wenn zur lib: "C:\Users\Arbeit\git\SocialMediaCrawler\reflections-0.9.8.jar"
+
 Installationsanleitung:
   1. MySql installieren
   2. Datenbank db_socialmediacrawler erstellen
