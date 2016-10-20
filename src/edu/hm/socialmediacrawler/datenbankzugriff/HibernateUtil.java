@@ -6,9 +6,9 @@
 package edu.hm.socialmediacrawler.datenbankzugriff;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -22,21 +22,14 @@ public class HibernateUtil {
 
 	static {
 		try {
-			// Create the SessionFactory from standard (hibernate.cfg.xml)
-			// config file.
 
-			Configuration configuration = new Configuration().configure(); // configuration
-			// settings
-			// from
-			// hibernate.cfg.xml
-
-			StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
-
-			serviceRegistryBuilder.applySettings(configuration.getProperties());
-
-			ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
-
-			sessionFactory =  configuration.buildSessionFactory(serviceRegistry);
+			StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+					.configure()
+					.build();
+			
+			sessionFactory = new MetadataSources(registry)
+					.buildMetadata()
+					.buildSessionFactory();
 		} catch (Throwable ex) {
 			// Log the exception.
 			System.err.println("Initial SessionFactory creation failed." + ex);

@@ -1,6 +1,5 @@
 package edu.hm.socialmediacrawler;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletContext;

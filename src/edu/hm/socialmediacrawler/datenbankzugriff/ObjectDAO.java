@@ -130,7 +130,7 @@ public class ObjectDAO {
 	}
 
 	public List<ServerConfig> getServerConfig() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			List<ServerConfig> resultList = session.createCriteria(

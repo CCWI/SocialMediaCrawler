@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.dialect.Dialect;
@@ -37,28 +39,33 @@ public class HibernateExporter {
 	private boolean generateDropQueries = false;
 
 	private Configuration hibernateConfiguration;
+	private MetadataSources metadata;
 	
 	public HibernateExporter(String dialect, String entityPackage) {
 		this.dialect = dialect;
 		this.entityPackage = entityPackage;
 		
 		hibernateConfiguration = createHibernateConfig();
+		metadata = new MetadataSources(
+				new StandardServiceRegistryBuilder()
+					.applySetting("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
+					.build());
 	}
 	
 	public void export(OutputStream out, boolean generateCreateQueries, boolean generateDropQueries) {
 		
-		Dialect hibDialect = Dialect.getDialect(hibernateConfiguration.getProperties());
-		try (PrintWriter writer = new PrintWriter(out)) {
-			
-			if (generateCreateQueries) {
-				String[] createSQL = hibernateConfiguration.generateSchemaCreationScript(hibDialect);
-				write(writer, createSQL, FormatStyle.DDL.getFormatter());
-			}
-			if (generateDropQueries) {
-				String[] dropSQL = hibernateConfiguration.generateDropSchemaScript(hibDialect);
-				write(writer, dropSQL, FormatStyle.DDL.getFormatter());
-			}
-		}
+//		Dialect hibDialect = Dialect.getDialect(hibernateConfiguration.getProperties());
+//		try (PrintWriter writer = new PrintWriter(out)) {
+//			
+//			if (generateCreateQueries) {
+//				String[] createSQL = hibernateConfiguration.generateSchemaCreationScript(hibDialect);
+//				write(writer, createSQL, FormatStyle.DDL.getFormatter());
+//			}
+//			if (generateDropQueries) {
+//				String[] dropSQL = hibernateConfiguration.generateDropSchemaScript(hibDialect);
+//				write(writer, dropSQL, FormatStyle.DDL.getFormatter());
+//			}
+//		}
 	}
 
 	public void export(File exportFile) throws FileNotFoundException {

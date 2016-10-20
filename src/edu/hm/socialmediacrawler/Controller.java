@@ -1,6 +1,5 @@
 package edu.hm.socialmediacrawler;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -8,17 +7,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.ebay.sdk.ebay.Ebay;
-import com.google.api.services.customsearch.model.Result;
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.types.Comment;
 import com.restfb.types.Page;
 import com.restfb.types.Post;
-import com.tumblr.jumblr.App;
 
-import edu.hm.amazon.Amazon;
-import edu.hm.amazon.AmazonProduktSuche;
 import edu.hm.bing.Bing;
 import edu.hm.bing.BingKomplettsuche;
 import edu.hm.bing.BingSitesuche;
@@ -26,15 +20,8 @@ import edu.hm.facebook.FacebookConnector;
 import edu.hm.facebook.models.FBComment;
 import edu.hm.facebook.models.FBPage;
 import edu.hm.facebook.models.FBPost;
-import edu.hm.google.GoogleSearchClient;
-import edu.hm.google.GoogleSuche;
 import edu.hm.socialmediacrawler.datenbankzugriff.DatabaseException;
 import edu.hm.socialmediacrawler.datenbankzugriff.ObjectDAO;
-import edu.hm.youtube.Youtube;
-import edu.hm.youtube.YoutubeChannelsuche;
-import edu.hm.youtube.YoutubeInformation;
-import edu.hm.youtube.YoutubeKomplettsuche;
-import edu.hm.youtube.YoutubeVideosuche;
 
 /**
  * Serveranwendung
@@ -46,7 +33,6 @@ public class Controller implements ServletContextListener {
 	List<String> bingSites;
 
 	private static Bing bing;
-	private static Youtube youtube;
 	private static ObjectDAO objectDAO;
 	private static ControllerUtil controllerUtil;
 
@@ -68,12 +54,7 @@ public class Controller implements ServletContextListener {
 							System.out.println(start + ": Beginne Verarbeitung");
 
 							verarbeiteBing();
-							verarbeiteGoogle();
-							verarbeiteAmazon();
-							verarbeiteYoutube();
 							verarbeiteFacebook();
-							verarbeiteTumblr();
-							verarbeiteEbay();
 
 							Date ende = new Date();
 							System.out.println(ende + ": Beende Verarbeitung");
@@ -101,104 +82,6 @@ public class Controller implements ServletContextListener {
 		schluesselwoerter = objectDAO.getSchluesselwoerter();
 		youtubeChannels = objectDAO.getYoutubeChannels();
 		bingSites = objectDAO.getBingSeiten();
-	}
-
-	private void verarbeiteTumblr() {
-
-		App tumblr = new App();
-		try {
-			if (controllerUtil.pruefeStartbedingungTumblr()) {
-				System.out.println(new Date() + ": Beginne Tumblr");
-
-				tumblr.run(schluesselwoerter);
-
-				System.out.println(new Date() + ": Beende Tumblr");
-
-			} else {
-				System.out.println(new Date() + ": KEIN RUN FUER TUMBLR!");
-			}
-		} catch (InstantiationException | IllegalAccessException | IOException | DatabaseException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void verarbeiteEbay() {
-		Ebay ebay = new Ebay();
-		try {
-			if (controllerUtil.pruefeStartbedingungEbay()) {
-				System.out.println(new Date() + ": Beginne Ebay");
-
-				ebay.run(schluesselwoerter);
-
-				System.out.println(new Date() + ": Beende Ebay");
-			} else {
-				System.out.println(new Date() + ": KEIN RUN FUER EBAY!");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void verarbeiteGoogle() {
-		try {
-			if (controllerUtil.pruefeStartbedingungGoogle()) {
-				System.out.println(new Date() + ": Beginne Google");
-				GoogleSearchClient gsc = new GoogleSearchClient();
-				for (String schluesselwort : schluesselwoerter) {
-
-					List<Result> resultList = gsc.getSearchResult(schluesselwort);
-					if (resultList != null && resultList.size() > 0) {
-						for (Result result : resultList) {
-							GoogleSuche gs = new GoogleSuche();
-							gs.setTitle(Utf8Checker.macheUtf8Konform(result.getTitle()));
-							gs.setContent(Utf8Checker.macheUtf8Konform(result.getPagemap().toString()));
-							gs.setSnippet(Utf8Checker.macheUtf8Konform(result.getSnippet()));
-							gs.setSchluesselwort(schluesselwort);
-							objectDAO.speicherInDatenbank(gs);
-
-						}
-					}
-
-				}
-
-				System.out.println(new Date() + ": Beende Google");
-			} else {
-				System.out.println(new Date() + ": KEIN RUN FUER GOOGLE!");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void verarbeiteAmazon() {
-		try {
-			if (controllerUtil.pruefeStartbedingungAmazon()) {
-				Amazon amazonProductFinder = new Amazon();
-				for (String schluesselwort : schluesselwoerter) {
-					AmazonProduktSuche aps = new AmazonProduktSuche();
-					int minprice = 0;
-					int maxprice = 50;
-
-					while (maxprice < 1000) {
-						for (int i = 1; i < 10; i++) {
-							List<AmazonProduktSuche> findProduct = amazonProductFinder.findProduct(schluesselwort, i,
-									minprice, maxprice);
-							for (AmazonProduktSuche amazonProduktSuche : findProduct) {
-								objectDAO.speicherInDatenbank(amazonProduktSuche);
-							}
-						}
-						minprice = minprice + 50;
-						maxprice = maxprice + 50;
-					}
-
-				}
-				System.out.println(new Date() + ": Beende Amazon");
-			} else {
-				System.out.println(new Date() + ": KEIN RUN FUER AMAZON!");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void verarbeiteFacebook() {
@@ -269,40 +152,8 @@ public class Controller implements ServletContextListener {
 		}
 	}
 
-	private void verarbeiteYoutube() {
-
-		try {
-			if (controllerUtil.pruefeStartbedingungYoutube()) {
-				System.out.println(new Date() + ": Beginne Youtube");
-
-				for (String schluesselwort : schluesselwoerter) {
-
-					YoutubeKomplettsuche komplettsuche = youtube.completeSearch(schluesselwort);
-					YoutubeInformation youtubeInformation = youtube.channelSearch(youtubeChannels, schluesselwort);
-
-					objectDAO.speicherInDatenbank(komplettsuche);
-					for (YoutubeChannelsuche youtubeChannelsuche : youtubeInformation.getYoutubeChannelsucheList()) {
-						objectDAO.speicherInDatenbank(youtubeChannelsuche);
-					}
-					for (YoutubeVideosuche youtubeVideosuche : youtubeInformation.getYoutubeVideosucheList()) {
-						objectDAO.speicherInDatenbank(youtubeVideosuche);
-					}
-
-				}
-
-				System.out.println(new Date() + ": Beende Youtube");
-
-			} else {
-				System.out.println(new Date() + ": KEIN RUN FUER YOUTUBE!");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	private void initialisiereModule() {
 		bing = new Bing();
-		youtube = new Youtube();
 		objectDAO = new ObjectDAO();
 		controllerUtil = new ControllerUtil();
 	}

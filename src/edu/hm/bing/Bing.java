@@ -28,9 +28,9 @@ public class Bing {
 	//von mir ergaenzt
 	private static final String ACCOUNTKEY = "";
 
-	private static final String SEARCHPREFIX = "https://api.datamarket.azure.com/Bing/Search/v1/Web?Query=%27";
-	private static final String Searchprefix2 = "https://api.datamarket.azure.com/Data.ashx/Bing/Search/v1/Composite?Sources=%27web%27&Query=%27";
-	private static final String SEARCHPOSTFIX = "%27&$top=500&$format=json";
+	private static final String SEARCHPREFIX = "";
+	private static final String Searchprefix2 = "";
+	private static final String SEARCHPOSTFIX = "";
 
 	public BingKomplettsuche completeSearch(String keyword) throws BingException {
 		try {

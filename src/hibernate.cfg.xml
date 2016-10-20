@@ -11,26 +11,18 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Mapping with model class containing annotations -->
     <mapping class="edu.hm.socialmediacrawler.datenbankzugriff.models.Schluesselwoerter"/>
-    <mapping class="edu.hm.socialmediacrawler.datenbankzugriff.models.YoutubeChannels"/>
     <mapping class="edu.hm.socialmediacrawler.datenbankzugriff.models.BingSeiten"/>
     <mapping class="edu.hm.socialmediacrawler.datenbankzugriff.models.ServerConfig"/>
     <mapping class="edu.hm.socialmediacrawler.datenbankzugriff.models.FacebookpagesFBID"/>
     <mapping class="edu.hm.bing.BingKomplettsuche"/>
     <mapping class="edu.hm.bing.BingSitesuche"/>
-    <mapping class="edu.hm.youtube.YoutubeKomplettsuche"/>
-    <mapping class="edu.hm.youtube.YoutubeChannelsuche"/>
-    <mapping class="edu.hm.youtube.YoutubeVideosuche"/>
     <mapping class="edu.hm.facebook.models.FBComment"/>
     <mapping class="edu.hm.facebook.models.FBPage"/>
     <mapping class="edu.hm.facebook.models.FBPost"/>
-    <mapping class="edu.hm.google.GoogleSuche"/>
     <mapping class="edu.hm.twitter.TwitterUser"/>
     <mapping class="edu.hm.twitter.TwitterStatus"/>
     <mapping class="edu.hm.twitter.TwitterHashtag"/>
     <mapping class="edu.hm.twitter.TwitterUrl"/>
     <mapping class="edu.hm.twitter.TwitterMedia"/>
-    <mapping class="com.ebay.sdk.database.EbayDAO"/>
-    <mapping class="com.tumblr.jumblr.types.NewPost"/>
-    <mapping class="edu.hm.amazon.AmazonProduktSuche"/>
     </session-factory>
 </hibernate-configuration>
