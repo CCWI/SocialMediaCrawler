@@ -15,7 +15,7 @@ Projekt Checkout - Eclipse
   12. Beispiel Pfad wenn zur lib: "C:\Users\Arbeit\git\SocialMediaCrawler\reflections-0.9.8.jar"
 
 Installationsanleitung:
-  1. MySql installieren
+  1. MySQL installieren
   2. Datenbank db_socialmediacrawler erstellen
   3. Benutzer 'crawler' mit Passwort 'start123' für 'alle Hosts' UND 'localhost' erstellen.
   4. Tomcat 7 installieren
