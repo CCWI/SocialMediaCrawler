@@ -106,7 +106,7 @@ public class FacebookConnector {
     
         public Connection<Post> getAllPagePosts(String pageId, DefaultFacebookClient client){
                   Connection<Post> posts = client.fetchConnection(pageId + "/posts", 
-                        Post.class, Parameter.with("limit", 199), Parameter.with("offset", 0));
+                        Post.class, Parameter.with("limit", 99), Parameter.with("offset", 0));
                   return posts;
       }
 

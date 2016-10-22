@@ -26,7 +26,7 @@ import edu.hm.socialmediacrawler.datenbankzugriff.models.YoutubeChannels;
 public class ObjectDAO {
 
 	public void speicherInDatenbank(Object datenbankObjekt) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 
 		try {
@@ -46,9 +46,13 @@ public class ObjectDAO {
 			throw e;
 		}
 	}
+	
+	public void saveToMongoDb(Object databaseObject) {
+		
+	}
 
 	public List<String> getSchluesselwoerter() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 
@@ -69,7 +73,7 @@ public class ObjectDAO {
 	}
 
 	public List<String> getYoutubeChannels() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 
@@ -90,7 +94,7 @@ public class ObjectDAO {
 	}
 
 	public List<String> getBingSeiten() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			List<BingSeiten> resultList = session.createCriteria(
@@ -110,7 +114,7 @@ public class ObjectDAO {
 	}
 
 	public List<String> getFacebookSeiten() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			List<FacebookpagesFBID> resultList = session.createCriteria(
@@ -146,7 +150,7 @@ public class ObjectDAO {
 	}
 
 	public void saveServerConfig(ServerConfig serverConfig) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 
 		try {
@@ -160,7 +164,7 @@ public class ObjectDAO {
 	}
 
 	public int getCountOfFBSites() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			List<FacebookpagesFBID> resultList = session.createCriteria(
@@ -176,7 +180,7 @@ public class ObjectDAO {
 	}
 
 	public String getFBIDbyID(int id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			Query qfbid = session

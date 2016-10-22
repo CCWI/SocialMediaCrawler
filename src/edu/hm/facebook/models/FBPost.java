@@ -92,7 +92,7 @@ public class FBPost implements Serializable {
 		this.createdTime = post.getCreatedTime();
 		this.description = Utf8Checker.macheUtf8Konform(post.getDescription());
 		this.fbid = post.getId();
-		this.likesCount = post.getLikes().getTotalCount();
+		this.likesCount = post.getLikes() != null ? post.getLikes().getTotalCount() : null;
 		this.link = post.getLink();
 		this.message = Utf8Checker.macheUtf8Konform(post.getMessage());
 		this.name = Utf8Checker.macheUtf8Konform(post.getName());
