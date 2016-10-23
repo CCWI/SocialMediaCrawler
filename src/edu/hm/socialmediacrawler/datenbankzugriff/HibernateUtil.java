@@ -5,10 +5,9 @@
  */
 package edu.hm.socialmediacrawler.datenbankzugriff;
 
-import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.apache.lucene.analysis.fa.PersianAnalyzer;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -23,7 +22,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateUtil {
 
 	private static final SessionFactory sessionFactory;
-	private static final EntityManager entityManager = null;
+	private static EntityManagerFactory entityManagerFactory;
 
 	static {
 		try {
@@ -41,14 +40,13 @@ public class HibernateUtil {
 			throw new ExceptionInInitializerError(ex);
 		}
 		
-//		entityManager = Persistence.createEntityManagerFactory("primary").createEntityManager();
+		entityManagerFactory = Persistence.createEntityManagerFactory("ogm-mongodb");
 	}
 
 	public static SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
+		return sessionFactory;	}
 	
-	public static EntityManager getEntityManager() {
-		return entityManager;
+	public static EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
 	}
 }
