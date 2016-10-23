@@ -2,6 +2,7 @@ package edu.hm.socialmediacrawler;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -22,6 +23,7 @@ import edu.hm.facebook.models.FBPage;
 import edu.hm.facebook.models.FBPost;
 import edu.hm.socialmediacrawler.datenbankzugriff.DatabaseException;
 import edu.hm.socialmediacrawler.datenbankzugriff.ObjectDAO;
+import edu.hm.socialmediacrawler.properties.PropertiesReader;
 
 /**
  * Serveranwendung
@@ -38,6 +40,7 @@ public class Controller implements ServletContextListener {
 
 	private Thread t = null;
 	private ServletContext context;
+	private Properties credentialProperties;
 
 	@Override
 	public void contextInitialized(ServletContextEvent contextEvent) {
@@ -45,9 +48,9 @@ public class Controller implements ServletContextListener {
 			// task
 			public void run() {
 				try {
-
 					initialisiereModule();
 					initialisiereListen();
+					initialisiereProperties();
 					while (controllerUtil.pruefeStartbedingung()) {
 						try {
 							Date start = new Date();
@@ -70,7 +73,6 @@ public class Controller implements ServletContextListener {
 					e.printStackTrace();
 				}
 			}
-
 		};
 		t.start();
 		context = contextEvent.getServletContext();
@@ -88,7 +90,7 @@ public class Controller implements ServletContextListener {
 		try {
 			if (controllerUtil.pruefeStartbedingungFacebook()) {
 				System.out.println(new Date() + ": Beginne Facebook");
-				FacebookConnector fbc = new FacebookConnector();
+				FacebookConnector fbc = new FacebookConnector(credentialProperties);
 				int pid = objectDAO.getServerConfig().get(0).getNext_facebooksite();
 				String fbid = objectDAO.getFBIDbyID(pid);
 				Page page = fbc.getPage(fbid);
@@ -156,6 +158,11 @@ public class Controller implements ServletContextListener {
 		bing = new Bing();
 		objectDAO = new ObjectDAO();
 		controllerUtil = new ControllerUtil();
+	}
+	
+	private void initialisiereProperties() {
+		PropertiesReader propReader = new PropertiesReader();
+		credentialProperties = propReader.getProperties("credentials.properties");
 	}
 
 	public void contextDestroyed(ServletContextEvent contextEvent) {

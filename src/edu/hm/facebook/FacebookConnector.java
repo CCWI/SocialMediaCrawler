@@ -11,16 +11,17 @@
  */
 package edu.hm.facebook;
 
-import com.restfb.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
-import com.restfb.json.JsonObject;
+import com.restfb.Parameter;
 import com.restfb.types.Comment;
 import com.restfb.types.Page;
 import com.restfb.types.Post;
-import java.util.ArrayList;
-import java.util.List;
-import com.restfb.exception.*;
 
 
 /**
@@ -30,13 +31,19 @@ import com.restfb.exception.*;
 public class FacebookConnector {
     
     // myacesstoken von mir ergaenzt
-    private static final String MY_ACESS_TOKEN = "";
-    private FacebookClient fbClient = new DefaultFacebookClient(MY_ACESS_TOKEN,com.restfb.Version.VERSION_1_0);
+    private static String accessToken;
+    private static final String ACCESS_TOKEN_NAME = "facebook.accesstoken";
+    private FacebookClient fbClient;
     private long likes = 0;
     private long talkabout = 0;
     
 
-    public FacebookClient getFbClient() {
+    public FacebookConnector(Properties credentialProperties) {
+		accessToken = credentialProperties.getProperty(ACCESS_TOKEN_NAME);
+		fbClient = new DefaultFacebookClient(accessToken,com.restfb.Version.VERSION_1_0);
+	}
+    
+	public FacebookClient getFbClient() {
         return this.fbClient;
     }
     public long getLikes() {
