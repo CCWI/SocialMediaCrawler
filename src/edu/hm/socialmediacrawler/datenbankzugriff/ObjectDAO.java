@@ -8,6 +8,14 @@ package edu.hm.socialmediacrawler.datenbankzugriff;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.TransactionManager;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -48,7 +56,38 @@ public class ObjectDAO {
 	}
 	
 	public void saveToMongoDb(Object databaseObject) {
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager;
 		
+		try {
+			transactionManager.begin();
+			entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
+			entityManager.merge(databaseObject);
+			entityManager.flush();
+			entityManager.close();
+			transactionManager.commit();
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public List<String> getSchluesselwoerter() {

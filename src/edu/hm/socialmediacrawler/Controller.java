@@ -56,7 +56,7 @@ public class Controller implements ServletContextListener {
 							Date start = new Date();
 							System.out.println(start + ": Beginne Verarbeitung");
 
-							verarbeiteBing();
+//							verarbeiteBing();
 							verarbeiteFacebook();
 
 							Date ende = new Date();
@@ -95,7 +95,7 @@ public class Controller implements ServletContextListener {
 				String fbid = objectDAO.getFBIDbyID(pid);
 				Page page = fbc.getPage(fbid);
 				FBPage fbpage = new FBPage(page);
-				objectDAO.speicherInDatenbank(fbpage);
+				objectDAO.saveToMongoDb(fbpage);
 
 				Connection<Post> posts = fbc.getAllPagePosts(fbid, (DefaultFacebookClient) fbc.getFbClient());
 				List<Comment> comments;
@@ -105,14 +105,14 @@ public class Controller implements ServletContextListener {
 					FBPost fbpost = new FBPost(p, fbpage);
 					comments = fbc.getAllPostComments(fbpost.getFbid(), (DefaultFacebookClient) fbc.getFbClient());
 					commentsCount = 0;
-					objectDAO.speicherInDatenbank(fbpost);
+					objectDAO.saveToMongoDb(fbpost);
 					for (Comment c : comments) {
 						FBComment fbcomment = new FBComment(c, fbpost);
-						objectDAO.speicherInDatenbank(fbcomment);
+						objectDAO.saveToMongoDb(fbcomment);
 						commentsCount++;
 					}
 					fbpost.setCommentsCount(commentsCount);
-					objectDAO.speicherInDatenbank(fbpost);
+					objectDAO.saveToMongoDb(fbpost);
 				}
 				System.out.println(new Date() + ": Beende Facebook");
 			} else {

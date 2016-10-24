@@ -22,7 +22,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateUtil {
 
 	private static final SessionFactory sessionFactory;
-	private static EntityManagerFactory entityManagerFactory;
+	private static EntityManagerFactory hibernateOgmEntityManagerFactory;
 
 	static {
 		try {
@@ -40,13 +40,13 @@ public class HibernateUtil {
 			throw new ExceptionInInitializerError(ex);
 		}
 		
-		entityManagerFactory = Persistence.createEntityManagerFactory("ogm-mongodb");
+		hibernateOgmEntityManagerFactory = Persistence.createEntityManagerFactory("ogm-mongodb");
 	}
 
 	public static SessionFactory getSessionFactory() {
 		return sessionFactory;	}
 	
 	public static EntityManagerFactory getEntityManagerFactory() {
-		return entityManagerFactory;
+		return hibernateOgmEntityManagerFactory;
 	}
 }

@@ -44,14 +44,14 @@ public class FBComment implements Serializable {
 
 	private Long likesCount;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String message;
 
 	private String type;
 
 	private long postID;
 	
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String postFBID;
 	
 
@@ -59,6 +59,10 @@ public class FBComment implements Serializable {
 	@Type(type = "date")
 	private Date datum = new Date();
 
+	public FBComment() {
+		super();
+	}
+	
 	public FBComment(Comment comment, FBPost post) {
 		this.fbid = comment.getId();
 		this.createdTime = comment.getCreatedTime();

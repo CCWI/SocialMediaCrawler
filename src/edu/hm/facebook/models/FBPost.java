@@ -41,7 +41,7 @@ public class FBPost implements Serializable {
 
 	private String attribution;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String caption;
 
 	private Long commentsCount;
@@ -49,24 +49,24 @@ public class FBPost implements Serializable {
 	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date createdTime;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String description;
 
 	private Long likesCount;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String link;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String message;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String name;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String objectID;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String picture;
 
 	private Long shareCount;
@@ -75,16 +75,19 @@ public class FBPost implements Serializable {
 
 	private long pageID;
 	
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String pageFBID;
 	
 	@Type(type = "date")
 	private Date datum = new Date();
-	
 
 	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date updatedTime;
 
+	public FBPost() {
+		super();
+	}
+	
 	public FBPost(Post post, FBPage page) {
 		this.attribution = post.getAttribution();
 		this.caption = post.getCaption();

@@ -6,6 +6,10 @@
        <persistence-unit name="ogm-mongodb" transaction-type="JTA">
           <!-- Use the Hibernate OGM provider: configuration will be transparent -->
           <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+          <class>edu.hm.facebook.models.FBPage</class>
+          <class>edu.hm.facebook.models.FBPost</class>
+          <class>edu.hm.facebook.models.FBComment</class>
+          
           <exclude-unlisted-classes>true</exclude-unlisted-classes>
           <properties>
             <property name="hibernate.ogm.datastore.provider" value="mongodb" />
@@ -14,17 +18,5 @@
             <property name="hibernate.ogm.mongodb.host" value="localhost"/>
             <property name="hibernate.ogm.mongodb.port" value="27017"/>
           </properties>
-          <!-- 
-          <class>hibernate.Order</class>
-          <class>hibernate.Item</class>
-          <properties>
-              <property name="hibernate.search.Rules.directory_provider" value="ram"/>
-              <property name="hibernate.ogm.datastore.provider"
-                        value="org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider"/>
-              <property name="hibernate.ogm.mongodb.database" value="odm_hibernate"/>
-              <property name="hibernate.ogm.mongodb.host" value="localhost"/>
-              <property name="hibernate.ogm.mongodb.port" value="27017"/>
-          </properties>
-           -->
-      </persistence-unit>
+        </persistence-unit>
 </persistence>

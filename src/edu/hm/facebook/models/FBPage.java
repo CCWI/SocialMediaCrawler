@@ -1,6 +1,5 @@
 package edu.hm.facebook.models;
 
-import com.restfb.types.Location;
 import com.restfb.types.Page;
 
 import edu.hm.socialmediacrawler.Utf8Checker;
@@ -42,14 +41,14 @@ public class FBPage implements Serializable {
 
 	private Integer checkins;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String description;
 
 	private String directedBy;
 
 	private String founded;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String generalInfo;
 
 	private String generalManager;
@@ -62,7 +61,7 @@ public class FBPage implements Serializable {
 
 	private String link;
 
-	private Location location;
+//	private Location location;
 
 	private String mission;
 
@@ -84,12 +83,16 @@ public class FBPage implements Serializable {
 
 	private String usernamme;
 
-	@Type(type = "text")
+//	@Type(type = "text")
 	private String website;
 	
 	@Type(type = "date")
 	private Date datum = new Date();
 
+	public FBPage() {
+		super();
+	}
+	
 	public FBPage(Page page) {
 		this.about = Utf8Checker.macheUtf8Konform(page.getAbout());
 		this.bookingAgent = page.getBookingAgent();
@@ -233,13 +236,13 @@ public class FBPage implements Serializable {
 		this.link = link;
 	}
 
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+//	public Location getLocation() {
+//		return location;
+//	}
+//
+//	public void setLocation(Location location) {
+//		this.location = location;
+//	}
 
 	public String getMission() {
 		return mission;
