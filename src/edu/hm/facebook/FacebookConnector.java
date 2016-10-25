@@ -31,7 +31,7 @@ import com.restfb.types.Post;
 public class FacebookConnector {
     
     // myacesstoken von mir ergaenzt
-    private static String accessToken;
+    private String accessToken;
     private static final String ACCESS_TOKEN_NAME = "facebook.accesstoken";
     private FacebookClient fbClient;
     private long likes = 0;

@@ -48,9 +48,9 @@ public class Controller implements ServletContextListener {
 			// task
 			public void run() {
 				try {
+					initialisiereProperties();
 					initialisiereModule();
 					initialisiereListen();
-					initialisiereProperties();
 					while (controllerUtil.pruefeStartbedingung()) {
 						try {
 							Date start = new Date();
@@ -155,7 +155,7 @@ public class Controller implements ServletContextListener {
 	}
 
 	private void initialisiereModule() {
-		bing = new Bing();
+		bing = new Bing(credentialProperties);
 		objectDAO = new ObjectDAO();
 		controllerUtil = new ControllerUtil();
 	}

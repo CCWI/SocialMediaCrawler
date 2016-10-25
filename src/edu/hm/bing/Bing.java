@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -26,11 +27,16 @@ public class Bing {
 	private static final String ZEICHENCODE = "UTF8";
 	
 	//von mir ergaenzt
-	private static final String ACCOUNTKEY = "";
+	private String accountKey;
+	private static final String ACCOUNT_KEY_NAME = "bing.accountkey"; 
 
 	private static final String SEARCHPREFIX = "";
 	private static final String Searchprefix2 = "";
 	private static final String SEARCHPOSTFIX = "";
+
+	public Bing(Properties credentialProperties) {
+		accountKey = credentialProperties.getProperty(ACCOUNT_KEY_NAME);
+	}
 
 	public BingKomplettsuche completeSearch(String keyword) throws BingException {
 		try {
@@ -96,7 +102,7 @@ public class Bing {
 
 	private String generateAccountInformation() {
 		byte[] accountKeyBytes = Base64
-				.encodeBase64((ACCOUNTKEY + ":" + ACCOUNTKEY).getBytes());
+				.encodeBase64((accountKey + ":" + accountKey).getBytes());
 		return new String(accountKeyBytes);
 	}
 
