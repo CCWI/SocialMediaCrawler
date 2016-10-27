@@ -10,19 +10,19 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Mapping with model class containing annotations -->
-    <mapping class="edu.hm.socialmediacrawler.datenbankzugriff.models.Schluesselwoerter"/>
-    <mapping class="edu.hm.socialmediacrawler.datenbankzugriff.models.BingSeiten"/>
-    <mapping class="edu.hm.socialmediacrawler.datenbankzugriff.models.ServerConfig"/>
-    <mapping class="edu.hm.socialmediacrawler.datenbankzugriff.models.FacebookpagesFBID"/>
-    <mapping class="edu.hm.bing.BingKomplettsuche"/>
-    <mapping class="edu.hm.bing.BingSitesuche"/>
-    <mapping class="edu.hm.facebook.models.FBComment"/>
-    <mapping class="edu.hm.facebook.models.FBPage"/>
-    <mapping class="edu.hm.facebook.models.FBPost"/>
-    <mapping class="edu.hm.twitter.TwitterUser"/>
-    <mapping class="edu.hm.twitter.TwitterStatus"/>
-    <mapping class="edu.hm.twitter.TwitterHashtag"/>
-    <mapping class="edu.hm.twitter.TwitterUrl"/>
-    <mapping class="edu.hm.twitter.TwitterMedia"/>
+    <mapping class="edu.hm.cs.smc.database.models.Schluesselwoerter"/>
+    <mapping class="edu.hm.cs.smc.database.models.BingSeiten"/>
+    <mapping class="edu.hm.cs.smc.database.models.ServerConfig"/>
+    <mapping class="edu.hm.cs.smc.database.models.FacebookpagesFBID"/>
+    <mapping class="edu.hm.cs.smc.channels.bing.BingKomplettsuche"/>
+    <mapping class="edu.hm.cs.smc.channels.bing.BingSitesuche"/>
+    <mapping class="edu.hm.cs.smc.channels.facebook.models.FBComment"/>
+    <mapping class="edu.hm.cs.smc.channels.facebook.models.FBPage"/>
+    <mapping class="edu.hm.cs.smc.channels.facebook.models.FBPost"/>
+    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterUser"/>
+    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterStatus"/>
+    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterHashtag"/>
+    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterUrl"/>
+    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterMedia"/>
     </session-factory>
 </hibernate-configuration>

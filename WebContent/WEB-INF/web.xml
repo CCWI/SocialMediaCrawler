@@ -9,12 +9,12 @@
   </resource-ref>
 	<listener>
 		<listener-class>
-			edu.hm.socialmediacrawler.Controller
+			edu.hm.cs.smc.Controller
 		</listener-class>
 	</listener>
 	<listener>
 		<listener-class>
-			edu.hm.socialmediacrawler.TwitterStreamController
+			edu.hm.cs.smc.TwitterStreamController
 		</listener-class>
 	</listener>
 </web-app>
