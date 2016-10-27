@@ -21,6 +21,9 @@ import edu.hm.facebook.FacebookConnector;
 import edu.hm.facebook.models.FBComment;
 import edu.hm.facebook.models.FBPage;
 import edu.hm.facebook.models.FBPost;
+import edu.hm.linkedin.LinkedIn;
+import edu.hm.linkedin.models.company.update.CompanyUpdates;
+import edu.hm.linkedin.models.company.update.comments.CompanyUpdateComments;
 import edu.hm.socialmediacrawler.datenbankzugriff.DatabaseException;
 import edu.hm.socialmediacrawler.datenbankzugriff.ObjectDAO;
 import edu.hm.socialmediacrawler.properties.PropertiesReader;
@@ -57,7 +60,8 @@ public class Controller implements ServletContextListener {
 							System.out.println(start + ": Beginne Verarbeitung");
 
 //							verarbeiteBing();
-							verarbeiteFacebook();
+							verarbeiteLinkedIn();
+//							verarbeiteFacebook();
 
 							Date ende = new Date();
 							System.out.println(ende + ": Beende Verarbeitung");
@@ -84,6 +88,31 @@ public class Controller implements ServletContextListener {
 		schluesselwoerter = objectDAO.getSchluesselwoerter();
 		youtubeChannels = objectDAO.getYoutubeChannels();
 		bingSites = objectDAO.getBingSeiten();
+	}
+	
+	private void verarbeiteLinkedIn() {
+		if (controllerUtil.pruefeStartbedingungLinkedIn()) {
+			System.out.println(new Date() + ": Beginne LinkedIn");
+			LinkedIn linkedIn = new LinkedIn(credentialProperties);
+			String companyId = "2414183"; //"2414183";
+			String companyUpdateId = "UPDATE-c2414183-6082584276157636608";
+			
+			int start = 0;
+			int count = 0;
+			int total = 0;
+			int begin = 0;
+			do {
+				CompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyId, begin);
+				begin = companyUpdates.get_start()+companyUpdates.get_count();
+				start = companyUpdates.get_start();
+				count = companyUpdates.get_count();
+				total = companyUpdates.get_total();
+				System.out.println(companyUpdates);
+			} while (total > start + count);
+			
+			CompanyUpdateComments companyUpdateCommentss = linkedIn.getCompanyUpdateComments(companyId, companyUpdateId);
+			System.out.println(companyUpdateCommentss);
+		}
 	}
 
 	private void verarbeiteFacebook() {

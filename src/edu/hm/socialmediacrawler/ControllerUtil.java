@@ -62,6 +62,10 @@ public class ControllerUtil {
 					"Fehler beim Verarbeiten der ServerConfig", e);
 		}
 	}
+	
+	public boolean pruefeStartbedingungLinkedIn() {
+		return true;
+	}
 
 	public boolean pruefeStartbedingungFacebook() throws DatabaseException {
 		try {
