@@ -22,6 +22,9 @@ import edu.hm.cs.smc.channels.facebook.models.FBComment;
 import edu.hm.cs.smc.channels.facebook.models.FBPage;
 import edu.hm.cs.smc.channels.facebook.models.FBPost;
 import edu.hm.cs.smc.channels.linkedin.LinkedIn;
+import edu.hm.cs.smc.channels.linkedin.models.company.CompanyAdministrator;
+import edu.hm.cs.smc.channels.linkedin.models.company.CompanySharingEnabled;
+import edu.hm.cs.smc.channels.linkedin.models.company.MemberIsAdministrator;
 import edu.hm.cs.smc.channels.linkedin.models.company.update.CompanyUpdates;
 import edu.hm.cs.smc.channels.linkedin.models.company.update.comments.CompanyUpdateComments;
 import edu.hm.cs.smc.database.DatabaseException;
@@ -113,6 +116,15 @@ public class Controller implements ServletContextListener {
 			
 			CompanyUpdateComments companyUpdateCommentss = linkedIn.getCompanyUpdateComments(companyId, companyUpdateId);
 			System.out.println(companyUpdateCommentss);
+			
+			CompanyAdministrator companyAdministrator = linkedIn.getMemberIsCompanyAdministrator(companyId);
+			System.out.println(companyAdministrator.isCompanyAdministrator());
+			
+			CompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyId);
+			System.out.println(companySharingEnabled.isCompanySharingEnabled());
+			
+			MemberIsAdministrator memberIsAdministrator = linkedIn.getCompaniesMemberIsAdministratorOf();
+			System.out.println(memberIsAdministrator);
 		}
 	}
 

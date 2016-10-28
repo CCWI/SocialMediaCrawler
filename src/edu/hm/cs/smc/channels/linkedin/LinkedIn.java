@@ -15,6 +15,9 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import edu.hm.cs.smc.channels.linkedin.models.company.CompanyAdministrator;
+import edu.hm.cs.smc.channels.linkedin.models.company.CompanySharingEnabled;
+import edu.hm.cs.smc.channels.linkedin.models.company.MemberIsAdministrator;
 import edu.hm.cs.smc.channels.linkedin.models.company.update.CompanyUpdates;
 import edu.hm.cs.smc.channels.linkedin.models.company.update.comments.CompanyUpdateComments;
 
@@ -103,6 +106,62 @@ public class LinkedIn {
 		
 		try {
 			result = gson.fromJson(response.getBody(), CompanyUpdateComments.class);
+		} catch (JsonSyntaxException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public MemberIsAdministrator getCompaniesMemberIsAdministratorOf() {
+		
+		String url = "https://api.linkedin.com/v1/companies?format=json&is-company-admin=true";
+
+		Response response = request(url);
+		Gson gson = new Gson();
+		MemberIsAdministrator result = null;
+		
+		try {
+			result = gson.fromJson(response.getBody(), MemberIsAdministrator.class);
+		} catch (JsonSyntaxException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public CompanyAdministrator getMemberIsCompanyAdministrator(String companyId) {
+		
+		String url = "https://api.linkedin.com/v1/companies/%s/relation-to-viewer/is-company-share-enabled?format=json";
+
+		Response response = request(url, companyId);
+		CompanyAdministrator result = null;
+		
+		try {
+			CompanyAdministrator companyAdministrator = new CompanyAdministrator();
+			companyAdministrator.setCompanyAdministrator(Boolean.valueOf(response.getBody()));
+			result = companyAdministrator;
+		} catch (JsonSyntaxException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public CompanySharingEnabled getIsCompanySharingEnabled(String companyId) {
+		
+		String url = "https://api.linkedin.com/v1/companies/%s/is-company-share-enabled?format=json";
+
+		Response response = request(url, companyId);
+		CompanySharingEnabled result = null;
+		
+		try {
+			CompanySharingEnabled companySharing = new CompanySharingEnabled();
+			companySharing.setCompanySharingEnabled(Boolean.valueOf(response.getBody()));
+			result = companySharing;
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
