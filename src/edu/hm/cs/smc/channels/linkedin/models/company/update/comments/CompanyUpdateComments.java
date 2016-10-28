@@ -1,8 +1,28 @@
 package edu.hm.cs.smc.channels.linkedin.models.company.update.comments;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class CompanyUpdateComments {
+	@Id 
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name="uuid", strategy="uuid2")
+	private String id;
 	private int _total;
+	@OneToOne(cascade=CascadeType.ALL)
 	private CompanyUpdateComment values;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public int get_total() {
 		return _total;
 	}

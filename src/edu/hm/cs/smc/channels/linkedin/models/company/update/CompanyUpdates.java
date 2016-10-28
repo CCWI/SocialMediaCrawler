@@ -2,12 +2,32 @@ package edu.hm.cs.smc.channels.linkedin.models.company.update;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class CompanyUpdates {
+	@Id 
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name="uuid", strategy="uuid2")
+	private String dbid;
 	private int _count;
 	private int _start;
 	private int _total;
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<CompanyUpdate> values;
 	
+	public String getId() {
+		return dbid;
+	}
+	public void setId(String id) {
+		this.dbid = id;
+	}
 	public int get_count() {
 		return _count;
 	}

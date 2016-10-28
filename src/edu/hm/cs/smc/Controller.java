@@ -108,6 +108,7 @@ public class Controller implements ServletContextListener {
 				count = companyUpdates.get_count();
 				total = companyUpdates.get_total();
 				System.out.println(companyUpdates);
+				objectDAO.saveToMongoDb(companyUpdates);
 			} while (total > start + count);
 			
 			CompanyUpdateComments companyUpdateCommentss = linkedIn.getCompanyUpdateComments(companyId, companyUpdateId);

@@ -9,7 +9,25 @@
           <class>edu.hm.cs.smc.channels.facebook.models.FBPage</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBPost</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBComment</class>
-          
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.CompanyUpdates</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.CompanyUpdate</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.Likes</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.comments.CompanyUpdateComments</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.UpdateContent</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.Company</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.CompanyStatusUpdate</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.Share</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.Source</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.LinkValues</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.comments.Person</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.comments.ApiStandardProfileRequest</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.comments.SiteStandardProfileRequest</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.comments.Headers</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.comments.HeaderValues</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.comments.CompanyUpdateComment</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.Visibility</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.ServiceProvider</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.update.Application</class>
           <exclude-unlisted-classes>true</exclude-unlisted-classes>
           <properties>
             <property name="hibernate.ogm.datastore.provider" value="mongodb" />
