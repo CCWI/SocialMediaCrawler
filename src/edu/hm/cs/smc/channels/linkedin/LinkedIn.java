@@ -17,18 +17,18 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
-import edu.hm.cs.smc.channels.linkedin.models.Company;
-import edu.hm.cs.smc.channels.linkedin.models.CompanyAdministrator;
-import edu.hm.cs.smc.channels.linkedin.models.CompanySharingEnabled;
-import edu.hm.cs.smc.channels.linkedin.models.CompanyStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.CompanyUpdate;
-import edu.hm.cs.smc.channels.linkedin.models.CompanyUpdateComments;
-import edu.hm.cs.smc.channels.linkedin.models.CompanyUpdates;
-import edu.hm.cs.smc.channels.linkedin.models.Followers;
-import edu.hm.cs.smc.channels.linkedin.models.HistoricFollowerStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.HistoricUpdateStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.Likes;
-import edu.hm.cs.smc.channels.linkedin.models.MemberIsAdministrator;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompany;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyAdministrator;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySharingEnabled;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdate;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdateComments;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdates;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInFollowers;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricFollowerStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricUpdateStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInLikes;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInMemberIsAdministrator;
 
 public class LinkedIn {
 	
@@ -92,15 +92,15 @@ public class LinkedIn {
 	 * @param companyId
 	 * @return
 	 */
-	public CompanySharingEnabled getIsCompanySharingEnabled(String companyId) {
+	public LinkedInCompanySharingEnabled getIsCompanySharingEnabled(String companyId) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/is-company-share-enabled?format=json";
 
 		Response response = request(url, companyId);
-		CompanySharingEnabled result = null;
+		LinkedInCompanySharingEnabled result = null;
 		
 		try {
-			CompanySharingEnabled companySharing = new CompanySharingEnabled();
+			LinkedInCompanySharingEnabled companySharing = new LinkedInCompanySharingEnabled();
 			companySharing.setCompanySharingEnabled(Boolean.valueOf(response.getBody()));
 			result = companySharing;
 		} catch (JsonSyntaxException | IOException e) {
@@ -116,12 +116,12 @@ public class LinkedIn {
 	 * @param companyId
 	 * @return
 	 */
-	public CompanyAdministrator getMemberIsCompanyAdministrator(String companyId) {
+	public LinkedInCompanyAdministrator getMemberIsCompanyAdministrator(String companyId) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/relation-to-viewer/is-company-share-enabled?format=json";
 
 		Response response = request(url, companyId);
-		CompanyAdministrator result = new CompanyAdministrator();
+		LinkedInCompanyAdministrator result = new LinkedInCompanyAdministrator();
 		
 		try {
 			result.setCompanyAdministrator(Boolean.valueOf(response.getBody()));
@@ -137,16 +137,16 @@ public class LinkedIn {
 	 * List all companies that the member is an administrator of.
 	 * @return
 	 */
-	public MemberIsAdministrator getCompaniesMemberIsAdministratorOf() {
+	public LinkedInMemberIsAdministrator getCompaniesMemberIsAdministratorOf() {
 		
 		String url = "https://api.linkedin.com/v1/companies?format=json&is-company-admin=true";
 
 		Response response = request(url);
 		Gson gson = new Gson();
-		MemberIsAdministrator result = null;
+		LinkedInMemberIsAdministrator result = null;
 		
 		try {
-			result = gson.fromJson(response.getBody(), MemberIsAdministrator.class);
+			result = gson.fromJson(response.getBody(), LinkedInMemberIsAdministrator.class);
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -160,16 +160,16 @@ public class LinkedIn {
 	 * @param companyId
 	 * @return
 	 */
-	public Company getCompanyProfile(String companyId) {
+	public LinkedInCompany getCompanyProfile(String companyId) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s:(id,name,ticker,description)?format=json";
 
 		Response response = request(url, companyId);
 		Gson gson = new Gson();
-		Company result = null;
+		LinkedInCompany result = null;
 		
 		try {
-			result = gson.fromJson(response.getBody(), Company.class);
+			result = gson.fromJson(response.getBody(), LinkedInCompany.class);
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -184,16 +184,16 @@ public class LinkedIn {
 	 * @param start
 	 * @return
 	 */
-	public CompanyUpdates getCompanyUpdates(String companyId, int start) {
+	public LinkedInCompanyUpdates getCompanyUpdates(String companyId, int start) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/updates?format=json&count=100&start=%s";
 		
 		Response response = request(url, companyId, String.valueOf(start));
 		Gson gson = new Gson();
-		CompanyUpdates result = null;
+		LinkedInCompanyUpdates result = null;
 		
 		try {
-			result = gson.fromJson(response.getBody(), CompanyUpdates.class);
+			result = gson.fromJson(response.getBody(), LinkedInCompanyUpdates.class);
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -208,16 +208,16 @@ public class LinkedIn {
 	 * @param updateKey
 	 * @return
 	 */
-	public CompanyUpdate getCompanyUpdate(String companyId, String updateKey) {
+	public LinkedInCompanyUpdate getCompanyUpdate(String companyId, String updateKey) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/updates/key=%s?format=json";
 
 		Response response = request(url, companyId, updateKey);
 		Gson gson = new Gson();
-		CompanyUpdate result = null;
+		LinkedInCompanyUpdate result = null;
 		
 		try {
-			result = gson.fromJson(response.getBody(), CompanyUpdate.class);
+			result = gson.fromJson(response.getBody(), LinkedInCompanyUpdate.class);
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -232,16 +232,16 @@ public class LinkedIn {
 	 * @param updateKey
 	 * @return
 	 */
-	public CompanyUpdateComments getCompanyUpdateComments(String companyId, String updateKey) {
+	public LinkedInCompanyUpdateComments getCompanyUpdateComments(String companyId, String updateKey) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/updates/key=%s/update-comments?format=json";
 
 		Response response = request(url, companyId, updateKey);
 		Gson gson = new Gson();
-		CompanyUpdateComments result = null;
+		LinkedInCompanyUpdateComments result = null;
 		
 		try {
-			result = gson.fromJson(response.getBody(), CompanyUpdateComments.class);
+			result = gson.fromJson(response.getBody(), LinkedInCompanyUpdateComments.class);
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -256,16 +256,16 @@ public class LinkedIn {
 	 * @param updateKey
 	 * @return
 	 */
-	public Likes getCompanyUpdateLikes(String companyId, String updateKey) {
+	public LinkedInLikes getCompanyUpdateLikes(String companyId, String updateKey) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/updates/key=%s/likes?format=json";
 
 		Response response = request(url, companyId, updateKey);
 		Gson gson = new Gson();
-		Likes result = null;
+		LinkedInLikes result = null;
 		
 		try {
-			result = gson.fromJson(response.getBody(), Likes.class);
+			result = gson.fromJson(response.getBody(), LinkedInLikes.class);
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -279,7 +279,7 @@ public class LinkedIn {
 	 * @param companyId
 	 * @return
 	 */
-	public Followers getCompanyFollowersBySegment(String companyId, String geos, String companySizes, String jobFunc, String industries, String seniorities) {
+	public LinkedInFollowers getCompanyFollowersBySegment(String companyId, String geos, String companySizes, String jobFunc, String industries, String seniorities) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/num-followers?format=json";
 		
@@ -312,7 +312,7 @@ public class LinkedIn {
 		}
 		
 		Response response = request(url, parameters.toArray(new String[0]));
-		Followers result = new Followers();
+		LinkedInFollowers result = new LinkedInFollowers();
 		
 		try {
 			result.setNumberOfFollowers(Integer.valueOf(response.getBody()));
@@ -329,7 +329,7 @@ public class LinkedIn {
 	 * @param companyId
 	 * @return
 	 */
-	public HistoricFollowerStatistics getHistoricalFollowerStatistics(String companyId, String timeGranularity, String startTimestamp, String endTimestamp) {
+	public LinkedInHistoricFollowerStatistics getHistoricalFollowerStatistics(String companyId, String timeGranularity, String startTimestamp, String endTimestamp) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/historical-follow-statistics?format=json&time-granularity=%s&start-timestamp=%s";
 		List<String> parameters = new ArrayList<>();
@@ -344,10 +344,10 @@ public class LinkedIn {
 
 		Response response = request(url, parameters.toArray(new String[0]));
 		Gson gson = new Gson();
-		HistoricFollowerStatistics result = null;
+		LinkedInHistoricFollowerStatistics result = null;
 		
 		try {
-			result = gson.fromJson(response.getBody(), HistoricFollowerStatistics.class);
+			result = gson.fromJson(response.getBody(), LinkedInHistoricFollowerStatistics.class);
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -365,7 +365,7 @@ public class LinkedIn {
 	 * @param updateKey
 	 * @return
 	 */
-	public HistoricUpdateStatistics getHistoricalUpdateStatistics(String companyId, String timeGranularity, String startTimestamp, String endTimestamp, String updateKey) {
+	public LinkedInHistoricUpdateStatistics getHistoricalUpdateStatistics(String companyId, String timeGranularity, String startTimestamp, String endTimestamp, String updateKey) {
 
 		String url = "https://api.linkedin.com/v1/companies/%s/historical-status-update-statistics?format=json&time-granularity=%s&start-timestamp=%s";
 		List<String> parameters = new ArrayList<>();
@@ -385,10 +385,10 @@ public class LinkedIn {
 
 		Response response = request(url, parameters.toArray(new String[0]));
 		Gson gson = new Gson();
-		HistoricUpdateStatistics result = null;
+		LinkedInHistoricUpdateStatistics result = null;
 		
 		try {
-			result = gson.fromJson(response.getBody(), HistoricUpdateStatistics.class);
+			result = gson.fromJson(response.getBody(), LinkedInHistoricUpdateStatistics.class);
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -402,16 +402,16 @@ public class LinkedIn {
 	 * @param companyId
 	 * @return
 	 */
-	public CompanyStatistics getStatisticsAboutCompany(String companyId) {
+	public LinkedInCompanyStatistics getStatisticsAboutCompany(String companyId) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/company-statistics";
 		
 		Response response = request(url, companyId);
 		Gson gson = new Gson();
-		CompanyStatistics result = null;
+		LinkedInCompanyStatistics result = null;
 		
 		try {
-			result = gson.fromJson(response.getBody(), CompanyStatistics.class);
+			result = gson.fromJson(response.getBody(), LinkedInCompanyStatistics.class);
 		} catch (JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

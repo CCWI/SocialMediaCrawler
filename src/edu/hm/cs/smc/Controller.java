@@ -22,16 +22,16 @@ import edu.hm.cs.smc.channels.facebook.models.FBComment;
 import edu.hm.cs.smc.channels.facebook.models.FBPage;
 import edu.hm.cs.smc.channels.facebook.models.FBPost;
 import edu.hm.cs.smc.channels.linkedin.LinkedIn;
-import edu.hm.cs.smc.channels.linkedin.models.Company;
-import edu.hm.cs.smc.channels.linkedin.models.CompanyAdministrator;
-import edu.hm.cs.smc.channels.linkedin.models.CompanySharingEnabled;
-import edu.hm.cs.smc.channels.linkedin.models.CompanyStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.CompanyUpdateComments;
-import edu.hm.cs.smc.channels.linkedin.models.CompanyUpdates;
-import edu.hm.cs.smc.channels.linkedin.models.Followers;
-import edu.hm.cs.smc.channels.linkedin.models.HistoricFollowerStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.HistoricUpdateStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.MemberIsAdministrator;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompany;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyAdministrator;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySharingEnabled;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdateComments;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdates;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInFollowers;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricFollowerStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricUpdateStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInMemberIsAdministrator;
 import edu.hm.cs.smc.database.DatabaseException;
 import edu.hm.cs.smc.database.ObjectDAO;
 import edu.hm.cs.smc.properties.PropertiesReader;
@@ -110,52 +110,46 @@ public class Controller implements ServletContextListener {
 			int total = 0;
 			int begin = 0;
 			do {
-				CompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyId, begin);
+				LinkedInCompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyId, begin);
 				begin = companyUpdates.get_start()+companyUpdates.get_count();
 				start = companyUpdates.get_start();
 				count = companyUpdates.get_count();
 				total = companyUpdates.get_total();
-				System.out.println(companyUpdates);
 				objectDAO.saveToMongoDb(companyUpdates);
 			} while (total > start + count);
 			
-			CompanyUpdateComments companyUpdateComments = linkedIn.getCompanyUpdateComments(companyId, companyUpdateId);
-			System.out.println(companyUpdateComments);
+			LinkedInCompanyUpdateComments companyUpdateComments = linkedIn.getCompanyUpdateComments(companyId, companyUpdateId);
 			if(companyUpdateComments != null) {
 				objectDAO.saveToMongoDb(companyUpdateComments);
 			}
 			
-			CompanyAdministrator companyAdministrator = linkedIn.getMemberIsCompanyAdministrator(companyId);
-			System.out.println(companyAdministrator);
+			LinkedInCompanyAdministrator companyAdministrator = linkedIn.getMemberIsCompanyAdministrator(companyId);
 			objectDAO.saveToMongoDb(companyAdministrator);
 			
-			CompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyId);
-			System.out.println(companySharingEnabled);
+			LinkedInCompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyId);
 			objectDAO.saveToMongoDb(companySharingEnabled);
 			
-			MemberIsAdministrator memberIsAdministrator = linkedIn.getCompaniesMemberIsAdministratorOf();
-			System.out.println(memberIsAdministrator);
+			LinkedInMemberIsAdministrator memberIsAdministrator = linkedIn.getCompaniesMemberIsAdministratorOf();
 			objectDAO.saveToMongoDb(memberIsAdministrator);
 			
-			Company company = linkedIn.getCompanyProfile(companyId);
-			System.out.println(company);
+			LinkedInCompany company = linkedIn.getCompanyProfile(companyId);
 			objectDAO.saveToMongoDb(company);
 			
-			Followers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyId, null, null, null, null, null);
-			System.out.println(companyFollowersBySegment);
+			LinkedInFollowers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyId, null, null, null, null, null);
 			objectDAO.saveToMongoDb(companyFollowersBySegment);
 			
-			HistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", "1473343803591", null);
-			System.out.println(historicalFollowerStatistics);
+			LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", "1473343803591", null);
 			objectDAO.saveToMongoDb(historicalFollowerStatistics);
 			
-			HistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", "1473343803591", null, null);
-			System.out.println(historicalUpdateStatistics);
+			LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", "1473343803591", null, null);
 			objectDAO.saveToMongoDb(historicalUpdateStatistics);
 			
-			CompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyId);
-			System.out.println(companyStatistics);
+			LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyId);
 			objectDAO.saveToMongoDb(companyStatistics);
+			
+			System.out.println(new Date() + ": Beende LinkedIn");
+		} else {
+			System.out.println(new Date() + ": KEIN RUN FUER LinkedIn!");
 		}
 	}
 

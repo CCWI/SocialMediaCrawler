@@ -406,7 +406,7 @@ public class TwitterStatus {
 		builder.append(this.user.getId());
 		builder.append("\r User-Name: ");
 		builder.append(this.user.getScreenName());
-		builder.append("\r Tweet-Date: ");
+		builder.append("\r Tweet-LinkedInDate: ");
 		builder.append(this.createdAt);
 		return builder.toString();
 	}
