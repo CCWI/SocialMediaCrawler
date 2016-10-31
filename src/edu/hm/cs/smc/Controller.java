@@ -24,7 +24,12 @@ import edu.hm.cs.smc.channels.facebook.models.FBPost;
 import edu.hm.cs.smc.channels.linkedin.LinkedIn;
 import edu.hm.cs.smc.channels.linkedin.models.company.CompanyAdministrator;
 import edu.hm.cs.smc.channels.linkedin.models.company.CompanySharingEnabled;
+import edu.hm.cs.smc.channels.linkedin.models.company.CompanyStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.company.Followers;
+import edu.hm.cs.smc.channels.linkedin.models.company.HistoricFollowerStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.company.HistoricUpdateStatistics;
 import edu.hm.cs.smc.channels.linkedin.models.company.MemberIsAdministrator;
+import edu.hm.cs.smc.channels.linkedin.models.company.update.Company;
 import edu.hm.cs.smc.channels.linkedin.models.company.update.CompanyUpdates;
 import edu.hm.cs.smc.channels.linkedin.models.company.update.comments.CompanyUpdateComments;
 import edu.hm.cs.smc.database.DatabaseException;
@@ -114,17 +119,43 @@ public class Controller implements ServletContextListener {
 				objectDAO.saveToMongoDb(companyUpdates);
 			} while (total > start + count);
 			
-			CompanyUpdateComments companyUpdateCommentss = linkedIn.getCompanyUpdateComments(companyId, companyUpdateId);
-			System.out.println(companyUpdateCommentss);
+			CompanyUpdateComments companyUpdateComments = linkedIn.getCompanyUpdateComments(companyId, companyUpdateId);
+			System.out.println(companyUpdateComments);
+			if(companyUpdateComments != null) {
+				objectDAO.saveToMongoDb(companyUpdateComments);
+			}
 			
 			CompanyAdministrator companyAdministrator = linkedIn.getMemberIsCompanyAdministrator(companyId);
-			System.out.println(companyAdministrator.isCompanyAdministrator());
+			System.out.println(companyAdministrator);
+			objectDAO.saveToMongoDb(companyAdministrator);
 			
 			CompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyId);
-			System.out.println(companySharingEnabled.isCompanySharingEnabled());
+			System.out.println(companySharingEnabled);
+			objectDAO.saveToMongoDb(companySharingEnabled);
 			
 			MemberIsAdministrator memberIsAdministrator = linkedIn.getCompaniesMemberIsAdministratorOf();
 			System.out.println(memberIsAdministrator);
+			objectDAO.saveToMongoDb(memberIsAdministrator);
+			
+			Company company = linkedIn.getCompanyProfile(companyId);
+			System.out.println(company);
+			objectDAO.saveToMongoDb(company);
+			
+			Followers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyId, null, null, null, null, null);
+			System.out.println(companyFollowersBySegment);
+			objectDAO.saveToMongoDb(companyFollowersBySegment);
+			
+			HistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", "1473343803591", null);
+			System.out.println(historicalFollowerStatistics);
+			objectDAO.saveToMongoDb(historicalFollowerStatistics);
+			
+			HistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", "1473343803591", null, null);
+			System.out.println(historicalUpdateStatistics);
+			objectDAO.saveToMongoDb(historicalUpdateStatistics);
+			
+			CompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyId);
+			System.out.println(companyStatistics);
+			objectDAO.saveToMongoDb(companyStatistics);
 		}
 	}
 

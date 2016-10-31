@@ -6,6 +6,7 @@
        <persistence-unit name="ogm-mongodb" transaction-type="JTA">
           <!-- Use the Hibernate OGM provider: configuration will be transparent -->
           <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+          
           <class>edu.hm.cs.smc.channels.facebook.models.FBPage</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBPost</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBComment</class>
@@ -28,6 +29,34 @@
           <class>edu.hm.cs.smc.channels.linkedin.models.company.update.Visibility</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.company.update.ServiceProvider</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.company.update.Application</class>
+          
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.CompanyAdministrator</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.CompanySharingEnabled</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.CompanySize</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.CompanySizes</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.CompanyStatistics</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Count</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Countries</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Country</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.CountsByMonth</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Date</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Followers</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.FollowerStatistics</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Function</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Functions</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.HistoricFollowerStatistic</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.HistoricFollowerStatistics</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.HistoricUpdateStatistic</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.HistoricUpdateStatistics</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.MemberIsAdministrator</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Region</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Regions</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Seniorities</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Seniority</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.StatusUpdateStatistics</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.Views</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.company.ViewsMyMonth</class>
+          
           <exclude-unlisted-classes>true</exclude-unlisted-classes>
           <properties>
             <property name="hibernate.ogm.datastore.provider" value="mongodb" />

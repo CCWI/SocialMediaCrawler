@@ -7,32 +7,26 @@ import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class CompanyAdministrator {
+public class Followers {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")
 	private String dbid;
-	
-	private boolean isCompanyAdministrator;
-
+	private int numberOfFollowers;
 	public String getDbid() {
 		return dbid;
 	}
-
 	public void setDbid(String dbid) {
 		this.dbid = dbid;
 	}
-
-	public boolean isCompanyAdministrator() {
-		return isCompanyAdministrator;
+	public int getNumberOfFollowers() {
+		return numberOfFollowers;
 	}
-
-	public void setCompanyAdministrator(boolean isCompanyAdministrator) {
-		this.isCompanyAdministrator = isCompanyAdministrator;
+	public void setNumberOfFollowers(int numberOfFollowers) {
+		this.numberOfFollowers = numberOfFollowers;
 	}
-
 	@Override
 	public String toString() {
-		return "CompanyAdministrator [dbid=" + dbid + ", isCompanyAdministrator=" + isCompanyAdministrator + "]";
+		return "Followers [dbid=" + dbid + ", numberOfFollowers=" + numberOfFollowers + "]";
 	}
 }

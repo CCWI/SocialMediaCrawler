@@ -10,8 +10,10 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import edu.hm.cs.smc.database.models.BaseEntity;
+
 @Entity
-public class CompanyUpdates {
+public class CompanyUpdates extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")
@@ -28,6 +30,7 @@ public class CompanyUpdates {
 	public void setId(String id) {
 		this.dbid = id;
 	}
+	
 	public int get_count() {
 		return _count;
 	}

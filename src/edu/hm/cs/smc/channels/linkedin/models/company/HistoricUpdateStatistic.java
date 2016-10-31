@@ -7,32 +7,30 @@ import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class CompanyAdministrator {
+public class HistoricUpdateStatistic {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")
 	private String dbid;
+	private int impressionCount;
+	private long time;
 	
-	private boolean isCompanyAdministrator;
-
 	public String getDbid() {
 		return dbid;
 	}
-
 	public void setDbid(String dbid) {
 		this.dbid = dbid;
 	}
-
-	public boolean isCompanyAdministrator() {
-		return isCompanyAdministrator;
+	public int getImpressionCount() {
+		return impressionCount;
 	}
-
-	public void setCompanyAdministrator(boolean isCompanyAdministrator) {
-		this.isCompanyAdministrator = isCompanyAdministrator;
+	public void setImpressionCount(int impressionCount) {
+		this.impressionCount = impressionCount;
 	}
-
-	@Override
-	public String toString() {
-		return "CompanyAdministrator [dbid=" + dbid + ", isCompanyAdministrator=" + isCompanyAdministrator + "]";
+	public long getTime() {
+		return time;
+	}
+	public void setTime(long time) {
+		this.time = time;
 	}
 }

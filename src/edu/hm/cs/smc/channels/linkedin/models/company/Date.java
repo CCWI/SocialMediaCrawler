@@ -7,32 +7,29 @@ import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class CompanyAdministrator {
+public class Date {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")
 	private String dbid;
-	
-	private boolean isCompanyAdministrator;
-
+	private int month;
+	private int year;
 	public String getDbid() {
 		return dbid;
 	}
-
 	public void setDbid(String dbid) {
 		this.dbid = dbid;
 	}
-
-	public boolean isCompanyAdministrator() {
-		return isCompanyAdministrator;
+	public int getMonth() {
+		return month;
 	}
-
-	public void setCompanyAdministrator(boolean isCompanyAdministrator) {
-		this.isCompanyAdministrator = isCompanyAdministrator;
+	public void setMonth(int month) {
+		this.month = month;
 	}
-
-	@Override
-	public String toString() {
-		return "CompanyAdministrator [dbid=" + dbid + ", isCompanyAdministrator=" + isCompanyAdministrator + "]";
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
 	}
 }
