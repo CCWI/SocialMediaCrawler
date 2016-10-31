@@ -8,8 +8,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.google.gson.annotations.SerializedName;
 
+import edu.hm.cs.smc.database.models.BaseEntity;
+
 @Entity
-public class HistoricFollowerStatistic {
+public class HistoricFollowerStatistic extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")

@@ -8,8 +8,10 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import edu.hm.cs.smc.database.models.BaseEntity;
+
 @Entity
-public class SiteStandardProfileRequest {
+public class SiteStandardProfileRequest extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")

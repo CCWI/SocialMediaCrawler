@@ -8,8 +8,10 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import edu.hm.cs.smc.database.models.BaseEntity;
+
 @Entity
-public class Views {
+public class Views extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")

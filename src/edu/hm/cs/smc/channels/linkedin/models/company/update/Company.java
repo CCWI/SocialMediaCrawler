@@ -6,8 +6,10 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import edu.hm.cs.smc.database.models.BaseEntity;
+
 @Entity
-public class Company {
+public class Company extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")

@@ -7,8 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
-public class FollowerStatistics {
+public class FollowerStatistics extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")

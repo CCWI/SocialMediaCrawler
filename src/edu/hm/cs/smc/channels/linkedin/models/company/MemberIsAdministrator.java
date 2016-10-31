@@ -11,8 +11,9 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 
 import edu.hm.cs.smc.channels.linkedin.models.company.update.Company;
+import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
-public class MemberIsAdministrator {
+public class MemberIsAdministrator extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")
