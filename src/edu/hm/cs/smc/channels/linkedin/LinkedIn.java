@@ -17,18 +17,18 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
-import edu.hm.cs.smc.channels.linkedin.models.company.CompanyAdministrator;
-import edu.hm.cs.smc.channels.linkedin.models.company.CompanySharingEnabled;
-import edu.hm.cs.smc.channels.linkedin.models.company.CompanyStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.company.Followers;
-import edu.hm.cs.smc.channels.linkedin.models.company.HistoricFollowerStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.company.HistoricUpdateStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.company.MemberIsAdministrator;
-import edu.hm.cs.smc.channels.linkedin.models.company.update.Company;
-import edu.hm.cs.smc.channels.linkedin.models.company.update.CompanyUpdate;
-import edu.hm.cs.smc.channels.linkedin.models.company.update.CompanyUpdates;
-import edu.hm.cs.smc.channels.linkedin.models.company.update.Likes;
-import edu.hm.cs.smc.channels.linkedin.models.company.update.comments.CompanyUpdateComments;
+import edu.hm.cs.smc.channels.linkedin.models.Company;
+import edu.hm.cs.smc.channels.linkedin.models.CompanyAdministrator;
+import edu.hm.cs.smc.channels.linkedin.models.CompanySharingEnabled;
+import edu.hm.cs.smc.channels.linkedin.models.CompanyStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.CompanyUpdate;
+import edu.hm.cs.smc.channels.linkedin.models.CompanyUpdateComments;
+import edu.hm.cs.smc.channels.linkedin.models.CompanyUpdates;
+import edu.hm.cs.smc.channels.linkedin.models.Followers;
+import edu.hm.cs.smc.channels.linkedin.models.HistoricFollowerStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.HistoricUpdateStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.Likes;
+import edu.hm.cs.smc.channels.linkedin.models.MemberIsAdministrator;
 
 public class LinkedIn {
 	
