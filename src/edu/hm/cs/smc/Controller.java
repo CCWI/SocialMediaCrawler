@@ -115,37 +115,37 @@ public class Controller implements ServletContextListener {
 				start = companyUpdates.get_start();
 				count = companyUpdates.get_count();
 				total = companyUpdates.get_total();
-				objectDAO.saveToMongoDb(companyUpdates);
+				objectDAO.saveToMariaDb(companyUpdates);
 			} while (total > start + count);
 			
 			LinkedInCompanyUpdateComments companyUpdateComments = linkedIn.getCompanyUpdateComments(companyId, companyUpdateId);
 			if(companyUpdateComments != null) {
-				objectDAO.saveToMongoDb(companyUpdateComments);
+				objectDAO.saveToMariaDb(companyUpdateComments);
 			}
 			
 			LinkedInCompanyAdministrator companyAdministrator = linkedIn.getMemberIsCompanyAdministrator(companyId);
 			objectDAO.saveToMariaDb(companyAdministrator);
 			
 			LinkedInCompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyId);
-			objectDAO.saveToMongoDb(companySharingEnabled);
+			objectDAO.saveToMariaDb(companySharingEnabled);
 			
 			LinkedInMemberIsAdministrator memberIsAdministrator = linkedIn.getCompaniesMemberIsAdministratorOf();
-			objectDAO.saveToMongoDb(memberIsAdministrator);
+			objectDAO.saveToMariaDb(memberIsAdministrator);
 			
 			LinkedInCompany company = linkedIn.getCompanyProfile(companyId);
-			objectDAO.saveToMongoDb(company);
+			objectDAO.saveToMariaDb(company);
 			
 			LinkedInFollowers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyId, null, null, null, null, null);
-			objectDAO.saveToMongoDb(companyFollowersBySegment);
+			objectDAO.saveToMariaDb(companyFollowersBySegment);
 			
 			LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", "1473343803591", null);
-			objectDAO.saveToMongoDb(historicalFollowerStatistics);
+			objectDAO.saveToMariaDb(historicalFollowerStatistics);
 			
 			LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", "1473343803591", null, null);
-			objectDAO.saveToMongoDb(historicalUpdateStatistics);
+			objectDAO.saveToMariaDb(historicalUpdateStatistics);
 			
 			LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyId);
-			objectDAO.saveToMongoDb(companyStatistics);
+			objectDAO.saveToMariaDb(companyStatistics);
 			
 			System.out.println(new Date() + ": Beende LinkedIn");
 		} else {

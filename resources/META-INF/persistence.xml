@@ -11,7 +11,23 @@
           <class>edu.hm.cs.smc.channels.facebook.models.FBPost</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBComment</class>
           
-          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdates</class>
+          
+          
+          <exclude-unlisted-classes>true</exclude-unlisted-classes>
+          <properties>
+            <property name="hibernate.ogm.datastore.provider" value="mongodb" />
+            <property name="hibernate.ogm.datastore.database" value="socialmediacrawler" />
+            <property name="hibernate.ogm.datastore.create_database" value="true" />
+            <property name="hibernate.ogm.mongodb.host" value="localhost"/>
+            <property name="hibernate.ogm.mongodb.port" value="27017"/>
+          </properties>
+        </persistence-unit>
+        
+	    <persistence-unit name="orm-mariadb" transaction-type="JTA">
+	      <description>Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide</description>
+	      <provider>org.hibernate.ejb.HibernatePersistence</provider>
+	      
+	      <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdates</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdate</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInLikes</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdateComments</class>
@@ -31,7 +47,7 @@
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInServiceProvider</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInApplication</class>
           
-          
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyAdministrator</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySharingEnabled</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySize</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySizes</class>
@@ -57,22 +73,6 @@
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInStatusUpdateStatistics</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInViews</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInViewsMyMonth</class>
-          
-          <exclude-unlisted-classes>true</exclude-unlisted-classes>
-          <properties>
-            <property name="hibernate.ogm.datastore.provider" value="mongodb" />
-            <property name="hibernate.ogm.datastore.database" value="socialmediacrawler" />
-            <property name="hibernate.ogm.datastore.create_database" value="true" />
-            <property name="hibernate.ogm.mongodb.host" value="localhost"/>
-            <property name="hibernate.ogm.mongodb.port" value="27017"/>
-          </properties>
-        </persistence-unit>
-        
-	    <persistence-unit name="orm-mariadb" transaction-type="JTA">
-	      <description>Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide</description>
-	      <provider>org.hibernate.ejb.HibernatePersistence</provider>
-	      
-	      <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyAdministrator</class>
 	      
 	      <exclude-unlisted-classes>true</exclude-unlisted-classes>
 	      <properties>
@@ -81,8 +81,10 @@
 	        <property name="javax.persistence.jdbc.user" value="crawler" />
 	        <property name="javax.persistence.jdbc.password" value="start123" />
 	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+	        <!--
 	        <property name="hibernate.show_sql" value="true" />
 	        <property name="hibernate.hbm2ddl.auto" value="create" />
+	        -->
 	      </properties>
 	    </persistence-unit>
 </persistence>
