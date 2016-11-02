@@ -22,6 +22,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateUtil {
 
 	private static final SessionFactory sessionFactory;
+	private static EntityManagerFactory hibernateOrmEntityManagerFactory;
 	private static EntityManagerFactory hibernateOgmEntityManagerFactory;
 
 	static {
@@ -41,6 +42,7 @@ public class HibernateUtil {
 		}
 		
 		hibernateOgmEntityManagerFactory = Persistence.createEntityManagerFactory("ogm-mongodb");
+		hibernateOrmEntityManagerFactory = Persistence.createEntityManagerFactory("orm-mariadb");
 	}
 
 	public static SessionFactory getSessionFactory() {
@@ -48,5 +50,9 @@ public class HibernateUtil {
 	
 	public static EntityManagerFactory getEntityManagerFactory() {
 		return hibernateOgmEntityManagerFactory;
+	}
+	
+	public static EntityManagerFactory getHibernateOrmEntityManagerFactory() {
+		return hibernateOrmEntityManagerFactory;
 	}
 }

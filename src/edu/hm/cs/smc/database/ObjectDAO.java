@@ -68,30 +68,62 @@ public class ObjectDAO {
 			entityManager.flush();
 			entityManager.close();
 			transactionManager.commit();
-		} catch (Exception e) {
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.exit(1000);
-//		} catch (NotSupportedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SystemException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SecurityException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IllegalStateException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (RollbackException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (HeuristicMixedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (HeuristicRollbackException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void saveToMariaDb(Object databaseObject) {
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager;
+		
+		try {
+			transactionManager.begin();
+			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
+			entityManager.merge(databaseObject);
+			entityManager.flush();
+			entityManager.close();
+			transactionManager.commit();
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

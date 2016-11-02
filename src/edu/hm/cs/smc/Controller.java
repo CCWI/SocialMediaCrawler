@@ -124,7 +124,7 @@ public class Controller implements ServletContextListener {
 			}
 			
 			LinkedInCompanyAdministrator companyAdministrator = linkedIn.getMemberIsCompanyAdministrator(companyId);
-			objectDAO.saveToMongoDb(companyAdministrator);
+			objectDAO.saveToMariaDb(companyAdministrator);
 			
 			LinkedInCompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyId);
 			objectDAO.saveToMongoDb(companySharingEnabled);

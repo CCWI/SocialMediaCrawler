@@ -31,7 +31,7 @@
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInServiceProvider</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInApplication</class>
           
-          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyAdministrator</class>
+          
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySharingEnabled</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySize</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySizes</class>
@@ -67,4 +67,22 @@
             <property name="hibernate.ogm.mongodb.port" value="27017"/>
           </properties>
         </persistence-unit>
+        
+	    <persistence-unit name="orm-mariadb" transaction-type="JTA">
+	      <description>Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide</description>
+	      <provider>org.hibernate.ejb.HibernatePersistence</provider>
+	      
+	      <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyAdministrator</class>
+	      
+	      <exclude-unlisted-classes>true</exclude-unlisted-classes>
+	      <properties>
+	        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+	        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db_socialmediacrawler" />
+	        <property name="javax.persistence.jdbc.user" value="crawler" />
+	        <property name="javax.persistence.jdbc.password" value="start123" />
+	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+	        <property name="hibernate.show_sql" value="true" />
+	        <property name="hibernate.hbm2ddl.auto" value="create" />
+	      </properties>
+	    </persistence-unit>
 </persistence>
