@@ -15,16 +15,16 @@ public class LinkedInLikes extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String id;
+	private String dbid;
 	private int _total;
 	@OneToOne(cascade=CascadeType.ALL)
 	private LinkedInLinkValues values;
 	
 	public String getId() {
-		return id;
+		return dbid;
 	}
 	public void setId(String id) {
-		this.id = id;
+		this.dbid = id;
 	}
 	public int get_total() {
 		return _total;

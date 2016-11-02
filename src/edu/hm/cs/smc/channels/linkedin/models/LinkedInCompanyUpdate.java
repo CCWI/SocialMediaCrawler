@@ -15,7 +15,7 @@ public class LinkedInCompanyUpdate extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String id;
+	private String dbid;
 	private boolean isCommentable;
 	private boolean isLikable; 
 	private boolean isLiked;
@@ -31,10 +31,10 @@ public class LinkedInCompanyUpdate extends BaseEntity {
 	private String updateType;
 	
 	public String getId() {
-		return id;
+		return dbid;
 	}
 	public void setId(String id) {
-		this.id = id;
+		this.dbid = id;
 	}
 	public boolean isCommentable() {
 		return isCommentable;

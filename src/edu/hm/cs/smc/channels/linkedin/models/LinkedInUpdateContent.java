@@ -15,7 +15,7 @@ public class LinkedInUpdateContent extends BaseEntity {
 	@Id 
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String id;
+	private String dbid;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private LinkedInCompany company;
@@ -24,11 +24,11 @@ public class LinkedInUpdateContent extends BaseEntity {
 	private LinkedInCompanyStatusUpdate companyStatusUpdate;
 	
 	public String getId() {
-		return id;
+		return dbid;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.dbid = id;
 	}
 
 	public LinkedInCompany getCompany() {
