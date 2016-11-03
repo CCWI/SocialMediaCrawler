@@ -5,13 +5,10 @@
  */
 package edu.hm.cs.smc.channels.facebook.models;
 
-import com.restfb.types.Post;
-
-import edu.hm.cs.smc.Utf8Checker;
-
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,6 +16,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 import org.hibernate.annotations.Type;
+
+import com.restfb.types.Post;
+
+import edu.hm.cs.smc.Utf8Checker;
 
 /**
  *
@@ -58,6 +59,7 @@ public class FBPost implements Serializable {
 	private String link;
 
 //	@Type(type = "text")
+	@Column(length=1000)
 	private String message;
 
 //	@Type(type = "text")

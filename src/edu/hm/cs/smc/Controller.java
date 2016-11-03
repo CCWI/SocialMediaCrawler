@@ -162,7 +162,7 @@ public class Controller implements ServletContextListener {
 				String fbid = objectDAO.getFBIDbyID(pid);
 				Page page = fbc.getPage(fbid);
 				FBPage fbpage = new FBPage(page);
-				objectDAO.saveToMongoDb(fbpage);
+				objectDAO.saveToMariaDb(fbpage);
 
 				Connection<Post> posts = fbc.getAllPagePosts(fbid, (DefaultFacebookClient) fbc.getFbClient());
 				List<Comment> comments;
@@ -172,14 +172,14 @@ public class Controller implements ServletContextListener {
 					FBPost fbpost = new FBPost(p, fbpage);
 					comments = fbc.getAllPostComments(fbpost.getFbid(), (DefaultFacebookClient) fbc.getFbClient());
 					commentsCount = 0;
-					objectDAO.saveToMongoDb(fbpost);
+					objectDAO.saveToMariaDb(fbpost);
 					for (Comment c : comments) {
 						FBComment fbcomment = new FBComment(c, fbpost);
-						objectDAO.saveToMongoDb(fbcomment);
+						objectDAO.saveToMariaDb(fbcomment);
 						commentsCount++;
 					}
 					fbpost.setCommentsCount(commentsCount);
-					objectDAO.saveToMongoDb(fbpost);
+					objectDAO.saveToMariaDb(fbpost);
 				}
 				System.out.println(new Date() + ": Beende Facebook");
 			} else {

@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -20,6 +21,7 @@ public class LinkedInHistoricFollowerStatistics extends BaseEntity {
 	private String dbid;
 	private int _total;
 	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="historicFollowerStatistics_fk")
 	private List<LinkedInHistoricFollowerStatistic> values;
 	
 	public String getDbid() {

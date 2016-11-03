@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -21,6 +22,7 @@ public class LinkedInMemberIsAdministrator extends BaseEntity {
 	private int _start;
 	private int _total;
 	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="memberIsAdministrator_fk")
 	private List<LinkedInCompany> values;
 	public String getDbid() {
 		return dbid;
