@@ -1,5 +1,6 @@
 package edu.hm.cs.smc;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -23,17 +24,15 @@ import edu.hm.cs.smc.channels.facebook.models.FBPage;
 import edu.hm.cs.smc.channels.facebook.models.FBPost;
 import edu.hm.cs.smc.channels.linkedin.LinkedIn;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompany;
-import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyAdministrator;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySharingEnabled;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdateComments;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdates;
-import edu.hm.cs.smc.channels.linkedin.models.LinkedInFollowers;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricFollowerStatistics;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricUpdateStatistics;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInMemberIsAdministrator;
 import edu.hm.cs.smc.database.DatabaseException;
 import edu.hm.cs.smc.database.ObjectDAO;
+import edu.hm.cs.smc.database.models.ConfigLinkedInCompanyId;
 import edu.hm.cs.smc.properties.PropertiesReader;
 
 /**
@@ -98,59 +97,84 @@ public class Controller implements ServletContextListener {
 		bingSites = objectDAO.getBingSeiten();
 	}
 	
+	private boolean containsId(List<LinkedInCompany> list, int id) {
+		for(LinkedInCompany company: list) {
+			if(company.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private void verarbeiteLinkedIn() {
 		if (controllerUtil.pruefeStartbedingungLinkedIn()) {
 			System.out.println(new Date() + ": Beginne LinkedIn");
 			LinkedIn linkedIn = new LinkedIn(credentialProperties);
-			String companyId = "2414183"; //"2414183";
-			String companyUpdateId = "UPDATE-c2414183-6082584276157636608";
 			
-			int start = 0;
-			int count = 0;
-			int total = 0;
-			int begin = 0;
-			do {
-				LinkedInCompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyId, begin);
-				begin = companyUpdates.get_start()+companyUpdates.get_count();
-				start = companyUpdates.get_start();
-				count = companyUpdates.get_count();
-				total = companyUpdates.get_total();
-				objectDAO.saveToMariaDb(companyUpdates);
-			} while (total > start + count);
-			
-			LinkedInCompanyUpdateComments companyUpdateComments = linkedIn.getCompanyUpdateComments(companyId, companyUpdateId);
-			if(companyUpdateComments != null) {
-				objectDAO.saveToMariaDb(companyUpdateComments);
-			}
-			
-			LinkedInCompanyAdministrator companyAdministrator = linkedIn.getMemberIsCompanyAdministrator(companyId);
-			objectDAO.saveToMariaDb(companyAdministrator);
-			
-			LinkedInCompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyId);
-			objectDAO.saveToMariaDb(companySharingEnabled);
+			List<ConfigLinkedInCompanyId> companyIds = objectDAO.getLinkedInCompanyId();
 			
 			LinkedInMemberIsAdministrator memberIsAdministrator = linkedIn.getCompaniesMemberIsAdministratorOf();
-			objectDAO.saveToMariaDb(memberIsAdministrator);
 			
-			LinkedInCompany company = linkedIn.getCompanyProfile(companyId);
-			objectDAO.saveToMariaDb(company);
+			// TODO: remove when real testing company is available 
+			LinkedInCompany liCompany = new LinkedInCompany();
+			liCompany.setDbid("0");
+			liCompany.setId(2414183);
+			memberIsAdministrator.setValues(new ArrayList<LinkedInCompany>());
+			memberIsAdministrator.getValues().add(liCompany);
 			
-			LinkedInFollowers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyId, null, null, null, null, null);
-			objectDAO.saveToMariaDb(companyFollowersBySegment);
+			for(ConfigLinkedInCompanyId companyId: companyIds) {
+				if(!containsId(memberIsAdministrator.getValues(), companyId.getCompanyId())) {
+					printMessage("Member doesn't adminsitrate company with id " + companyId.getCompanyId());
+				} else {
+					printMessage("Processing company with id " + companyId.getCompanyId());
+					
+					String companyIdString = String.valueOf(companyId.getCompanyId()); //"2414183";
+					LinkedInCompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyIdString);
+					
+					// TODO: remove false when real testing company is available
+					if(!companySharingEnabled.isCompanySharingEnabled() && false) {
+						printMessage("Sharing is disabled for company with id " + companyId.getCompanyId());
+					} else {
+						int start = 0;
+						int count = 0;
+						int total = 0;
+						int begin = 0;
+						do {
+							LinkedInCompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyIdString, begin);
+							begin = companyUpdates.get_start()+companyUpdates.get_count();
+							start = companyUpdates.get_start();
+							count = companyUpdates.get_count();
+							total = companyUpdates.get_total();
+							objectDAO.saveToMariaDb(companyUpdates);
+						} while (total > start + count);
+						
+						LinkedInCompany company = linkedIn.getCompanyProfile(companyIdString);
+						objectDAO.saveToMariaDb(company);
+						
+						// Has to be invoked for different segments
+//						LinkedInFollowers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyIdString, null, null, null, null, null);
+//						objectDAO.saveToMariaDb(companyFollowersBySegment);
+						
+						LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyIdString, "day", "1473343803591", null);
+						objectDAO.saveToMariaDb(historicalFollowerStatistics);
+						
+						LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyIdString, "day", "1473343803591", null, null);
+						objectDAO.saveToMariaDb(historicalUpdateStatistics);
+						
+						LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyIdString);
+						objectDAO.saveToMariaDb(companyStatistics);
+					}
+				}
+			}
 			
-			LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", "1473343803591", null);
-			objectDAO.saveToMariaDb(historicalFollowerStatistics);
-			
-			LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", "1473343803591", null, null);
-			objectDAO.saveToMariaDb(historicalUpdateStatistics);
-			
-			LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyId);
-			objectDAO.saveToMariaDb(companyStatistics);
-			
-			System.out.println(new Date() + ": Beende LinkedIn");
+			printMessage("Beende LinkedIn");
 		} else {
-			System.out.println(new Date() + ": KEIN RUN FUER LinkedIn!");
+			printMessage("KEIN RUN FUER LinkedIn!");
 		}
+	}
+
+	private void printMessage(String message) {
+		System.out.println(new Date() + ": " + message);
 	}
 
 	private void verarbeiteFacebook() {

@@ -6,12 +6,16 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @MappedSuperclass
 public abstract class BaseEntity {
 	@Column(insertable=true, updatable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dbInserted;
 	@Column(insertable=false, updatable=true)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dbUpdated;
 	
 	public Date getDbInserted() {

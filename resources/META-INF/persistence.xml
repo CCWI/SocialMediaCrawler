@@ -21,6 +21,8 @@
 	      <description>Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide</description>
 	      <provider>org.hibernate.ejb.HibernatePersistence</provider>
 	      
+	      <class>edu.hm.cs.smc.database.models.ConfigLinkedInCompanyId</class>
+	      
 	      <class>edu.hm.cs.smc.channels.facebook.models.FBPage</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBPost</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBComment</class>

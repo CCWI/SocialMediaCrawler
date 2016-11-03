@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -22,6 +26,7 @@ import org.hibernate.Transaction;
 import org.hibernate.exception.GenericJDBCException;
 
 import edu.hm.cs.smc.database.models.BingSeiten;
+import edu.hm.cs.smc.database.models.ConfigLinkedInCompanyId;
 import edu.hm.cs.smc.database.models.FacebookpagesFBID;
 import edu.hm.cs.smc.database.models.Schluesselwoerter;
 import edu.hm.cs.smc.database.models.ServerConfig;
@@ -233,6 +238,51 @@ public class ObjectDAO {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public List<ConfigLinkedInCompanyId> getLinkedInCompanyId() {
+		List<ConfigLinkedInCompanyId> result = new ArrayList<>();
+		
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager;
+		
+		try {
+			transactionManager.begin();
+			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<ConfigLinkedInCompanyId> cq = cb.createQuery(ConfigLinkedInCompanyId.class);
+	        Root<ConfigLinkedInCompanyId> rootEntry = cq.from(ConfigLinkedInCompanyId.class);
+	        CriteriaQuery<ConfigLinkedInCompanyId> all = cq.select(rootEntry);
+	        TypedQuery<ConfigLinkedInCompanyId> allQuery = entityManager.createQuery(all);
+	        result = allQuery.getResultList();
+	        
+			entityManager.flush();
+			entityManager.close();
+			transactionManager.commit();
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	public void saveServerConfig(ServerConfig serverConfig) {
