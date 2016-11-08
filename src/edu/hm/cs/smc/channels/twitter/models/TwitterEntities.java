@@ -1,7 +1,7 @@
 package edu.hm.cs.smc.channels.twitter.models;
 import java.util.List;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+
 import edu.hm.cs.smc.database.models.BaseEntity;
 /**
  * Entities provide metadata and additional contextual information about content posted on Twitter. Entities are never divorced from the content they describe. In API v1.1, entities are returned wherever Tweets are found in the API. Entities are instrumental in resolving URLs.
@@ -9,11 +9,6 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
 public class TwitterEntities extends BaseEntity {
 	
-	@Id 
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String dbid;		
-
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="entitiesHashtag_fk")
 	private List<TwitterHashtag> hashtags;

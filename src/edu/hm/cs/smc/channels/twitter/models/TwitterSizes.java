@@ -1,15 +1,10 @@
 package edu.hm.cs.smc.channels.twitter.models;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+
 import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
 public class TwitterSizes extends BaseEntity {
 	
-	@Id 
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String dbid;
-
 	@OneToOne(cascade=CascadeType.ALL)	
 	private TwitterThumb thumb;
 	

@@ -1,14 +1,10 @@
 package edu.hm.cs.smc.channels.twitter.models;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+
 import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
 public class TwitterAttributes extends BaseEntity {
 	
-	@Id 
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String dbid;
 	private String street_address;
 	private String locality;
 	private String region;
@@ -19,12 +15,6 @@ public class TwitterAttributes extends BaseEntity {
 	private String url;
 	private int id;
 	
-	public String getDbid() {
-		return dbid;
-	}
-	public void setDbid(String dbid) {
-		this.dbid = dbid;
-	}
 	public String getStreet_address() {
 		return street_address;
 	}

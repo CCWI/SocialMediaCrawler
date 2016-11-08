@@ -1,15 +1,12 @@
 package edu.hm.cs.smc.channels.twitter.models;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+
 import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
 public class TwitterURLS extends BaseEntity {
 	
-	@Id 
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String dbid;	
 	private String display_url;
+	@Column(length = 10000)
 	private String expanded_url;
 	private int[] indices;
 	private String url;

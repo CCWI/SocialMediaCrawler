@@ -1,7 +1,6 @@
 package edu.hm.cs.smc.channels.twitter.models;
 import java.util.List;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import edu.hm.cs.smc.Utf8Checker;
 import edu.hm.cs.smc.database.models.BaseEntity;
@@ -11,10 +10,6 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
 public class TwitterTweet extends BaseEntity {
 	
-	@Id 
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String dbid;
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="tweetContributors_fk")
 	private List<TwitterContributor> contributors;
@@ -63,12 +58,6 @@ public class TwitterTweet extends BaseEntity {
 	}
 	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
-	}
-	public String getDbid() {
-		return dbid;
-	}
-	public void setDbid(String dbid) {
-		this.dbid = dbid;
 	}
 	public List<TwitterContributor> getContributors() {
 		return contributors;

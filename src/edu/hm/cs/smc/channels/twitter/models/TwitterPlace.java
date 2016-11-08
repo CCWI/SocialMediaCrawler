@@ -1,6 +1,6 @@
 package edu.hm.cs.smc.channels.twitter.models;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+
 import edu.hm.cs.smc.database.models.BaseEntity;
 /**
  * Places are specific, named locations with corresponding geo coordinates. They can be attached to Tweets by specifying a place_id when tweeting. Tweets associated with places are not necessarily issued from that location but could also potentially be about that location. Places can be searched for. Tweets can also be found by place_id.
@@ -8,10 +8,6 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
 public class TwitterPlace extends BaseEntity {
 	
-	@Id 
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String dbid;	
 	private String id;
 	private String url;
 	private String place_type;

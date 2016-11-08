@@ -1,6 +1,6 @@
 package edu.hm.cs.smc.channels.twitter.models;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+
 import edu.hm.cs.smc.database.models.BaseEntity;
 /**
  * An http:// URL pointing directly to the uploaded media file.
@@ -8,11 +8,8 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
 public class TwitterMedia extends BaseEntity {
 	
-	@Id 
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name="uuid", strategy="uuid2")	
-	private String dbid;
 	private String display_url;
+	@Column(length=1000)
 	private String expanded_url;
 	private long id;
 	private String id_str;
@@ -26,14 +23,6 @@ public class TwitterMedia extends BaseEntity {
 	private String type;
 	private String url;
 	
-	public String getDbid() {
-		return dbid;
-	}
-
-	public void setDbid(String dbid) {
-		this.dbid = dbid;
-	}
-
 	/**
 	 * ID of the media expressed as a 64-bit integer.
 	 */

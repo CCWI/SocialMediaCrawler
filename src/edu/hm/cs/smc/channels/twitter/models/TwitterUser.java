@@ -2,7 +2,6 @@ package edu.hm.cs.smc.channels.twitter.models;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import edu.hm.cs.smc.Utf8Checker;
 import edu.hm.cs.smc.database.models.BaseEntity;
@@ -12,10 +11,6 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
 public class TwitterUser extends BaseEntity {
 
-	@Id 
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name="uuid", strategy="uuid2")
-	private String dbid;
 	private boolean contributors_enabled;
 	private Date created_at;
 	private boolean default_profile;
@@ -62,12 +57,6 @@ public class TwitterUser extends BaseEntity {
 	private boolean verified;
 	private String withheld_in_countries;
 	private String withheld_scope;
-	public String getDbid() {
-		return dbid;
-	}
-	public void setDbid(String dbid) {
-		this.dbid = dbid;
-	}
 	public boolean isContributors_enabled() {
 		return contributors_enabled;
 	}
