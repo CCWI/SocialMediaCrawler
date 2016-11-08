@@ -66,9 +66,9 @@ public class Controller implements ServletContextListener {
 							Date start = new Date();
 							System.out.println(start + ": Beginne Verarbeitung");
 
-							verarbeiteBing();
-							verarbeiteLinkedIn();
-							verarbeiteFacebook();
+//							verarbeiteBing();
+//							verarbeiteLinkedIn();
+//							verarbeiteFacebook();
 
 							Date ende = new Date();
 							System.out.println(ende + ": Beende Verarbeitung");
