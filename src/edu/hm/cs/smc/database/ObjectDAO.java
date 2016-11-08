@@ -24,6 +24,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.GenericJDBCException;
+import org.hibernate.exception.SQLGrammarException;
 
 import edu.hm.cs.smc.database.models.BingSeiten;
 import edu.hm.cs.smc.database.models.ConfigLinkedInCompanyId;
@@ -99,7 +100,7 @@ public class ObjectDAO {
 	
 	public void saveToMariaDb(Object databaseObject) {
 		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
-		EntityManager entityManager;
+		EntityManager entityManager = null;
 		
 		try {
 			transactionManager.begin();
@@ -129,7 +130,10 @@ public class ObjectDAO {
 		} catch (HeuristicRollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} catch (SQLGrammarException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 
 	public List<String> getSchluesselwoerter() {

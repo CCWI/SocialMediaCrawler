@@ -1,50 +1,47 @@
 package edu.hm.cs.smc.channels.twitter;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import org.apache.log4j.Logger;
+import com.cybozu.labs.langdetect.LangDetectException;
+import com.google.common.collect.Lists;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.Client;
 import com.twitter.hbc.core.Constants;
 import com.twitter.hbc.core.Hosts;
 import com.twitter.hbc.core.HttpHosts;
-import com.twitter.hbc.core.endpoint.StatusesFilterEndpoint;
+import com.twitter.hbc.core.endpoint.StatusesSampleEndpoint;
 import com.twitter.hbc.core.event.Event;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
-
+import edu.hm.cs.smc.channels.twitter.models.TwitterTweet;
 import edu.hm.cs.smc.database.ObjectDAO;
+import edu.hm.cs.smc.properties.Trace;
 
 public class TwitterStream {
 
-	private static Logger myLogger = Logger.getLogger(TwitterStream.class.getName());
+	private static final Logger logger = Logger.getLogger(Trace.class);
 	private OAuth1 auth;
 	private List<String> keywords;
-
+	private static LanguageDetection langDetec = new LanguageDetection();
+    private static final String lang_en = "en";
+    
 	public TwitterStream(OAuth1 auth, List<String> keywords) {
 		this.auth = auth;
 		this.keywords = keywords;
 	}
 
 	public void start() {
-		Handler fileHandler;
 		try {
-			fileHandler = new FileHandler("myapp.log");
-			Handler consoleHandler = new ConsoleHandler();
-			myLogger.addHandler(fileHandler);
-			myLogger.addHandler(consoleHandler);
+	   // Laden des Sprachprofils
+	    		langDetec.init();
+	    } catch (LangDetectException e) {
+	    		e.printStackTrace();
 		} catch (SecurityException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -60,12 +57,14 @@ public class TwitterStream {
 		 * authentication (basic auth or oauth)
 		 */
 		Hosts hosebirdHosts = new HttpHosts(Constants.STREAM_HOST);
-		StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
+//		StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
+		StatusesSampleEndpoint hosebirdEndpoint = new StatusesSampleEndpoint();
 		// Optional: set up some followings and track terms
 		// List<Long> followings = Lists.newArrayList(1234L, 566788L);
 		// hosebirdEndpoint.followings(followings);
-		hosebirdEndpoint.trackTerms(keywords);
-
+//		hosebirdEndpoint.trackTerms(keywords);
+		List<String> languages = Lists.newArrayList("en");
+		hosebirdEndpoint.languages(languages);
 		// These secrets should be read from a config file
 		Authentication hosebirdAuth = auth;
 
@@ -85,49 +84,27 @@ public class TwitterStream {
 
 		while (!hosebirdClient.isDone()) {
 			String msg;
+
 			try {
 				msg = msgQueue.take();
-				TwitterConverter converter = new TwitterConverter();
-				converter.generateTwitterObjects(msg);
-				
-				TwitterStatus status = converter.getTwitterStatus();
-				
-				if (status.getLang().equals("en") || status.getLang().equals("de")) {
-					TwitterUser user = status.getUser();
-					TwitterEntities entities = status.getEntities();
-					List<TwitterUrl> twitterUrls = entities.getTwitterUrl();
-					List<TwitterHashtag> twitterHashtags = entities.getTwitterHashTag();
-					List<TwitterMedia> twitterMedias = entities.getTwitterMedia();
-					ObjectDAO dao = new ObjectDAO();
-					dao.speicherInDatenbank(status);
-					dao.speicherInDatenbank(user);
-					
-					if(twitterUrls != null) {
-						for (int i = 0; i < twitterUrls.size(); i++) {
-							dao.speicherInDatenbank(twitterUrls.get(i));
-						}
-					}
-					
-					if(twitterHashtags != null) {
-						for (int i = 0; i < twitterHashtags.size(); i++) {
-							dao.speicherInDatenbank(twitterHashtags.get(i));
-						}
-					}
-					
-					if(twitterMedias != null) {
-						for (int i = 0; i < twitterMedias.size(); i++) {
-							dao.speicherInDatenbank(twitterMedias.get(i));
-						}
-					}	
+	    		/* Wenn der Text nicht leer ist und eine Sprache erkannt wurde
+	    		 * Bereinigen des Textes vor der Spracherkennung nicht notwendig, macht langdetect selbst
+	    		 * könnte ansonsten zu falscher Erkennung führen (Problem japanisch etc.) */
+	    		String language = langDetec.detect(msg);
+	    		if(!msg.trim().isEmpty() && language.equals(lang_en)) {
+					Gson gson = new GsonBuilder().setDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy").create();
+					TwitterTweet tweet = null;
+					tweet = gson.fromJson(msg, TwitterTweet.class);
+					ObjectDAO dao = new ObjectDAO();					
+					dao.saveToMariaDb(tweet);
 				} else {
-//					myLogger.info("Sprache des Tweets nicht englisch bzw. deutsch, Sprache = " + status.getLang());
+//					do nothing
 				}
-				
-				
-
-			} catch (InterruptedException e) {
+	
+				} catch (InterruptedException | LangDetectException e) {
 				e.printStackTrace();
 				e.getMessage();
+				logger.error("Fehler waehrend der Verarbeitung von Twitter", e);
 			}
 
 		}

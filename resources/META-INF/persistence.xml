@@ -74,6 +74,28 @@
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInViews</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInViewsMyMonth</class>
 	      
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterAttributes</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterBoundingBox</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterContributor</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterCoordinates</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterCurrentUserRetweet</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterDescription</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterEntities</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterHashtag</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterLarge</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterMedia</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterMedium</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterPlace</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterSizes</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterSmall</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterSymbol</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterThumb</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterTweet</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterURL</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterURLS</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterUser</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterUserEntities</class>
+	      <class>edu.hm.cs.smc.channels.twitter.models.TwitterUserMention</class>	      
 	      <exclude-unlisted-classes>true</exclude-unlisted-classes>
 	      <properties>
 	        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
@@ -81,10 +103,11 @@
 	        <property name="javax.persistence.jdbc.user" value="crawler" />
 	        <property name="javax.persistence.jdbc.password" value="start123" />
 	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-	        <!--
-	        <property name="hibernate.show_sql" value="true" />
-	        <property name="hibernate.hbm2ddl.auto" value="create" />
-	        -->
+	   <!-- property name="hibernate.show_sql" value="true" /-->
+	        <property name="hibernate.hbm2ddl.auto" value="update" />
+	        <property name="hibernate.connection.CharSet" value="utf8mb4"/>
+	        <property name="hibernate.connection.characterEncoding" value="utf8" />
+	        <property name="hibernate.connection.useUnicode" value="true" />
 	      </properties>
 	    </persistence-unit>
 </persistence>

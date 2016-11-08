@@ -6,12 +6,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.log4j.Logger;
+
 import com.twitter.hbc.httpclient.auth.OAuth1;
 
 import edu.hm.cs.smc.channels.twitter.TwitterException;
 import edu.hm.cs.smc.channels.twitter.TwitterStream;
 import edu.hm.cs.smc.database.DatabaseException;
 import edu.hm.cs.smc.database.ObjectDAO;
+import edu.hm.cs.smc.properties.Trace;
 
 /**
  * Serveranwendung
@@ -23,7 +26,7 @@ public class TwitterStreamController implements ServletContextListener {
 	final String consumerSecret = "";
 	final String token = "";
 	final String tokenSecret = "";
-
+	private static final Logger logger = Logger.getLogger(TwitterStreamController.class);
 	List<String> schluesselwoerter;
 
 	private ObjectDAO objectDAO;
@@ -65,6 +68,8 @@ public class TwitterStreamController implements ServletContextListener {
 		try {
 			stream.start();			
 		} catch (Exception e) {
+			logger.error("TwitterStream disconnected, restart streaming", e);
+			e.printStackTrace();
 			verarbeiteTwitterStream();
 		}
 	}

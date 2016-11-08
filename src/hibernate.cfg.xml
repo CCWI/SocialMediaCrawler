@@ -16,13 +16,5 @@
     <mapping class="edu.hm.cs.smc.database.models.FacebookpagesFBID"/>
     <mapping class="edu.hm.cs.smc.channels.bing.BingKomplettsuche"/>
     <mapping class="edu.hm.cs.smc.channels.bing.BingSitesuche"/>
-    <mapping class="edu.hm.cs.smc.channels.facebook.models.FBComment"/>
-    <mapping class="edu.hm.cs.smc.channels.facebook.models.FBPage"/>
-    <mapping class="edu.hm.cs.smc.channels.facebook.models.FBPost"/>
-    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterUser"/>
-    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterStatus"/>
-    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterHashtag"/>
-    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterUrl"/>
-    <mapping class="edu.hm.cs.smc.channels.twitter.TwitterMedia"/>
     </session-factory>
 </hibernate-configuration>
