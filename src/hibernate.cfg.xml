@@ -10,11 +10,13 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Mapping with model class containing annotations -->
+    <!--
     <mapping class="edu.hm.cs.smc.database.models.Schluesselwoerter"/>
     <mapping class="edu.hm.cs.smc.database.models.BingSeiten"/>
     <mapping class="edu.hm.cs.smc.database.models.ServerConfig"/>
     <mapping class="edu.hm.cs.smc.database.models.FacebookpagesFBID"/>
     <mapping class="edu.hm.cs.smc.channels.bing.BingKomplettsuche"/>
     <mapping class="edu.hm.cs.smc.channels.bing.BingSitesuche"/>
+    -->
     </session-factory>
 </hibernate-configuration>

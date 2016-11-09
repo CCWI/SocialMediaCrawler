@@ -93,7 +93,6 @@ public class Controller implements ServletContextListener {
 
 	private void initialisiereListen() throws DatabaseException {
 		schluesselwoerter = objectDAO.getSchluesselwoerter();
-		youtubeChannels = objectDAO.getYoutubeChannels();
 		bingSites = objectDAO.getBingSeiten();
 	}
 	
@@ -223,13 +222,13 @@ public class Controller implements ServletContextListener {
 				for (String schluesselwort : schluesselwoerter) {
 
 					BingKomplettsuche completeSearchResult = bing.completeSearch(schluesselwort);
-					objectDAO.speicherInDatenbank(completeSearchResult);
+					objectDAO.saveToMariaDb(completeSearchResult);
 
 					for (String site : bingSites) {
 						List<BingSitesuche> resultList = bing.siteSearch(schluesselwort, site);
 
 						for (BingSitesuche bingSitesuche : resultList) {
-							objectDAO.speicherInDatenbank(bingSitesuche);
+							objectDAO.saveToMariaDb(bingSitesuche);
 						}
 
 					}

@@ -21,6 +21,13 @@
 	      <description>Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide</description>
 	      <provider>org.hibernate.ejb.HibernatePersistence</provider>
 	      
+	      <class>edu.hm.cs.smc.database.models.Schluesselwoerter</class>
+		  <class>edu.hm.cs.smc.database.models.BingSeiten</class>
+		  <class>edu.hm.cs.smc.database.models.ServerConfig</class>
+		  <class>edu.hm.cs.smc.database.models.FacebookpagesFBID</class>
+		  <class>edu.hm.cs.smc.channels.bing.BingKomplettsuche</class>
+		  <class>edu.hm.cs.smc.channels.bing.BingSitesuche</class>
+    
 	      <class>edu.hm.cs.smc.database.models.ConfigLinkedInCompanyId</class>
 	      
 	      <class>edu.hm.cs.smc.channels.facebook.models.FBPage</class>

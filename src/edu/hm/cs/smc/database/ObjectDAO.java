@@ -13,6 +13,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -23,45 +25,18 @@ import javax.transaction.TransactionManager;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.exception.GenericJDBCException;
-import org.hibernate.exception.SQLGrammarException;
 
 import edu.hm.cs.smc.database.models.BingSeiten;
 import edu.hm.cs.smc.database.models.ConfigLinkedInCompanyId;
 import edu.hm.cs.smc.database.models.FacebookpagesFBID;
 import edu.hm.cs.smc.database.models.Schluesselwoerter;
 import edu.hm.cs.smc.database.models.ServerConfig;
-import edu.hm.cs.smc.database.models.YoutubeChannels;
 
 /**
  *
  * @author yaric
  */
 public class ObjectDAO {
-
-	public void speicherInDatenbank(Object datenbankObjekt) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
-
-		try {
-			session.saveOrUpdate(datenbankObjekt);
-			session.flush();
-			transaction.commit();
-		} catch (GenericJDBCException e) {
-			/*
-			 * Die verwendete MySQL-Version hat schwierigkeiten mit einigen
-			 * Zeichen. Wird versucht solche Zeichen in die Datanbank zu
-			 * schreiben tritt eine GenericJDBCException auf. Das Objekt wird
-			 * einfach ausgelassen und weitergemacht.
-			 */
-			transaction.rollback();
-		} catch (Exception e) {
-			transaction.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-	}
 	
 	public void saveToMongoDb(Object databaseObject) {
 		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
@@ -107,6 +82,43 @@ public class ObjectDAO {
 			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
 			entityManager.merge(databaseObject);
 			entityManager.flush();
+			transactionManager.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				transactionManager.rollback();
+			} catch (IllegalStateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SystemException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+			entityManager.close();
+		} 
+	}
+
+	public List<String> getSchluesselwoerter() {
+		List<Schluesselwoerter> result = new ArrayList<>();
+		
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager = null;
+		
+		try {
+			transactionManager.begin();
+			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<Schluesselwoerter> cq = cb.createQuery(Schluesselwoerter.class);
+	        Root<Schluesselwoerter> rootEntry = cq.from(Schluesselwoerter.class);
+	        CriteriaQuery<Schluesselwoerter> all = cq.select(rootEntry);
+	        TypedQuery<Schluesselwoerter> allQuery = entityManager.createQuery(all);
+	        result = allQuery.getResultList();
+	        
+			entityManager.flush();
 			entityManager.close();
 			transactionManager.commit();
 		} catch (Exception e) {
@@ -123,147 +135,145 @@ public class ObjectDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			entityManager.close();
-//		} catch (NotSupportedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SystemException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SecurityException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IllegalStateException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (RollbackException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (HeuristicMixedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (HeuristicRollbackException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SQLGrammarException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-		} 
-	}
-
-	public List<String> getSchluesselwoerter() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
-		try {
-
-			List<Schluesselwoerter> resultList = session.createCriteria(
-					Schluesselwoerter.class).list();
-			session.flush();
-			transaction.commit();
-
-			List<String> schluesselwoerterListe = new ArrayList<String>();
-			for (Schluesselwoerter schluesselwort : resultList) {
-				schluesselwoerterListe.add(schluesselwort.getSchluesselwort());
-			}
-			return schluesselwoerterListe;
-		} catch (Exception e) {
-			transaction.rollback();
-			throw e;
-		} finally {
-			session.close();
 		}
-	}
-
-	public List<String> getYoutubeChannels() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
-		try {
-
-			List<YoutubeChannels> resultList = session.createCriteria(
-					YoutubeChannels.class).list();
-			session.flush();
-			transaction.commit();
-
-			List<String> channelListe = new ArrayList<String>();
-			for (YoutubeChannels youtubeChannel : resultList) {
-				channelListe.add(youtubeChannel.getChannelid());
-			}
-			return channelListe;
-		} catch (Exception e) {
-			transaction.rollback();
-			throw e;
-		} finally {
-			session.close();
+		
+		List<String> schluesselwoerterListe = new ArrayList<String>();
+		for (Schluesselwoerter schluesselwort : result) {
+			schluesselwoerterListe.add(schluesselwort.getSchluesselwort());
 		}
+		return schluesselwoerterListe;
 	}
 
 	public List<String> getBingSeiten() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
+		List<BingSeiten> result = new ArrayList<>();
+		
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager = null;
+		
 		try {
-			List<BingSeiten> resultList = session.createCriteria(
-					BingSeiten.class).list();
-			session.flush();
-			transaction.commit();
-
-			List<String> seitenListe = new ArrayList<String>();
-			for (BingSeiten bingSeite : resultList) {
-				seitenListe.add(bingSeite.getUrl());
-			}
-			return seitenListe;
+			transactionManager.begin();
+			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<BingSeiten> cq = cb.createQuery(BingSeiten.class);
+	        Root<BingSeiten> rootEntry = cq.from(BingSeiten.class);
+	        CriteriaQuery<BingSeiten> all = cq.select(rootEntry);
+	        TypedQuery<BingSeiten> allQuery = entityManager.createQuery(all);
+	        result = allQuery.getResultList();
+	        
+			entityManager.flush();
+			transactionManager.commit();
 		} catch (Exception e) {
-			transaction.rollback();
-			throw e;
+			e.printStackTrace();
+			try {
+				transactionManager.rollback();
+			} catch (IllegalStateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SystemException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} finally {
-			session.close();
+			entityManager.close();
+		} 
+		
+		List<String> seitenListe = new ArrayList<String>();
+		for (BingSeiten bingSeite : result) {
+			seitenListe.add(bingSeite.getUrl());
 		}
+		return seitenListe;
 	}
 
 	public List<String> getFacebookSeiten() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
+		List<FacebookpagesFBID> result = new ArrayList<>();
+		
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager = null;
+		
 		try {
-			List<FacebookpagesFBID> resultList = session.createCriteria(
-					FacebookpagesFBID.class).list();
-			session.flush();
-			transaction.commit();
-
-			List<String> seitenListe = new ArrayList<String>();
-			for (FacebookpagesFBID fbpage : resultList) {
-				seitenListe.add(fbpage.getFbid());
-			}
-			return seitenListe;
+			transactionManager.begin();
+			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<FacebookpagesFBID> cq = cb.createQuery(FacebookpagesFBID.class);
+	        Root<FacebookpagesFBID> rootEntry = cq.from(FacebookpagesFBID.class);
+	        CriteriaQuery<FacebookpagesFBID> all = cq.select(rootEntry);
+	        TypedQuery<FacebookpagesFBID> allQuery = entityManager.createQuery(all);
+	        result = allQuery.getResultList();
+	        
+			entityManager.flush();
+			transactionManager.commit();
 		} catch (Exception e) {
-			transaction.rollback();
-			throw e;
+			e.printStackTrace();
+			try {
+				transactionManager.rollback();
+			} catch (IllegalStateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SystemException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} finally {
-			session.close();
+			entityManager.close();
+		} 
+		
+		List<String> seitenListe = new ArrayList<String>();
+		for (FacebookpagesFBID fbpage : result) {
+			seitenListe.add(fbpage.getFbid());
 		}
+		return seitenListe;
 	}
 
 	public List<ServerConfig> getServerConfig() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
+		List<ServerConfig> result = new ArrayList<>();
+		
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager = null;
+		
 		try {
-			List<ServerConfig> resultList = session.createCriteria(
-					ServerConfig.class).list();
-			session.flush();
-			transaction.commit();
-
-			return resultList;
+			transactionManager.begin();
+			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<ServerConfig> cq = cb.createQuery(ServerConfig.class);
+	        Root<ServerConfig> rootEntry = cq.from(ServerConfig.class);
+	        CriteriaQuery<ServerConfig> all = cq.select(rootEntry);
+	        TypedQuery<ServerConfig> allQuery = entityManager.createQuery(all);
+	        result = allQuery.getResultList();
+	        
+			entityManager.flush();
+			transactionManager.commit();
 		} catch (Exception e) {
-			transaction.rollback();
-			throw e;
+			e.printStackTrace();
+			try {
+				transactionManager.rollback();
+			} catch (IllegalStateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SystemException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} finally {
-			session.close();
-		}
+			entityManager.close();
+		} 
+		
+		return result;
 	}
 	
 	public List<ConfigLinkedInCompanyId> getLinkedInCompanyId() {
 		List<ConfigLinkedInCompanyId> result = new ArrayList<>();
 		
 		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
-		EntityManager entityManager;
+		EntityManager entityManager = null;
 		
 		try {
 			transactionManager.begin();
@@ -276,30 +286,24 @@ public class ObjectDAO {
 	        result = allQuery.getResultList();
 	        
 			entityManager.flush();
-			entityManager.close();
 			transactionManager.commit();
-		} catch (NotSupportedException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicMixedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				transactionManager.rollback();
+			} catch (IllegalStateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SystemException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+			entityManager.close();
+		} 
 		
 		return result;
 	}
@@ -321,24 +325,84 @@ public class ObjectDAO {
 	}
 
 	public int getCountOfFBSites() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
+		List<FacebookpagesFBID> result = new ArrayList<>();
+		
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager = null;
+		
 		try {
-			List<FacebookpagesFBID> resultList = session.createCriteria(
-					FacebookpagesFBID.class).list();
-			session.flush();
-			transaction.commit();
-
-			return resultList.size();
+			transactionManager.begin();
+			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<FacebookpagesFBID> cq = cb.createQuery(FacebookpagesFBID.class);
+	        Root<FacebookpagesFBID> rootEntry = cq.from(FacebookpagesFBID.class);
+	        CriteriaQuery<FacebookpagesFBID> all = cq.select(rootEntry);
+	        TypedQuery<FacebookpagesFBID> allQuery = entityManager.createQuery(all);
+	        result = allQuery.getResultList();
+	        
+			entityManager.flush();
+			transactionManager.commit();
 		} catch (Exception e) {
-			transaction.rollback();
-			throw e;
+			e.printStackTrace();
+			try {
+				transactionManager.rollback();
+			} catch (IllegalStateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SystemException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} finally {
-			session.close();
-		}
+			entityManager.close();
+		} 
+		
+		return result.size();
 	}
 
 	public String getFBIDbyID(int id) {
+		List<FacebookpagesFBID> result = new ArrayList<>();
+		
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager = null;
+		
+		try {
+			transactionManager.begin();
+			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
+			
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<FacebookpagesFBID> cq = cb.createQuery(FacebookpagesFBID.class);
+	        Metamodel m = entityManager.getMetamodel();
+	        EntityType<FacebookpagesFBID> FacebookpagesFBID_ = m.entity(FacebookpagesFBID.class);
+	        
+	        Root<FacebookpagesFBID> rootEntry = cq.from(FacebookpagesFBID.class);
+	        CriteriaQuery<FacebookpagesFBID> all = cq.select(rootEntry).where(cb.equal(FacebookpagesFBID_.id, id));
+	        TypedQuery<FacebookpagesFBID> allQuery = entityManager.createQuery(all);
+	        result = allQuery.getResultList();
+	        
+			entityManager.flush();
+			transactionManager.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				transactionManager.rollback();
+			} catch (IllegalStateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SystemException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally {
+			entityManager.close();
+		} 
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 		try {

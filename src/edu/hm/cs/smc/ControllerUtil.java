@@ -111,13 +111,13 @@ public class ControllerUtil {
 		case BING:
 			serverConfig.setBing_nextrun(new Date(new Date().getTime()
 					+ serverConfig.getRuntime_bing()));
-			objectDAO.saveServerConfig(serverConfig);
+			objectDAO.saveToMariaDb(serverConfig);
 			break;
 
 		case YOUTUBE:
 			serverConfig.setYoutube_nextrun(new Date(new Date().getTime()
 					+ serverConfig.getRuntime_youtube()));
-			objectDAO.saveServerConfig(serverConfig);
+			objectDAO.saveToMariaDb(serverConfig);
 			break;
 
 		case FACEBOOK:
@@ -130,29 +130,29 @@ public class ControllerUtil {
 				serverConfig.setNext_facebooksite((serverConfig
 						.getNext_facebooksite() + 1));
 			}
-			objectDAO.saveServerConfig(serverConfig);
+			objectDAO.saveToMariaDb(serverConfig);
 			break;
 
 		case GOOGLE:
 			serverConfig.setGoogle_nextrun(new Date(new Date().getTime()
 					+ serverConfig.getRuntime_google()));
-			objectDAO.saveServerConfig(serverConfig);
+			objectDAO.saveToMariaDb(serverConfig);
 			break;
 
 		case AMAZON:
 			serverConfig.setAmazon_nextrun(new Date(new Date().getTime()
 					+ serverConfig.getRuntime_amazon()));
-			objectDAO.saveServerConfig(serverConfig);
+			objectDAO.saveToMariaDb(serverConfig);
 			break;
 		case TUMBLR:
 			serverConfig.setTumblr_nextrun(new Date(new Date().getTime()
 					+ serverConfig.getRuntime_tumblr()));
-			objectDAO.saveServerConfig(serverConfig);
+			objectDAO.saveToMariaDb(serverConfig);
 			break;
 		case EBAY:
 			serverConfig.setEbay_nextrun(new Date(new Date().getTime()
 					+ serverConfig.getRuntime_ebay()));
-			objectDAO.saveServerConfig(serverConfig);
+			objectDAO.saveToMariaDb(serverConfig);
 			break;
 
 		default:
