@@ -24,7 +24,7 @@ public abstract class BaseEntity {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@Column(length = 36)
+	@Column(length = 100)
 	protected String dbid;
 	
 	public Date getDbInserted() {
