@@ -379,7 +379,7 @@ public class ObjectDAO {
 	        EntityType<FacebookpagesFBID> FacebookpagesFBID_ = m.entity(FacebookpagesFBID.class);
 	        
 	        Root<FacebookpagesFBID> rootEntry = cq.from(FacebookpagesFBID.class);
-	        CriteriaQuery<FacebookpagesFBID> all = cq.select(rootEntry).where(cb.equal(FacebookpagesFBID_.id, id));
+	        CriteriaQuery<FacebookpagesFBID> all = cq; //cq.select(rootEntry).where(cb.equal(FacebookpagesFBID_.id, id));
 	        TypedQuery<FacebookpagesFBID> allQuery = entityManager.createQuery(all);
 	        result = allQuery.getResultList();
 	        
