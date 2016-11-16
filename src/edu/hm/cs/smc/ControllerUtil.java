@@ -17,6 +17,7 @@ public class ControllerUtil {
 	private static final String GOOGLE = "GOOGLE";
 	private static final String TUMBLR = "TUMBLR";
 	private static final String EBAY = "EBAY";
+	private static final String LINKEDIN = "LINKEDIN";
 
 	private ObjectDAO objectDAO;
 
@@ -63,8 +64,23 @@ public class ControllerUtil {
 		}
 	}
 	
-	public boolean pruefeStartbedingungLinkedIn() {
-		return true;
+	public boolean pruefeStartbedingungLinkedIn() throws DatabaseException {
+		try {
+			List<ServerConfig> resultList = objectDAO.getServerConfig();
+			ServerConfig serverConfig = resultList.get(0);
+			if (serverConfig.getLinkedin_nextrun() == null) {
+				speicheAktuellesDatum(LINKEDIN, serverConfig);
+				return true;
+			} else if (serverConfig.getLinkedin_nextrun().before(new Date())) {
+				speicheAktuellesDatum(LINKEDIN, serverConfig);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			throw new DatabaseException(
+					"Fehler beim Verarbeiten der ServerConfig", e);
+		}
 	}
 
 	public boolean pruefeStartbedingungFacebook() throws DatabaseException {
@@ -152,6 +168,11 @@ public class ControllerUtil {
 		case EBAY:
 			serverConfig.setEbay_nextrun(new Date(new Date().getTime()
 					+ serverConfig.getRuntime_ebay()));
+			objectDAO.saveToMariaDb(serverConfig);
+			break;
+		case LINKEDIN:
+			serverConfig.setLinkedin_nextrun(new Date(new Date().getTime()
+					+ serverConfig.getRuntime_linkedin()));
 			objectDAO.saveToMariaDb(serverConfig);
 			break;
 

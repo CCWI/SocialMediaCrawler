@@ -59,7 +59,7 @@ public class LinkedIn {
 	private void setupAccessToken() {
 		service = new ServiceBuilder().apiKey(apiKey).apiSecret(apiSecret).scope(SCOPE)
 				.callback(CALLBACK).state(STATE).build(LinkedInApi20.instance());
-
+		
 		if (accessToken == null) {
 			// Obtain the Authorization URL
 			String authorizationUrl = service.getAuthorizationUrl();
@@ -68,22 +68,22 @@ public class LinkedIn {
 			System.out.println("Paste the authorization code here");
 			System.out.println(">>");
 
-			// create a scanner
-			Scanner in = new Scanner(System.in);
-
-			// the Authorization Code
-			String authorizationCode = in.nextLine();
-
-			// closing the scanner
-			in.close();
-
-			try {
-				accessToken = service.getAccessToken(authorizationCode);
-				System.out.print(accessToken);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			// create a scanner
+//			Scanner in = new Scanner(System.in);
+//
+//			// the Authorization Code
+//			String authorizationCode = in.nextLine();
+//
+//			// closing the scanner
+//			in.close();
+//
+//			try {
+//				accessToken = service.getAccessToken(authorizationCode);
+//				System.out.print(accessToken);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
     }
 	

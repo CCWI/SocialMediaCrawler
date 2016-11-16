@@ -67,7 +67,7 @@ public class Controller implements ServletContextListener {
 							System.out.println(start + ": Beginne Verarbeitung");
 
 //							verarbeiteBing();
-//							verarbeiteLinkedIn();
+							verarbeiteLinkedIn();
 //							verarbeiteFacebook();
 
 							Date ende = new Date();
@@ -106,69 +106,65 @@ public class Controller implements ServletContextListener {
 	}
 	
 	private void verarbeiteLinkedIn() {
-		if (controllerUtil.pruefeStartbedingungLinkedIn()) {
-			System.out.println(new Date() + ": Beginne LinkedIn");
-			LinkedIn linkedIn = new LinkedIn(credentialProperties);
-			
-			List<ConfigLinkedInCompanyId> companyIds = objectDAO.getLinkedInCompanyId();
-			
-			LinkedInMemberIsAdministrator memberIsAdministrator = linkedIn.getCompaniesMemberIsAdministratorOf();
-			
-			// TODO: remove when real testing company is available 
-			LinkedInCompany liCompany = new LinkedInCompany();
-			liCompany.setDbid("0");
-			liCompany.setId(2414183);
-			memberIsAdministrator.setValues(new ArrayList<LinkedInCompany>());
-			memberIsAdministrator.getValues().add(liCompany);
-			
-			for(ConfigLinkedInCompanyId companyId: companyIds) {
-				if(!containsId(memberIsAdministrator.getValues(), companyId.getCompanyId())) {
-					printMessage("Member doesn't adminsitrate company with id " + companyId.getCompanyId());
-				} else {
-					printMessage("Processing company with id " + companyId.getCompanyId());
+		try {
+			if (controllerUtil.pruefeStartbedingungLinkedIn()) {
+				System.out.println(new Date() + ": Beginne LinkedIn");
+				LinkedIn linkedIn = new LinkedIn(credentialProperties);
+				
+				LinkedInMemberIsAdministrator memberIsAdministrator = linkedIn.getCompaniesMemberIsAdministratorOf();
+
+				if(memberIsAdministrator != null 
+						&& memberIsAdministrator.getValues() != null 
+						&& memberIsAdministrator.getValues().size() > 0) {
 					
-					String companyIdString = String.valueOf(companyId.getCompanyId()); //"2414183";
-					LinkedInCompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyIdString);
-					
-					// TODO: remove false when real testing company is available
-					if(!companySharingEnabled.isCompanySharingEnabled() && false) {
-						printMessage("Sharing is disabled for company with id " + companyId.getCompanyId());
-					} else {
-						int start = 0;
-						int count = 0;
-						int total = 0;
-						int begin = 0;
-						do {
-							LinkedInCompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyIdString, begin);
-							begin = companyUpdates.get_start()+companyUpdates.get_count();
-							start = companyUpdates.get_start();
-							count = companyUpdates.get_count();
-							total = companyUpdates.get_total();
-							objectDAO.saveToMariaDb(companyUpdates);
-						} while (total > start + count);
+					for(LinkedInCompany companyId: memberIsAdministrator.getValues()) {
+						printMessage("Processing company with id " + companyId.getId());
 						
-						LinkedInCompany company = linkedIn.getCompanyProfile(companyIdString);
-						objectDAO.saveToMariaDb(company);
+						String companyIdString = String.valueOf(companyId.getId()); //"2414183";
+						LinkedInCompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyIdString);
 						
-						// Has to be invoked for different segments
-//						LinkedInFollowers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyIdString, null, null, null, null, null);
-//						objectDAO.saveToMariaDb(companyFollowersBySegment);
-						
-						LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyIdString, "day", "1473343803591", null);
-						objectDAO.saveToMariaDb(historicalFollowerStatistics);
-						
-						LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyIdString, "day", "1473343803591", null, null);
-						objectDAO.saveToMariaDb(historicalUpdateStatistics);
-						
-						LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyIdString);
-						objectDAO.saveToMariaDb(companyStatistics);
+						if(!companySharingEnabled.isCompanySharingEnabled()) {
+							printMessage("Sharing is disabled for company with id " + companyId.getId());
+						} else {
+							int start = 0;
+							int count = 0;
+							int total = 0;
+							int begin = 0;
+							do {
+								LinkedInCompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyIdString, begin);
+								begin = companyUpdates.get_start()+companyUpdates.get_count();
+								start = companyUpdates.get_start();
+								count = companyUpdates.get_count();
+								total = companyUpdates.get_total();
+								objectDAO.saveToMariaDb(companyUpdates);
+							} while (total > start + count);
+							
+							LinkedInCompany company = linkedIn.getCompanyProfile(companyIdString);
+							objectDAO.saveToMariaDb(company);
+							
+							// Has to be invoked for different segments
+		//					LinkedInFollowers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyIdString, null, null, null, null, null);
+		//					objectDAO.saveToMariaDb(companyFollowersBySegment);
+							
+							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyIdString, "day", "1473343803591", null);
+							objectDAO.saveToMariaDb(historicalFollowerStatistics);
+							
+							LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyIdString, "day", "1473343803591", null, null);
+							objectDAO.saveToMariaDb(historicalUpdateStatistics);
+							
+							LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyIdString);
+							objectDAO.saveToMariaDb(companyStatistics);
+						}
 					}
 				}
+				
+				printMessage("Beende LinkedIn");
+			} else {
+				printMessage("KEIN RUN FUER LinkedIn!");
 			}
-			
-			printMessage("Beende LinkedIn");
-		} else {
-			printMessage("KEIN RUN FUER LinkedIn!");
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

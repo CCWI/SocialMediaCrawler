@@ -50,6 +50,9 @@ public class ServerConfig {
 
 	@Column(name = "runtime_ebay", columnDefinition = "INTEGER")
 	private int runtime_ebay;
+	
+	@Column(name = "runtime_linkedin", columnDefinition = "INTEGER")
+	private int runtime_linkedin;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "bing_nextrun")
@@ -78,6 +81,10 @@ public class ServerConfig {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ebay_nextrun")
 	private Date ebay_nextrun;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "linkedin_nextrun")
+	private Date linkedin_nextrun;
 
 	public int getId() {
 		return id;
@@ -167,6 +174,14 @@ public class ServerConfig {
 		this.runtime_ebay = runtime_ebay;
 	}
 
+	public int getRuntime_linkedin() {
+		return runtime_linkedin;
+	}
+
+	public void setRuntime_linkedin(int runtime_linkedin) {
+		this.runtime_linkedin = runtime_linkedin;
+	}
+
 	public Date getBing_nextrun() {
 		return bing_nextrun;
 	}
@@ -223,4 +238,11 @@ public class ServerConfig {
 		this.ebay_nextrun = ebay_nextrun;
 	}
 
+	public Date getLinkedin_nextrun() {
+		return linkedin_nextrun;
+	}
+
+	public void setLinkedin_nextrun(Date linkedin_nextrun) {
+		this.linkedin_nextrun = linkedin_nextrun;
+	}
 }
