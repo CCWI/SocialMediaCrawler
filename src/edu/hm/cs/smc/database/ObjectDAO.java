@@ -22,10 +22,6 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.TransactionManager;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import edu.hm.cs.smc.database.models.BingSeiten;
 import edu.hm.cs.smc.database.models.ConfigLinkedInCompanyId;
 import edu.hm.cs.smc.database.models.FacebookpagesFBID;
@@ -82,6 +78,7 @@ public class ObjectDAO {
 			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
 			entityManager.merge(databaseObject);
 			entityManager.flush();
+			entityManager.close();
 			transactionManager.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,8 +94,6 @@ public class ObjectDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} finally {
-			entityManager.close();
 		} 
 	}
 
@@ -161,6 +156,7 @@ public class ObjectDAO {
 	        result = allQuery.getResultList();
 	        
 			entityManager.flush();
+			entityManager.close();
 			transactionManager.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -176,9 +172,7 @@ public class ObjectDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} finally {
-			entityManager.close();
-		} 
+		}
 		
 		List<String> seitenListe = new ArrayList<String>();
 		for (BingSeiten bingSeite : result) {
@@ -204,6 +198,7 @@ public class ObjectDAO {
 	        result = allQuery.getResultList();
 	        
 			entityManager.flush();
+			entityManager.close();
 			transactionManager.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -219,9 +214,7 @@ public class ObjectDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} finally {
-			entityManager.close();
-		} 
+		}
 		
 		List<String> seitenListe = new ArrayList<String>();
 		for (FacebookpagesFBID fbpage : result) {
@@ -247,6 +240,7 @@ public class ObjectDAO {
 	        result = allQuery.getResultList();
 	        
 			entityManager.flush();
+			entityManager.close();
 			transactionManager.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -262,9 +256,7 @@ public class ObjectDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} finally {
-			entityManager.close();
-		} 
+		}
 		
 		return result;
 	}
@@ -286,6 +278,7 @@ public class ObjectDAO {
 	        result = allQuery.getResultList();
 	        
 			entityManager.flush();
+			entityManager.close();
 			transactionManager.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -301,27 +294,9 @@ public class ObjectDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} finally {
-			entityManager.close();
-		} 
+		}
 		
 		return result;
-	}
-
-	public void saveServerConfig(ServerConfig serverConfig) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
-
-		try {
-			session.update(serverConfig);
-			session.flush();
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
 	}
 
 	public int getCountOfFBSites() {
@@ -341,6 +316,7 @@ public class ObjectDAO {
 	        result = allQuery.getResultList();
 	        
 			entityManager.flush();
+			entityManager.close();
 			transactionManager.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -356,9 +332,7 @@ public class ObjectDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} finally {
-			entityManager.close();
-		} 
+		}
 		
 		return result.size();
 	}
@@ -384,6 +358,7 @@ public class ObjectDAO {
 	        result = allQuery.getResultList();
 	        
 			entityManager.flush();
+			entityManager.close();
 			transactionManager.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -399,26 +374,12 @@ public class ObjectDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} finally {
-			entityManager.close();
 		} 
 		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
-		try {
-			Query qfbid = session
-					.createSQLQuery("SELECT fbid FROM config_fb_seiten WHERE id = "
-							+ id + ";");
-			String fbid = (String) qfbid.list().get(0);
-			session.flush();
-			transaction.commit();
-
-			return fbid;
-		} catch (Exception e) {
-			transaction.rollback();
-			throw e;
-		} finally {
-			session.close();
+		String fbid = null;
+		if(result != null && result.size() > 0) {
+			fbid = String.valueOf(result.get(0).getId());
 		}
+		return fbid;
 	}
 }

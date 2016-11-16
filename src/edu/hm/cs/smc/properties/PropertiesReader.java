@@ -6,6 +6,8 @@ package edu.hm.cs.smc.properties;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Properties;
 
 /**
@@ -25,7 +27,14 @@ public class PropertiesReader {
 			if (inputStream != null) {
 				properties.load(inputStream);
 			} else {
-				throw new FileNotFoundException("property file '" + fileName + "' not found in classpath.");
+				//throw new FileNotFoundException("property file '" + fileName + "' not found in classpath.");
+				ClassLoader cl = ClassLoader.getSystemClassLoader();
+
+		        URL[] urls = ((URLClassLoader)cl).getURLs();
+
+		        for(URL url: urls){
+		        	System.out.println(url.getFile());
+		        }
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
