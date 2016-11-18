@@ -62,4 +62,10 @@ public class LinkedInPerson extends BaseEntity {
 	public void setSiteStandardProfileRequest(LinkedInSiteStandardProfileRequest siteStandardProfileRequest) {
 		this.siteStandardProfileRequest = siteStandardProfileRequest;
 	}
+	@Override
+	public String toString() {
+		return "LinkedInPerson [apiStandardProfileRequst=" + apiStandardProfileRequst + ", firstName=" + firstName
+				+ ", headline=" + headline + ", id=" + id + ", lastName=" + lastName + ", pictureUrl=" + pictureUrl
+				+ ", siteStandardProfileRequest=" + siteStandardProfileRequest + "]";
+	}
 }

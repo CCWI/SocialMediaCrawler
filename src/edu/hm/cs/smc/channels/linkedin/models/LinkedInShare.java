@@ -1,5 +1,7 @@
 package edu.hm.cs.smc.channels.linkedin.models;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +16,7 @@ public class LinkedInShare extends BaseEntity {
 	private String id;
 	@OneToOne(cascade=CascadeType.ALL)
 	private LinkedInSource source;
-	private Long timestamp;
+	private Date timestamp;
 	@OneToOne(cascade=CascadeType.ALL)
 	private LinkedInVisibility visibility;
 	
@@ -36,10 +38,10 @@ public class LinkedInShare extends BaseEntity {
 	public void setSource(LinkedInSource source) {
 		this.source = source;
 	}
-	public Long getTimestamp() {
+	public Date getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(Long timestamp) {
+	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 	public LinkedInVisibility getVisibility() {

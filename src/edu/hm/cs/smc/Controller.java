@@ -118,8 +118,8 @@ public class Controller implements ServletContextListener {
 					for(LinkedInCompany company: administratedCompanies.getValues()) {
 						printMessage("Processing company with id " + company.getId());
 						
-						String companyIdString = String.valueOf(company.getId()); //"2414183";
-						LinkedInCompanySharingEnabled companySharing = linkedIn.getIsCompanySharingEnabled(companyIdString);
+						String companyId = String.valueOf(company.getId()); //"2414183";
+						LinkedInCompanySharingEnabled companySharing = linkedIn.getIsCompanySharingEnabled(companyId);
 						
 						if(!companySharing.isCompanySharingEnabled()) {
 							printMessage("Sharing is disabled for company with id " + company.getId());
@@ -128,13 +128,13 @@ public class Controller implements ServletContextListener {
 							int total = 0;
 							int begin = 0;
 							do {
-								
-								LinkedInCompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyIdString, begin);
+								LinkedInCompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyId, begin);
 								begin = companyUpdates.get_start()+companyUpdates.get_count();
 								count = companyUpdates.get_count();
 								total = companyUpdates.get_total();
 								
-								// if get parameter count is greater than the amount of updates (count), the value of count is not set.
+								// if get parameter count is greater than the actual amount of updates (count), 
+								// the response doesn't contain the attribute count.
 								if(count == 0 && total > 0) {
 									System.out.println("Saving company updates " + begin + " to " + (total - 1) + " for company with id " + company.getId());
 								} else {
@@ -145,8 +145,7 @@ public class Controller implements ServletContextListener {
 							} while (count > 0 && total > begin + count);
 							
 							System.out.println("Saving company profile for company with id " + company.getId());
-							LinkedInCompany companyProfile = linkedIn.getCompanyProfile(companyIdString);
-							System.out.println(companyProfile);
+							LinkedInCompany companyProfile = linkedIn.getCompanyProfile(companyId);
 							objectDAO.saveToMariaDb(companyProfile);
 							
 							// Has to be invoked for different segments
@@ -154,15 +153,15 @@ public class Controller implements ServletContextListener {
 		//					objectDAO.saveToMariaDb(companyFollowersBySegment);
 							
 							System.out.println("Saving historical follower statistic for company with id " + company.getId());
-							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyIdString, "day", "1473343803591", null);
+							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", "1473343803591", null);
 							objectDAO.saveToMariaDb(historicalFollowerStatistics);
 							
 							System.out.println("Saving historical update statistic for company with id " + company.getId());
-							LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyIdString, "day", "1473343803591", null, null);
+							LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", "1473343803591", null, null);
 							objectDAO.saveToMariaDb(historicalUpdateStatistics);
 							
 							System.out.println("Saving company statistics for company with id " + company.getId());
-							LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyIdString);
+							LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyId);
 							objectDAO.saveToMariaDb(companyStatistics);
 						}
 					}

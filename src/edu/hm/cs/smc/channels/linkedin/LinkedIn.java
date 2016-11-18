@@ -43,6 +43,8 @@ public class LinkedIn {
 	private OAuth20Service service;
 	private OAuth2AccessToken accessToken;
 	
+	private JsonDeserializer<Date> dateSerializer;
+	
     private static final String ACCESS_TOKEN_NAME = "linkedin.accesstoken";
     private static final String API_KEY_NAME = "linkedin.apikey";
     private static final String API_SECRET_NAME = "linkedin.apisecret";
@@ -60,6 +62,12 @@ public class LinkedIn {
     	}
     	
     	setupAccessToken();
+    	
+    	dateSerializer = new JsonDeserializer<Date>() {
+			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                return new Date(json.getAsJsonPrimitive().getAsLong());
+            }
+        };
     }
     
 	private void setupAccessToken() {
@@ -200,7 +208,14 @@ public class LinkedIn {
 		parameters.add(String.valueOf(start));
 		
 		Response response = request(url, parameters.toArray(new String[0]));
-		Gson gson = new Gson();
+		
+		GsonBuilder builder = new GsonBuilder();
+		
+		// Register an adapter to manage the date types as long values
+		builder.registerTypeAdapter(Date.class, dateSerializer);            
+				
+		Gson gson = builder.create();
+		
 		LinkedInCompanyUpdates result = null;
 		
 		try {
@@ -357,11 +372,7 @@ public class LinkedIn {
 		GsonBuilder builder = new GsonBuilder();
 		
 		// Register an adapter to manage the date types as long values
-		builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                return new Date(json.getAsJsonPrimitive().getAsLong());
-            }
-        });            
+		builder.registerTypeAdapter(Date.class, dateSerializer);            
 		
 		Gson gson = builder.create();
 		
@@ -406,7 +417,14 @@ public class LinkedIn {
 		}
 
 		Response response = request(url, parameters.toArray(new String[0]));
-		Gson gson = new Gson();
+		
+		GsonBuilder builder = new GsonBuilder();
+		
+		// Register an adapter to manage the date types as long values
+		builder.registerTypeAdapter(Date.class, dateSerializer);            
+				
+		Gson gson = builder.create();
+		
 		LinkedInHistoricUpdateStatistics result = null;
 		
 		try {

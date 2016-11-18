@@ -1,5 +1,7 @@
 package edu.hm.cs.smc.channels.linkedin.models;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -14,7 +16,7 @@ public class LinkedInCompanyUpdate extends BaseEntity {
 	@OneToOne(cascade=CascadeType.ALL)
 	private LinkedInLikes likes;
 	private int numLikes;
-	private long timestamp;
+	private Date timestamp;
 	@OneToOne(cascade=CascadeType.ALL)
 	private LinkedInCompanyUpdateComments updateComments;
 	@OneToOne(cascade=CascadeType.ALL)
@@ -58,10 +60,10 @@ public class LinkedInCompanyUpdate extends BaseEntity {
 	public void setNumLikes(int numLikes) {
 		this.numLikes = numLikes;
 	}
-	public long getTimestamp() {
+	public Date getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(long timestamp) {
+	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 	public LinkedInCompanyUpdateComments getUpdateComments() {

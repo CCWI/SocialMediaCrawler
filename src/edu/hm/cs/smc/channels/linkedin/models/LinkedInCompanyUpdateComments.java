@@ -1,16 +1,20 @@
 package edu.hm.cs.smc.channels.linkedin.models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import edu.hm.cs.smc.database.models.BaseEntity;
 
 @Entity
 public class LinkedInCompanyUpdateComments extends BaseEntity {
 	private int _total;
-	@OneToOne(cascade=CascadeType.ALL)
-	private LinkedInCompanyUpdateComment values;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="companyupdatecomments_fk")
+	private List<LinkedInCompanyUpdateComment> values;
 	public String getId() {
 		return dbid;
 	}
@@ -23,10 +27,10 @@ public class LinkedInCompanyUpdateComments extends BaseEntity {
 	public void set_total(int _total) {
 		this._total = _total;
 	}
-	public LinkedInCompanyUpdateComment getValues() {
+	public List<LinkedInCompanyUpdateComment> getValues() {
 		return values;
 	}
-	public void setValues(LinkedInCompanyUpdateComment values) {
+	public void setValues(List<LinkedInCompanyUpdateComment> values) {
 		this.values = values;
 	}
 	@Override
