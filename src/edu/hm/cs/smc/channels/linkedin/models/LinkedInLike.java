@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 import edu.hm.cs.smc.database.models.BaseEntity;
 
 @Entity
-public class LinkedInLinkValues extends BaseEntity {
+public class LinkedInLike extends BaseEntity {
 	@OneToOne(cascade=CascadeType.ALL)
 	private LinkedInPerson person;
 

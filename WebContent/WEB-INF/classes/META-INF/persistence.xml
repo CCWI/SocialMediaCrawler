@@ -34,36 +34,37 @@
           <class>edu.hm.cs.smc.channels.facebook.models.FBPost</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBComment</class>
 	      
+	      <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInAddress</class>
+	      <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInApiStandardProfileRequest</class>
+	      <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInApplication</class>
 	      <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdates</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdate</class>
-          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInLikes</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdateComments</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInUpdateContent</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompany</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyType</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyStatusUpdate</class>
-          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInShare</class>
-          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInSource</class>
-          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInLinkValues</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInPerson</class>
-          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInApiStandardProfileRequest</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInSiteStandardProfileRequest</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInHeaders</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInHeaderValues</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdateComment</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInVisibility</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInServiceProvider</class>
-          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInApplication</class>
           
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyAdministrator</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySharingEnabled</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySize</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySizes</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInContactInfo</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyStatistics</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCount</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCountries</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCountry</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInCountsByMonth</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInDate</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInEmailDomains</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInEmployeeCountRange</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInFollowers</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInFollowerStatistics</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInFunction</class>
@@ -72,11 +73,21 @@
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricFollowerStatistics</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricUpdateStatistic</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricUpdateStatistics</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInIndustries</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInIndustry</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInLikes</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInLike</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInLocation</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInLocations</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInMemberIsAdministrator</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInRegion</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInRegions</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInSeniorities</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInSeniority</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInShare</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInSource</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInSpecialities</class>
+          <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInStatus</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInStatusUpdateStatistics</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInViews</class>
           <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInViewsMyMonth</class>

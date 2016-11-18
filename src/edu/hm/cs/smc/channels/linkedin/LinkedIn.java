@@ -1,10 +1,11 @@
 package edu.hm.cs.smc.channels.linkedin;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-import java.util.Scanner;
 import java.util.UUID;
 
 import com.github.scribejava.apis.LinkedInApi20;
@@ -15,6 +16,11 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompany;
@@ -61,12 +67,12 @@ public class LinkedIn {
 				.callback(CALLBACK).state(STATE).build(LinkedInApi20.instance());
 		
 		if (accessToken == null) {
-			// Obtain the Authorization URL
-			String authorizationUrl = service.getAuthorizationUrl();
-
-			System.out.println("Authorization URL: " + authorizationUrl);
-			System.out.println("Paste the authorization code here");
-			System.out.println(">>");
+//			// Obtain the Authorization URL
+//			String authorizationUrl = service.getAuthorizationUrl();
+//
+//			System.out.println("Authorization URL: " + authorizationUrl);
+//			System.out.println("Paste the authorization code here");
+//			System.out.println(">>");
 
 //			// create a scanner
 //			Scanner in = new Scanner(System.in);
@@ -162,9 +168,10 @@ public class LinkedIn {
 	 */
 	public LinkedInCompany getCompanyProfile(String companyId) {
 		
-		String url = "https://api.linkedin.com/v1/companies/%s:(id,name,ticker,description)?format=json";
-
-		Response response = request(url, companyId);
+		String url = "https://api.linkedin.com/v1/companies/%s:(%s)?format=json";
+		String fields = "id,name,universal-name,email-domains,company-type,ticker,website-url,industries,status,logo-url,square-logo-url,blog-rss-url,twitter-id,employee-count-range,specialties,locations,description,stock-exchange,founded-year,end-year,num-followers";
+		
+		Response response = request(url, companyId, fields);
 		Gson gson = new Gson();
 		LinkedInCompany result = null;
 		
@@ -188,7 +195,11 @@ public class LinkedIn {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/updates?format=json&count=100&start=%s";
 		
-		Response response = request(url, companyId, String.valueOf(start));
+		List<String> parameters = new ArrayList<>();
+		parameters.add(companyId);
+		parameters.add(String.valueOf(start));
+		
+		Response response = request(url, parameters.toArray(new String[0]));
 		Gson gson = new Gson();
 		LinkedInCompanyUpdates result = null;
 		
@@ -343,7 +354,18 @@ public class LinkedIn {
 		}
 
 		Response response = request(url, parameters.toArray(new String[0]));
-		Gson gson = new Gson();
+		GsonBuilder builder = new GsonBuilder();
+		
+		// Register an adapter to manage the date types as long values
+		builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                return new Date(json.getAsJsonPrimitive().getAsLong());
+            }
+        });            
+		
+		Gson gson = builder.create();
+		
+		
 		LinkedInHistoricFollowerStatistics result = null;
 		
 		try {

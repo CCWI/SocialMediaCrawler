@@ -42,7 +42,7 @@ public class LinkedInMemberIsAdministrator extends BaseEntity {
 	}
 	@Override
 	public String toString() {
-		return "LinkedInMemberIsAdministrator [dbid=" + dbid + ", _count=" + _count + ", _start=" + _start + ", _total="
-				+ _total + ", values=" + values + "]";
+		return "LinkedInMemberIsAdministrator [_count=" + _count + ", _start=" + _start + ", _total=" + _total
+				+ ", values=" + values + "]";
 	}
 }

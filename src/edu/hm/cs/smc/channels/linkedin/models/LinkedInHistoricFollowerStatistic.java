@@ -1,5 +1,7 @@
 package edu.hm.cs.smc.channels.linkedin.models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 import com.google.gson.annotations.SerializedName;
@@ -14,7 +16,7 @@ public class LinkedInHistoricFollowerStatistic extends BaseEntity {
 	private int organicFollowerCount;
 	@SerializedName("paid-follower-count")
 	private int paidFollowerCount;
-	private int time;
+	private Date time;
 	
 	public int getTotalFollowerCount() {
 		return totalFollowerCount;
@@ -34,10 +36,10 @@ public class LinkedInHistoricFollowerStatistic extends BaseEntity {
 	public void setPaidFollowerCount(int paidFollowerCount) {
 		this.paidFollowerCount = paidFollowerCount;
 	}
-	public int getTime() {
+	public Date getTime() {
 		return time;
 	}
-	public void setTime(int time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 }

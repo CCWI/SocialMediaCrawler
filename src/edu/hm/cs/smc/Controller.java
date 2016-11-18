@@ -1,6 +1,5 @@
 package edu.hm.cs.smc;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -32,7 +31,6 @@ import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricUpdateStatistics;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInMemberIsAdministrator;
 import edu.hm.cs.smc.database.DatabaseException;
 import edu.hm.cs.smc.database.ObjectDAO;
-import edu.hm.cs.smc.database.models.ConfigLinkedInCompanyId;
 import edu.hm.cs.smc.properties.PropertiesReader;
 
 /**
@@ -111,47 +109,59 @@ public class Controller implements ServletContextListener {
 				System.out.println(new Date() + ": Beginne LinkedIn");
 				LinkedIn linkedIn = new LinkedIn(credentialProperties);
 				
-				LinkedInMemberIsAdministrator memberIsAdministrator = linkedIn.getCompaniesMemberIsAdministratorOf();
+				LinkedInMemberIsAdministrator administratedCompanies = linkedIn.getCompaniesMemberIsAdministratorOf();
 
-				if(memberIsAdministrator != null 
-						&& memberIsAdministrator.getValues() != null 
-						&& memberIsAdministrator.getValues().size() > 0) {
+				if(administratedCompanies != null 
+						&& administratedCompanies.getValues() != null 
+						&& administratedCompanies.getValues().size() > 0) {
 					
-					for(LinkedInCompany companyId: memberIsAdministrator.getValues()) {
-						printMessage("Processing company with id " + companyId.getId());
+					for(LinkedInCompany company: administratedCompanies.getValues()) {
+						printMessage("Processing company with id " + company.getId());
 						
-						String companyIdString = String.valueOf(companyId.getId()); //"2414183";
-						LinkedInCompanySharingEnabled companySharingEnabled = linkedIn.getIsCompanySharingEnabled(companyIdString);
+						String companyIdString = String.valueOf(company.getId()); //"2414183";
+						LinkedInCompanySharingEnabled companySharing = linkedIn.getIsCompanySharingEnabled(companyIdString);
 						
-						if(!companySharingEnabled.isCompanySharingEnabled()) {
-							printMessage("Sharing is disabled for company with id " + companyId.getId());
+						if(!companySharing.isCompanySharingEnabled()) {
+							printMessage("Sharing is disabled for company with id " + company.getId());
 						} else {
-							int start = 0;
 							int count = 0;
 							int total = 0;
 							int begin = 0;
 							do {
+								
 								LinkedInCompanyUpdates companyUpdates = linkedIn.getCompanyUpdates(companyIdString, begin);
 								begin = companyUpdates.get_start()+companyUpdates.get_count();
-								start = companyUpdates.get_start();
 								count = companyUpdates.get_count();
 								total = companyUpdates.get_total();
+								
+								// if get parameter count is greater than the amount of updates (count), the value of count is not set.
+								if(count == 0 && total > 0) {
+									System.out.println("Saving company updates " + begin + " to " + (total - 1) + " for company with id " + company.getId());
+								} else {
+									System.out.println("Saving company updates " + begin + " to " + (begin + count - 1) + " for company with id " + company.getId());
+								}
+								
 								objectDAO.saveToMariaDb(companyUpdates);
-							} while (total > start + count);
+							} while (count > 0 && total > begin + count);
 							
-							LinkedInCompany company = linkedIn.getCompanyProfile(companyIdString);
-							objectDAO.saveToMariaDb(company);
+							System.out.println("Saving company profile for company with id " + company.getId());
+							LinkedInCompany companyProfile = linkedIn.getCompanyProfile(companyIdString);
+							System.out.println(companyProfile);
+							objectDAO.saveToMariaDb(companyProfile);
 							
 							// Has to be invoked for different segments
 		//					LinkedInFollowers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyIdString, null, null, null, null, null);
 		//					objectDAO.saveToMariaDb(companyFollowersBySegment);
 							
+							System.out.println("Saving historical follower statistic for company with id " + company.getId());
 							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyIdString, "day", "1473343803591", null);
 							objectDAO.saveToMariaDb(historicalFollowerStatistics);
 							
+							System.out.println("Saving historical update statistic for company with id " + company.getId());
 							LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyIdString, "day", "1473343803591", null, null);
 							objectDAO.saveToMariaDb(historicalUpdateStatistics);
 							
+							System.out.println("Saving company statistics for company with id " + company.getId());
 							LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyIdString);
 							objectDAO.saveToMariaDb(companyStatistics);
 						}
