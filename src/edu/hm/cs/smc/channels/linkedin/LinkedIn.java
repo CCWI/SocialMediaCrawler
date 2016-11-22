@@ -355,13 +355,13 @@ public class LinkedIn {
 	 * @param companyId
 	 * @return
 	 */
-	public LinkedInHistoricFollowerStatistics getHistoricalFollowerStatistics(String companyId, String timeGranularity, String startTimestamp, String endTimestamp) {
+	public LinkedInHistoricFollowerStatistics getHistoricalFollowerStatistics(String companyId, String timeGranularity, Date startTimestamp, String endTimestamp) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s/historical-follow-statistics?format=json&time-granularity=%s&start-timestamp=%s";
 		List<String> parameters = new ArrayList<>();
 		parameters.add(companyId);
 		parameters.add(timeGranularity);
-		parameters.add(startTimestamp);
+		parameters.add(String.valueOf(startTimestamp.getTime()));
 		
 		if(endTimestamp != null) {
 			parameters.add(endTimestamp);
@@ -398,13 +398,13 @@ public class LinkedIn {
 	 * @param updateKey
 	 * @return
 	 */
-	public LinkedInHistoricUpdateStatistics getHistoricalUpdateStatistics(String companyId, String timeGranularity, String startTimestamp, String endTimestamp, String updateKey) {
+	public LinkedInHistoricUpdateStatistics getHistoricalUpdateStatistics(String companyId, String timeGranularity, Date startTimestamp, String endTimestamp, String updateKey) {
 
 		String url = "https://api.linkedin.com/v1/companies/%s/historical-status-update-statistics?format=json&time-granularity=%s&start-timestamp=%s";
 		List<String> parameters = new ArrayList<>();
 		parameters.add(companyId);
 		parameters.add(timeGranularity);
-		parameters.add(startTimestamp);
+		parameters.add(String.valueOf(startTimestamp.getTime()));
 		
 		if(endTimestamp != null) {
 			parameters.add(endTimestamp);

@@ -108,6 +108,7 @@ public class Controller implements ServletContextListener {
 			if (controllerUtil.pruefeStartbedingungLinkedIn()) {
 				System.out.println(new Date() + ": Beginne LinkedIn");
 				LinkedIn linkedIn = new LinkedIn(credentialProperties);
+				Date timeStamp = new Date(Long.parseLong("1473343803591"));
 				
 				LinkedInMemberIsAdministrator administratedCompanies = linkedIn.getCompaniesMemberIsAdministratorOf();
 
@@ -153,11 +154,11 @@ public class Controller implements ServletContextListener {
 		//					objectDAO.saveToMariaDb(companyFollowersBySegment);
 							
 							System.out.println("Saving historical follower statistic for company with id " + company.getId());
-							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", "1473343803591", null);
+							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", timeStamp, null);
 							objectDAO.saveToMariaDb(historicalFollowerStatistics);
 							
 							System.out.println("Saving historical update statistic for company with id " + company.getId());
-							LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", "1473343803591", null, null);
+							LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", timeStamp, null, null);
 							objectDAO.saveToMariaDb(historicalUpdateStatistics);
 							
 							System.out.println("Saving company statistics for company with id " + company.getId());
