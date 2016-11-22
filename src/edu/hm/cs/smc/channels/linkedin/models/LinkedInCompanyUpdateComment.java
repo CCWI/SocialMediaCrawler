@@ -16,7 +16,7 @@ public class LinkedInCompanyUpdateComment extends BaseEntity {
 	private LinkedInPerson person;
 	@OneToOne(cascade=CascadeType.ALL)
 	private LinkedInCompany company;
-	private int sequeceNumber;
+	private int sequenceNumber;
 	private Date timestamp;
 	
 	public String getComment() {
@@ -43,11 +43,11 @@ public class LinkedInCompanyUpdateComment extends BaseEntity {
 	public void setCompany(LinkedInCompany company) {
 		this.company = company;
 	}
-	public int getSequeceNumber() {
-		return sequeceNumber;
+	public int getSequenceNumber() {
+		return sequenceNumber;
 	}
-	public void setSequeceNumber(int sequeceNumber) {
-		this.sequeceNumber = sequeceNumber;
+	public void setSequenceNumber(int sequenceNumber) {
+		this.sequenceNumber = sequenceNumber;
 	}
 	public Date getTimestamp() {
 		return timestamp;
