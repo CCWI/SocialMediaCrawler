@@ -1,7 +1,7 @@
 package edu.hm.cs.smc.channels.linkedin;
 
 /**
- * Codes that are used by LinkedIn to identify specific specific company sizes.
+ * Codes that are used by LinkedIn to identify specific company sizes.
  *
  */
 public class LinkedInCompanySizeCodes {
