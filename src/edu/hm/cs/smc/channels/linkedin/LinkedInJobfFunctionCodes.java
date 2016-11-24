@@ -1,5 +1,9 @@
 package edu.hm.cs.smc.channels.linkedin;
 
+/**
+ * Codes that are used by LinkedIn to identify a specific member job function.
+ *
+ */
 public class LinkedInJobfFunctionCodes {
 	
 	/**

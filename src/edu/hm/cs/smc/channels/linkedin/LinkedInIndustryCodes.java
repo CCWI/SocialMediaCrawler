@@ -1,7 +1,7 @@
 package edu.hm.cs.smc.channels.linkedin;
 
 /**
- * Codes that are used by LinkedIn to identify specific industry.
+ * Codes that are used by LinkedIn to identify a specific member industry.
  *
  */
 public class LinkedInIndustryCodes {
