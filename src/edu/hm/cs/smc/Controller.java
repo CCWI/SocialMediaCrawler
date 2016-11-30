@@ -1,5 +1,6 @@
 package edu.hm.cs.smc;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -22,12 +23,19 @@ import edu.hm.cs.smc.channels.facebook.models.FBComment;
 import edu.hm.cs.smc.channels.facebook.models.FBPage;
 import edu.hm.cs.smc.channels.facebook.models.FBPost;
 import edu.hm.cs.smc.channels.linkedin.LinkedIn;
+import edu.hm.cs.smc.channels.linkedin.LinkedInCompanySizeCodes;
+import edu.hm.cs.smc.channels.linkedin.LinkedInGeographyCodes;
+import edu.hm.cs.smc.channels.linkedin.LinkedInIndustryCodes;
+import edu.hm.cs.smc.channels.linkedin.LinkedInJobfFunctionCodes;
+import edu.hm.cs.smc.channels.linkedin.LinkedInSeniorityCodes;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompany;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySharingEnabled;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyStatistics;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdates;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInFollowers;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricFollowerStatistics;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricUpdateStatistics;
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInIndustries;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInMemberIsAdministrator;
 import edu.hm.cs.smc.database.DatabaseException;
 import edu.hm.cs.smc.database.ObjectDAO;
@@ -150,8 +158,27 @@ public class Controller implements ServletContextListener {
 							objectDAO.saveToMariaDb(companyProfile);
 							
 							// Has to be invoked for different segments
-		//					LinkedInFollowers companyFollowersBySegment = linkedIn.getCompanyFollowersBySegment(companyIdString, null, null, null, null, null);
-		//					objectDAO.saveToMariaDb(companyFollowersBySegment);
+							List<LinkedInFollowers> companyFollowersBySegments = new ArrayList<>();
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, null, null, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, null, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, LinkedInCompanySizeCodes.A, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, LinkedInCompanySizeCodes.B, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, LinkedInCompanySizeCodes.C, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, LinkedInCompanySizeCodes.D, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, LinkedInCompanySizeCodes.E, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, LinkedInCompanySizeCodes.F, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, LinkedInCompanySizeCodes.G, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, LinkedInCompanySizeCodes.H, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, LinkedInCompanySizeCodes.I, null, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, null, LinkedInJobfFunctionCodes.EDU, null, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, null, null, LinkedInIndustryCodes.CODE_96, null));
+							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, null, null, null, LinkedInSeniorityCodes.EN));
+
+							for(LinkedInFollowers followers: companyFollowersBySegments) {
+								if(followers != null) {
+									objectDAO.saveToMariaDb(followers);
+								}
+							}
 							
 							System.out.println("Saving historical follower statistic for company with id " + company.getId());
 							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", timeStamp, null);
