@@ -4,17 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
-import com.google.gson.annotations.SerializedName;
-
 import edu.hm.cs.smc.database.models.BaseEntity;
 
 @Entity
 public class LinkedInHistoricFollowerStatistic extends BaseEntity {
-	@SerializedName("total-follower-count")
 	private int totalFollowerCount;
-	@SerializedName("organic-follower-count")
 	private int organicFollowerCount;
-	@SerializedName("paid-follower-count")
 	private int paidFollowerCount;
 	private Date time;
 	
@@ -41,5 +36,10 @@ public class LinkedInHistoricFollowerStatistic extends BaseEntity {
 	}
 	public void setTime(Date time) {
 		this.time = time;
+	}
+	@Override
+	public String toString() {
+		return "LinkedInHistoricFollowerStatistic [totalFollowerCount=" + totalFollowerCount + ", organicFollowerCount="
+				+ organicFollowerCount + ", paidFollowerCount=" + paidFollowerCount + ", time=" + time + "]";
 	}
 }

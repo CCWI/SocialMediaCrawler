@@ -376,7 +376,6 @@ public class LinkedIn {
 		
 		Gson gson = builder.create();
 		
-		
 		LinkedInHistoricFollowerStatistics result = null;
 		
 		try {

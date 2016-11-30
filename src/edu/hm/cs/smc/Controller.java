@@ -145,15 +145,15 @@ public class Controller implements ServletContextListener {
 								// if get parameter count is greater than the actual amount of updates (count), 
 								// the response doesn't contain the attribute count.
 								if(count == 0 && total > 0) {
-									System.out.println("Saving company updates " + begin + " to " + (total - 1) + " for company with id " + company.getId());
+									printMessage("Saving company updates " + begin + " to " + (total - 1) + " for company with id " + company.getId());
 								} else {
-									System.out.println("Saving company updates " + begin + " to " + (begin + count - 1) + " for company with id " + company.getId());
+									printMessage("Saving company updates " + begin + " to " + (begin + count - 1) + " for company with id " + company.getId());
 								}
 								
 								objectDAO.saveToMariaDb(companyUpdates);
 							} while (count > 0 && total > begin + count);
 							
-							System.out.println("Saving company profile for company with id " + company.getId());
+							printMessage("Saving company profile for company with id " + company.getId());
 							LinkedInCompany companyProfile = linkedIn.getCompanyProfile(companyId);
 							objectDAO.saveToMariaDb(companyProfile);
 							
@@ -180,15 +180,15 @@ public class Controller implements ServletContextListener {
 								}
 							}
 							
-							System.out.println("Saving historical follower statistic for company with id " + company.getId());
+							printMessage("Saving historical follower statistic for company with id " + company.getId());
 							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", timeStamp, null);
 							objectDAO.saveToMariaDb(historicalFollowerStatistics);
 							
-							System.out.println("Saving historical update statistic for company with id " + company.getId());
+							printMessage("Saving historical update statistic for company with id " + company.getId());
 							LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", timeStamp, null, null);
 							objectDAO.saveToMariaDb(historicalUpdateStatistics);
 							
-							System.out.println("Saving company statistics for company with id " + company.getId());
+							printMessage("Saving company statistics for company with id " + company.getId());
 							LinkedInCompanyStatistics companyStatistics = linkedIn.getStatisticsAboutCompany(companyId);
 							objectDAO.saveToMariaDb(companyStatistics);
 						}
