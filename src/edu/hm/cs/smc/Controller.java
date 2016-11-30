@@ -22,6 +22,7 @@ import edu.hm.cs.smc.channels.facebook.FacebookConnector;
 import edu.hm.cs.smc.channels.facebook.models.FBComment;
 import edu.hm.cs.smc.channels.facebook.models.FBPage;
 import edu.hm.cs.smc.channels.facebook.models.FBPost;
+import edu.hm.cs.smc.channels.generic.models.Request;
 import edu.hm.cs.smc.channels.linkedin.LinkedIn;
 import edu.hm.cs.smc.channels.linkedin.LinkedInCompanySizeCodes;
 import edu.hm.cs.smc.channels.linkedin.LinkedInGeographyCodes;
@@ -36,7 +37,6 @@ import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyUpdates;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInFollowers;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricFollowerStatistics;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInHistoricUpdateStatistics;
-import edu.hm.cs.smc.channels.linkedin.models.LinkedInIndustries;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInMemberIsAdministrator;
 import edu.hm.cs.smc.database.DatabaseException;
 import edu.hm.cs.smc.database.ObjectDAO;
@@ -156,7 +156,7 @@ public class Controller implements ServletContextListener {
 							} while (count > 0 && total > begin + count);
 							
 							printMessage("Saving company profile for company with id " + company.getId());
-							LinkedInCompany companyProfile = linkedIn.getCompanyProfile(companyId);
+							Request companyProfile = linkedIn.getCompanyProfile(companyId);
 							objectDAO.saveToMariaDb(companyProfile);
 							
 							printMessage("Saving the followers by segment for company with id " + company.getId());

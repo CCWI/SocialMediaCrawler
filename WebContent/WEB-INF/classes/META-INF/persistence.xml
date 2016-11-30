@@ -33,6 +33,9 @@
 	      <class>edu.hm.cs.smc.channels.facebook.models.FBPage</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBPost</class>
           <class>edu.hm.cs.smc.channels.facebook.models.FBComment</class>
+          
+          <class>edu.hm.cs.smc.channels.generic.models.Request</class>
+          <class>edu.hm.cs.smc.channels.generic.models.RequestParameter</class>
 	      
 	      <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInAddress</class>
 	      <class>edu.hm.cs.smc.channels.linkedin.models.LinkedInApiStandardProfileRequest</class>

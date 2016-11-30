@@ -23,6 +23,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
+import edu.hm.cs.smc.channels.generic.models.Request;
+import edu.hm.cs.smc.channels.generic.models.RequestNetwork;
+import edu.hm.cs.smc.channels.generic.models.RequestParameter;
+import edu.hm.cs.smc.channels.generic.models.RequestType;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompany;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyAdministrator;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySharingEnabled;
@@ -174,7 +178,7 @@ public class LinkedIn {
 	 * @param companyId
 	 * @return
 	 */
-	public LinkedInCompany getCompanyProfile(String companyId) {
+	public Request getCompanyProfile(String companyId) {
 		
 		String url = "https://api.linkedin.com/v1/companies/%s:(%s)?format=json";
 		String fields = "id,name,universal-name,email-domains,company-type,ticker,website-url,industries,status,logo-url,square-logo-url,blog-rss-url,twitter-id,employee-count-range,specialties,locations,description,stock-exchange,founded-year,end-year,num-followers";
@@ -190,7 +194,24 @@ public class LinkedIn {
 			e.printStackTrace();
 		}
 		
-		return result;
+		List<RequestParameter> reqParameters = new ArrayList<RequestParameter>();
+		RequestParameter parameterCompanyId = new RequestParameter();
+		RequestParameter parameterFields = new RequestParameter();
+		
+		parameterCompanyId.setValue(companyId);
+		parameterFields.setValue(fields);
+		
+		reqParameters.add(parameterCompanyId);
+		reqParameters.add(parameterFields);
+		
+		Request request = new Request();
+		request.setUrl(url);
+		request.setParameters(reqParameters);
+		request.setRequestType(RequestType.GET);
+		request.setNetwork(RequestNetwork.LINKEDIN);
+		request.setResponse(result);
+		
+		return request;
 	}
 
 	/**
