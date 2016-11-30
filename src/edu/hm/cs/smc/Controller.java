@@ -70,16 +70,16 @@ public class Controller implements ServletContextListener {
 					while (controllerUtil.pruefeStartbedingung()) {
 						try {
 							Date start = new Date();
-							System.out.println(start + ": Beginne Verarbeitung");
+							printMessage(start, "Beginne Verarbeitung");
 
 //							verarbeiteBing();
 							verarbeiteLinkedIn();
 //							verarbeiteFacebook();
 
 							Date ende = new Date();
-							System.out.println(ende + ": Beende Verarbeitung");
+							printMessage(ende, "Beende Verarbeitung");
 							System.out.println(
-									"GESAMTZEIT: " + ((ende.getTime() - start.getTime()) / 1000) + " Sekunden");
+									"TOTAL: " + ((ende.getTime() - start.getTime()) / 1000) + " Seconds");
 
 							Thread.sleep(controllerUtil.getRunTimer());
 						} catch (Exception e) {
@@ -206,7 +206,11 @@ public class Controller implements ServletContextListener {
 	}
 
 	private void printMessage(String message) {
-		System.out.println(new Date() + ": " + message);
+		printMessage(new Date(), message);
+	}
+	
+	private void printMessage(Date timetstamp, String message) {
+		System.out.println(timetstamp + ": " + message);
 	}
 
 	private void verarbeiteFacebook() {
