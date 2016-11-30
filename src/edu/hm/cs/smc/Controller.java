@@ -28,6 +28,7 @@ import edu.hm.cs.smc.channels.linkedin.LinkedInGeographyCodes;
 import edu.hm.cs.smc.channels.linkedin.LinkedInIndustryCodes;
 import edu.hm.cs.smc.channels.linkedin.LinkedInJobfFunctionCodes;
 import edu.hm.cs.smc.channels.linkedin.LinkedInSeniorityCodes;
+import edu.hm.cs.smc.channels.linkedin.LinkedInTimeGranularity;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompany;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanySharingEnabled;
 import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompanyStatistics;
@@ -118,6 +119,7 @@ public class Controller implements ServletContextListener {
 				LinkedIn linkedIn = new LinkedIn(credentialProperties);
 				Date timeStamp = new Date(Long.parseLong("1473343803591"));
 				
+				// get the administrated companies
 				LinkedInMemberIsAdministrator administratedCompanies = linkedIn.getCompaniesMemberIsAdministratorOf();
 
 				if(administratedCompanies != null 
@@ -127,7 +129,7 @@ public class Controller implements ServletContextListener {
 					for(LinkedInCompany company: administratedCompanies.getValues()) {
 						printMessage("Processing company with id " + company.getId());
 						
-						String companyId = String.valueOf(company.getId()); //"2414183";
+						String companyId = String.valueOf(company.getId()); // p. ex. sample id "2414183";
 						LinkedInCompanySharingEnabled companySharing = linkedIn.getIsCompanySharingEnabled(companyId);
 						
 						if(!companySharing.isCompanySharingEnabled()) {
@@ -157,7 +159,7 @@ public class Controller implements ServletContextListener {
 							LinkedInCompany companyProfile = linkedIn.getCompanyProfile(companyId);
 							objectDAO.saveToMariaDb(companyProfile);
 							
-							// Has to be invoked for different segments
+							printMessage("Saving the followers by segment for company with id " + company.getId());
 							List<LinkedInFollowers> companyFollowersBySegments = new ArrayList<>();
 							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, null, null, null, null, null));
 							companyFollowersBySegments.add(linkedIn.getCompanyFollowersBySegment(companyId, LinkedInGeographyCodes.EU_DE, null, null, null, null));
@@ -181,11 +183,11 @@ public class Controller implements ServletContextListener {
 							}
 							
 							printMessage("Saving historical follower statistic for company with id " + company.getId());
-							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, "day", timeStamp, null);
+							LinkedInHistoricFollowerStatistics historicalFollowerStatistics = linkedIn.getHistoricalFollowerStatistics(companyId, LinkedInTimeGranularity.DAY, timeStamp, null);
 							objectDAO.saveToMariaDb(historicalFollowerStatistics);
 							
 							printMessage("Saving historical update statistic for company with id " + company.getId());
-							LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, "day", timeStamp, null, null);
+							LinkedInHistoricUpdateStatistics historicalUpdateStatistics = linkedIn.getHistoricalUpdateStatistics(companyId, LinkedInTimeGranularity.DAY, timeStamp, null, null);
 							objectDAO.saveToMariaDb(historicalUpdateStatistics);
 							
 							printMessage("Saving company statistics for company with id " + company.getId());
