@@ -33,11 +33,16 @@ public class TwitterUser extends BaseEntity {
 	private String name;
 	private boolean notifications;
 	private String profile_background_color;
+	@Column(length=2000)
 	private String profile_background_image_url;
+	@Column(length=2000)
 	private String profile_background_image_url_https;
 	private boolean profile_background_tile;
+	@Column(length=2000)
 	private String profile_banner_url;
+	@Column(length=2000)
 	private String profile_mage_url;
+	@Column(length=2000)
 	private String profile_image_url_https;
 	private String profile_link_color;
 	private String profile_sidebar_border_color;
@@ -52,6 +57,7 @@ public class TwitterUser extends BaseEntity {
 	private List<TwitterTweet> status;
 	private long statuses_count;
 	private String time_zone;
+	@Column(length=2000)
 	private String url;
 	private int utc_offset;
 	private boolean verified;

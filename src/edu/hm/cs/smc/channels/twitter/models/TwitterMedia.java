@@ -9,7 +9,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 public class TwitterMedia extends BaseEntity {
 	
 	private String display_url;
-	@Column(length=1000)
+	@Column(length=2000)
 	private String expanded_url;
 	private long id;
 	private String id_str;
