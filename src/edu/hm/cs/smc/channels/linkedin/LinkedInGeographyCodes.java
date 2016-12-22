@@ -205,7 +205,7 @@ public class LinkedInGeographyCodes {
 	/**
 	 * Ahmedabad Area, India
 	 */
-	public static final String AS_IN_GJ_7ß65 = "as.in.gj.7065"; 	
+	public static final String AS_IN_GJ_7065 = "as.in.gj.7065"; 	
 	
 	/**
 	 * Vadodara Area, India
@@ -533,12 +533,12 @@ public class LinkedInGeographyCodes {
 	public static final String EU_DK_5041 = "eu.dk.*.5041"; 	
 	
 	/**
-	 * Ålborg Area, Denmark
+	 * ï¿½lborg Area, Denmark
 	 */
 	public static final String EU_DK_5044 = "eu.dk.*.5044"; 	
 	
 	/**
-	 * Århus Area, Denmark
+	 * ï¿½rhus Area, Denmark
 	 */
 	public static final String EU_DK_5045 = "eu.dk.*.5045"; 	
 	
@@ -798,7 +798,7 @@ public class LinkedInGeographyCodes {
 	public static final String EU_CH_4930 = "eu.ch.*.4930"; 	
 	
 	/**
-	 * Zürich Area, Switzerland
+	 * Zï¿½rich Area, Switzerland
 	 */
 	public static final String EU_CH_4938 = "eu.ch.*.4938"; 	
 	
@@ -1003,7 +1003,7 @@ public class LinkedInGeographyCodes {
 	public static final String LA_BR_AL = "la.br.al"; 	
 	
 	/**
-	 * Amapá
+	 * Amapï¿½
 	 */
 	public static final String LA_BR_AP = "la.br.ap"; 	
 	
@@ -1018,7 +1018,7 @@ public class LinkedInGeographyCodes {
 	public static final String LA_BR_BA = "la.br.ba"; 
 	
 	/**
-	 * Ceará
+	 * Cearï¿½
 	 */
 	public static final String LA_BR_CE = "la.br.ce"; 	
 	
@@ -1028,17 +1028,17 @@ public class LinkedInGeographyCodes {
 	public static final String LA_BR_DF = "la.br.df"; 	
 	
 	/**
-	 * Espírito Santo
+	 * Espï¿½rito Santo
 	 */
 	public static final String LA_BR_ES = "la.br.es"; 	
 	
 	/**
-	 * Goiás
+	 * Goiï¿½s
 	 */
 	public static final String LA_BR_GO = "la.br.go"; 	
 	
 	/**
-	 * Maranhão
+	 * Maranhï¿½o
 	 */
 	public static final String LA_BR_MA = "la.br.ma"; 	
 	
@@ -1063,7 +1063,7 @@ public class LinkedInGeographyCodes {
 	public static final String LA_BR_MG_6156 = "la.br.mg.6156"; 	
 	
 	/**
-	 * Paraná
+	 * Paranï¿½
 	 */
 	public static final String LA_BR_PR = "la.br.pr"; 	
 	
@@ -1073,12 +1073,12 @@ public class LinkedInGeographyCodes {
 	public static final String LA_BR_PR_6399 = "la.br.pr.6399"; 	
 	
 	/**
-	 * Paraíba
+	 * Paraï¿½ba
 	 */
 	public static final String LA_BR_PB = "la.br.pb"; 	
 	
 	/**
-	 * Pará
+	 * Parï¿½
 	 */
 	public static final String LA_BR_PA = "la.br.pa"; 	
 	
@@ -1088,7 +1088,7 @@ public class LinkedInGeographyCodes {
 	public static final String LA_BR_PE = "la.br.pe"; 	
 	
 	/**
-	 * Piauí
+	 * Piauï¿½
 	 */
 	public static final String LA_BR_PI = "la.br.pi"; 	
 	
@@ -1118,7 +1118,7 @@ public class LinkedInGeographyCodes {
 	public static final String LA_BR_RJ_6034 = "la.br.rj.6034"; 	
 	
 	/**
-	 * Rondônia
+	 * Rondï¿½nia
 	 */
 	public static final String LA_BR_RO = "la.br.ro"; 	
 	
@@ -1138,7 +1138,7 @@ public class LinkedInGeographyCodes {
 	public static final String LA_BR_SE = "la.br.se"; 	
 	
 	/**
-	 * São Paulo
+	 * Sï¿½o Paulo
 	 */
 	public static final String LA_BR_SP = "la.br.sp"; 	
 	
@@ -1148,7 +1148,7 @@ public class LinkedInGeographyCodes {
 	public static final String LA_BR_SP_6104 = "la.br.sp.6104"; 	
 	
 	/**
-	 * São Paulo Area, Brazil
+	 * Sï¿½o Paulo Area, Brazil
 	 */
 	public static final String LA_BR_SP_6368 = "la.br.sp.6368"; 	
 	
@@ -1198,7 +1198,7 @@ public class LinkedInGeographyCodes {
 	public static final String LA_MX_5621 = "la.mx.*.5921"; 	
 	
 	/**
-	 * Naucalpan de Juárez Area, Mexico
+	 * Naucalpan de Juï¿½rez Area, Mexico
 	 */
 	public static final String LA_MX_5955 = "la.mx.*.5955"; 	
 	
