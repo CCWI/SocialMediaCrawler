@@ -7,8 +7,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 /**
  * A <code>YouTubeBrandingSettingsImage</code> object encapsulates informations
  * about images that display on a channel page or video watch pages. The
- * informations are received from the YouTube Data API v3.
- * <br />
+ * informations are received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -170,6 +169,20 @@ public class YouTubeBrandingSettingsImage extends BaseEntity {
 
 	public void setBannerExternalUrl(String bannerExternalUrl) {
 		this.bannerExternalUrl = bannerExternalUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeBrandingSettingsImage [bannerImageUrl=" + bannerImageUrl + ", bannerMobileImageUrl="
+				+ bannerMobileImageUrl + ", watchIconImageUrl=" + watchIconImageUrl + ", trackingImageUrl="
+				+ trackingImageUrl + ", bannerTabletLowImageUrl=" + bannerTabletLowImageUrl + ", bannerTabletImageUrl="
+				+ bannerTabletImageUrl + ", bannerTabletHdImageUrl=" + bannerTabletHdImageUrl
+				+ ", bannerTabletExtraHdImageUrl=" + bannerTabletExtraHdImageUrl + ", bannerMobileLowImageUrl="
+				+ bannerMobileLowImageUrl + ", bannerMobileMediumHdImageUrl=" + bannerMobileMediumHdImageUrl
+				+ ", bannerMobileHdImageUrl=" + bannerMobileHdImageUrl + ", bannerMobileExtraHdImageUrl="
+				+ bannerMobileExtraHdImageUrl + ", bannerTvImageUrl=" + bannerTvImageUrl + ", bannerTvLowImageUrl="
+				+ bannerTvLowImageUrl + ", bannerTvMediumImageUrl=" + bannerTvMediumImageUrl + ", bannerTvHighImageUrl="
+				+ bannerTvHighImageUrl + ", bannerExternalUrl=" + bannerExternalUrl + "]";
 	}
 
 }

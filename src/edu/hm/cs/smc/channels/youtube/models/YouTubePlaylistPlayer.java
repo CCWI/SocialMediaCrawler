@@ -15,5 +15,10 @@ public class YouTubePlaylistPlayer extends BaseEntity {
 	public void setEmbedHtml(String embedHtml) {
 		this.embedHtml = embedHtml;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YouTubePlaylistPlayer [embedHtml=" + embedHtml + "]";
+	}
+
 }

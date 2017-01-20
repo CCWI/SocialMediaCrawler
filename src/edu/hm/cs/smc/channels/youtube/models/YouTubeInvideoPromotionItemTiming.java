@@ -8,8 +8,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
  * A <code>YouTubeInvideoPromotionItemTiming</code> object represents the time
  * during a video playback when a promoted item will display. These timing
  * settings override the channel's default timing settings. The informations are
- * received from the YouTube Data API v3.
- * <br />
+ * received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -45,6 +44,12 @@ public class YouTubeInvideoPromotionItemTiming extends BaseEntity {
 
 	public void setDurationMs(long durationMs) {
 		this.durationMs = durationMs;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeInvideoPromotionItemTiming [type=" + type + ", offsetMs=" + offsetMs + ", durationMs="
+				+ durationMs + "]";
 	}
 
 }

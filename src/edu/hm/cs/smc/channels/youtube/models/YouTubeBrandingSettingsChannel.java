@@ -10,8 +10,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 
 /**
  * A <code>YouTubeBrandingSettingsChannel</code> object encapsulates branding
- * properties of a channel page received from the YouTube Data API v3.
- * <br />
+ * properties of a channel page received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -147,6 +146,17 @@ public class YouTubeBrandingSettingsChannel extends BaseEntity {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeBrandingSettingsChannel [title=" + title + ", description=" + description + ", keywords="
+				+ keywords + ", defaultTab=" + defaultTab + ", trackingAnalyticsAccountId=" + trackingAnalyticsAccountId
+				+ ", moderateComments=" + moderateComments + ", showRelatedChannels=" + showRelatedChannels
+				+ ", showBrowseView=" + showBrowseView + ", featuredChannelsTitle=" + featuredChannelsTitle
+				+ ", featuredChannelsUrls=" + featuredChannelsUrls + ", unsubscribedTrailer=" + unsubscribedTrailer
+				+ ", profileColor=" + profileColor + ", defaultLanguage=" + defaultLanguage + ", country=" + country
+				+ "]";
 	}
 
 }

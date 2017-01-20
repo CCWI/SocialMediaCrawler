@@ -6,8 +6,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 
 /**
  * A <code>YouTubeInvideoPromotionItemId</code> object identifies a promoted
- * item received from the YouTube Data API v3.
- * <br />
+ * item received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -52,6 +51,12 @@ public class YouTubeInvideoPromotionItemId extends BaseEntity {
 
 	public void setRecentlyUploadedBy(String recentlyUploadedBy) {
 		this.recentlyUploadedBy = recentlyUploadedBy;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeInvideoPromotionItemId [type=" + type + ", videoId=" + videoId + ", websiteUrl=" + websiteUrl
+				+ ", recentlyUploadedBy=" + recentlyUploadedBy + "]";
 	}
 
 }

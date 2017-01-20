@@ -8,8 +8,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
  * A <code>YouTubeContentDetailsRelatedPlaylists</code> object is a map that
  * identifies playlists associated with a channel, such as the channel's
  * uploaded videos or liked videos. The informations are received from the
- * YouTube Data API v3.
- * <br />
+ * YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -63,6 +62,12 @@ public class YouTubeContentDetailsRelatedPlaylists extends BaseEntity {
 
 	public void setWatchLater(String watchLater) {
 		this.watchLater = watchLater;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeContentDetailsRelatedPlaylists [likes=" + likes + ", favorites=" + favorites + ", uploads="
+				+ uploads + ", watchHistory=" + watchHistory + ", watchLater=" + watchLater + "]";
 	}
 
 }

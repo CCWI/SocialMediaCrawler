@@ -15,45 +15,51 @@ public class YouTubeCommentThread extends BaseEntity {
 	private YouTubeCommentThreadSnippet snippet;
 	@OneToOne(cascade = CascadeType.ALL)
 	private YouTubeCommentThreadReplies replies;
-	
+
 	public String getKind() {
 		return kind;
 	}
-	
+
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
-	
+
 	public String getEtag() {
 		return etag;
 	}
-	
+
 	public void setEtag(String etag) {
 		this.etag = etag;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
-	
+
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public YouTubeCommentThreadSnippet getSnippet() {
 		return snippet;
 	}
-	
+
 	public void setSnippet(YouTubeCommentThreadSnippet snippet) {
 		this.snippet = snippet;
 	}
-	
+
 	public YouTubeCommentThreadReplies getReplies() {
 		return replies;
 	}
-	
+
 	public void setReplies(YouTubeCommentThreadReplies replies) {
 		this.replies = replies;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YouTubeCommentThread [kind=" + kind + ", etag=" + etag + ", id=" + id + ", snippet=" + snippet
+				+ ", replies=" + replies + "]";
+	}
+
 }

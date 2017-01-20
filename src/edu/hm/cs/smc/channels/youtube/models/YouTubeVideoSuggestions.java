@@ -3,6 +3,7 @@ package edu.hm.cs.smc.channels.youtube.models;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -10,55 +11,62 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 
 @Entity
 public class YouTubeVideoSuggestions extends BaseEntity {
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<YouTubeSuggestionsProcessingError> processingErrors;
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<YouTubeSuggestionsProcessingWarning> processingWarnings;
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<YouTubeSuggestionsProcessingHint> processingHints;
+	@ElementCollection
+	private List<String> processingErrors;
+	@ElementCollection
+	private List<String> processingWarnings;
+	@ElementCollection
+	private List<String> processingHints;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<YouTubeSuggestionsTagSuggestion> tagSuggestions;
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<YouTubeSuggestionsEditorSuggestion> editorSuggestions;
-	
-	public List<YouTubeSuggestionsProcessingError> getProcessingErrors() {
+	@ElementCollection
+	private List<String> editorSuggestions;
+
+	public List<String> getProcessingErrors() {
 		return processingErrors;
 	}
-	
-	public void setProcessingErrors(List<YouTubeSuggestionsProcessingError> processingErrors) {
+
+	public void setProcessingErrors(List<String> processingErrors) {
 		this.processingErrors = processingErrors;
 	}
-	
-	public List<YouTubeSuggestionsProcessingWarning> getProcessingWarnings() {
+
+	public List<String> getProcessingWarnings() {
 		return processingWarnings;
 	}
-	
-	public void setProcessingWarnings(List<YouTubeSuggestionsProcessingWarning> processingWarnings) {
+
+	public void setProcessingWarnings(List<String> processingWarnings) {
 		this.processingWarnings = processingWarnings;
 	}
-	
-	public List<YouTubeSuggestionsProcessingHint> getProcessingHints() {
+
+	public List<String> getProcessingHints() {
 		return processingHints;
 	}
-	
-	public void setProcessingHints(List<YouTubeSuggestionsProcessingHint> processingHints) {
+
+	public void setProcessingHints(List<String> processingHints) {
 		this.processingHints = processingHints;
 	}
-	
+
 	public List<YouTubeSuggestionsTagSuggestion> getTagSuggestions() {
 		return tagSuggestions;
 	}
-	
+
 	public void setTagSuggestions(List<YouTubeSuggestionsTagSuggestion> tagSuggestions) {
 		this.tagSuggestions = tagSuggestions;
 	}
-	
-	public List<YouTubeSuggestionsEditorSuggestion> getEditorSuggestions() {
+
+	public List<String> getEditorSuggestions() {
 		return editorSuggestions;
 	}
-	
-	public void setEditorSuggestions(List<YouTubeSuggestionsEditorSuggestion> editorSuggestions) {
+
+	public void setEditorSuggestions(List<String> editorSuggestions) {
 		this.editorSuggestions = editorSuggestions;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YouTubeVideoSuggestions [processingErrors=" + processingErrors + ", processingWarnings="
+				+ processingWarnings + ", processingHints=" + processingHints + ", tagSuggestions=" + tagSuggestions
+				+ ", editorSuggestions=" + editorSuggestions + "]";
+	}
+
 }

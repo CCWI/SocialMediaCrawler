@@ -11,45 +11,51 @@ public class YouTubeVideoStatistics extends BaseEntity {
 	private long dislikeCount;
 	private long favoriteCount;
 	private long commentCount;
-	
+
 	public long getViewCount() {
 		return viewCount;
 	}
-	
+
 	public void setViewCount(long viewCount) {
 		this.viewCount = viewCount;
 	}
-	
+
 	public long getLikeCount() {
 		return likeCount;
 	}
-	
+
 	public void setLikeCount(long likeCount) {
 		this.likeCount = likeCount;
 	}
-	
+
 	public long getDislikeCount() {
 		return dislikeCount;
 	}
-	
+
 	public void setDislikeCount(long dislikeCount) {
 		this.dislikeCount = dislikeCount;
 	}
-	
+
 	public long getFavoriteCount() {
 		return favoriteCount;
 	}
-	
+
 	public void setFavoriteCount(long favoriteCount) {
 		this.favoriteCount = favoriteCount;
 	}
-	
+
 	public long getCommentCount() {
 		return commentCount;
 	}
-	
+
 	public void setCommentCount(long commentCount) {
 		this.commentCount = commentCount;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YouTubeVideoStatistics [viewCount=" + viewCount + ", likeCount=" + likeCount + ", dislikeCount="
+				+ dislikeCount + ", favoriteCount=" + favoriteCount + ", commentCount=" + commentCount + "]";
+	}
+
 }

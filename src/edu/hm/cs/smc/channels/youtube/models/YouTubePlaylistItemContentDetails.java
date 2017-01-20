@@ -10,37 +10,43 @@ public class YouTubePlaylistItemContentDetails extends BaseEntity {
 	private String startAt;
 	private String endAt;
 	private String note;
-	
+
 	public String getVideoId() {
 		return videoId;
 	}
-	
+
 	public void setVideoId(String videoId) {
 		this.videoId = videoId;
 	}
-	
+
 	public String getStartAt() {
 		return startAt;
 	}
-	
+
 	public void setStartAt(String startAt) {
 		this.startAt = startAt;
 	}
-	
+
 	public String getEndAt() {
 		return endAt;
 	}
-	
+
 	public void setEndAt(String endAt) {
 		this.endAt = endAt;
 	}
-	
+
 	public String getNote() {
 		return note;
 	}
-	
+
 	public void setNote(String note) {
 		this.note = note;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YouTubePlaylistItemContentDetails [videoId=" + videoId + ", startAt=" + startAt + ", endAt=" + endAt
+				+ ", note=" + note + "]";
+	}
+
 }

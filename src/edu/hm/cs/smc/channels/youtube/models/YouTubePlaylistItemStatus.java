@@ -15,5 +15,10 @@ public class YouTubePlaylistItemStatus extends BaseEntity {
 	public void setPrivacyStatus(String privacyStatus) {
 		this.privacyStatus = privacyStatus;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YouTubePlaylistItemStatus [privacyStatus=" + privacyStatus + "]";
+	}
+
 }

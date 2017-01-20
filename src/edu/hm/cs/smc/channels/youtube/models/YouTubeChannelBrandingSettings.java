@@ -12,8 +12,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 /**
  * A <code>YouTubeChannelBrandingSettings</code> object encapsulates information
  * about the branding of a channel. The informations are received from the
- * YouTube Data API v3.
- * <br />
+ * YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -52,6 +51,11 @@ public class YouTubeChannelBrandingSettings extends BaseEntity {
 
 	public void setHints(List<YouTubeBrandingSettingsHint> hints) {
 		this.hints = hints;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeChannelBrandingSettings [channel=" + channel + ", image=" + image + ", hints=" + hints + "]";
 	}
 
 }

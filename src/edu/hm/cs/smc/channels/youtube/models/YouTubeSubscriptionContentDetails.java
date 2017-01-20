@@ -8,30 +8,36 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 public class YouTubeSubscriptionContentDetails extends BaseEntity {
 	private int totalItemCount;
 	private int newItemCount;
-    private String activityType;
-	
-    public int getTotalItemCount() {
+	private String activityType;
+
+	public int getTotalItemCount() {
 		return totalItemCount;
 	}
-	
+
 	public void setTotalItemCount(int totalItemCount) {
 		this.totalItemCount = totalItemCount;
 	}
-	
+
 	public int getNewItemCount() {
 		return newItemCount;
 	}
-	
+
 	public void setNewItemCount(int newItemCount) {
 		this.newItemCount = newItemCount;
 	}
-	
+
 	public String getActivityType() {
 		return activityType;
 	}
-	
+
 	public void setActivityType(String activityType) {
 		this.activityType = activityType;
 	}
-    
+
+	@Override
+	public String toString() {
+		return "YouTubeSubscriptionContentDetails [totalItemCount=" + totalItemCount + ", newItemCount=" + newItemCount
+				+ ", activityType=" + activityType + "]";
+	}
+
 }

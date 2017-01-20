@@ -7,8 +7,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 /**
  * A <code>YouTubeThumbnail</code> object represents thumbnail images associated
  * with a channel or its resources, such as its videos. The informations are
- * received from the YouTube Data API v3.
- * <br />
+ * received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -44,6 +43,11 @@ public class YouTubeThumbnail extends BaseEntity {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeThumbnail [url=" + url + ", width=" + width + ", height=" + height + "]";
 	}
 
 }

@@ -1,10 +1,7 @@
 package edu.hm.cs.smc.channels.youtube.models;
 
-import java.util.Map;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import edu.hm.cs.smc.database.models.BaseEntity;
@@ -12,8 +9,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 /**
  * A <code>YouTubeChannelSnippet</code> object contains basic details about a
  * channel, such as its title, description, and thumbnail images. The
- * informations are received from the YouTube Data API v3.
- * <br />
+ * informations are received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -27,11 +23,11 @@ public class YouTubeChannelSnippet extends BaseEntity {
 	private String description;
 	private String customUrl;
 	private String publishedAt;
-	@OneToMany(cascade = CascadeType.ALL)
-	private Map<String, YouTubeThumbnail> thumbnails;
+	@OneToOne(cascade = CascadeType.ALL)
+	private YouTubeChannelSnippetThumbnails thumbnails;
 	private String defaultLanguage;
 	@OneToOne(cascade = CascadeType.ALL)
-	private YouTubeLocalizedInfo localized;
+	private YouTubeLocalization localized;
 	private String country;
 
 	public String getTitle() {
@@ -66,11 +62,11 @@ public class YouTubeChannelSnippet extends BaseEntity {
 		this.publishedAt = publishedAt;
 	}
 
-	public Map<String, YouTubeThumbnail> getThumbnails() {
+	public YouTubeChannelSnippetThumbnails getThumbnails() {
 		return thumbnails;
 	}
 
-	public void setThumbnails(Map<String, YouTubeThumbnail> thumbnails) {
+	public void setThumbnails(YouTubeChannelSnippetThumbnails thumbnails) {
 		this.thumbnails = thumbnails;
 	}
 
@@ -82,11 +78,11 @@ public class YouTubeChannelSnippet extends BaseEntity {
 		this.defaultLanguage = defaultLanguage;
 	}
 
-	public YouTubeLocalizedInfo getLocalized() {
+	public YouTubeLocalization getLocalized() {
 		return localized;
 	}
 
-	public void setLocalized(YouTubeLocalizedInfo localized) {
+	public void setLocalized(YouTubeLocalization localized) {
 		this.localized = localized;
 	}
 
@@ -96,6 +92,13 @@ public class YouTubeChannelSnippet extends BaseEntity {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeChannelSnippet [title=" + title + ", description=" + description + ", customUrl=" + customUrl
+				+ ", publishedAt=" + publishedAt + ", thumbnails=" + thumbnails + ", defaultLanguage=" + defaultLanguage
+				+ ", localized=" + localized + ", country=" + country + "]";
 	}
 
 }

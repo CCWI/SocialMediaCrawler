@@ -8,8 +8,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
  * A <code>YouTubeChannelAuditDetails</code> object encapsulates channel data
  * that a multichannel network (MCN) would evaluate while determining whether to
  * accept or reject a particular channel. The informations are received from the
- * YouTube Data API v3.
- * <br />
+ * YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -54,6 +53,14 @@ public class YouTubeChannelAuditDetails extends BaseEntity {
 
 	public void setContentIdClaimsGoodStanding(boolean contentIdClaimsGoodStanding) {
 		this.contentIdClaimsGoodStanding = contentIdClaimsGoodStanding;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeChannelAuditDetails [overallGoodStanding=" + overallGoodStanding
+				+ ", communityGuidelinesGoodStanding=" + communityGuidelinesGoodStanding
+				+ ", copyrightStrikesGoodStanding=" + copyrightStrikesGoodStanding + ", contentIdClaimsGoodStanding="
+				+ contentIdClaimsGoodStanding + "]";
 	}
 
 }

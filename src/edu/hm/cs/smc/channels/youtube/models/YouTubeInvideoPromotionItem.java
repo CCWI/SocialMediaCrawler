@@ -9,8 +9,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 /**
  * A <code>YouTubeInvideoPromotionItem</code> object represents a promoted item
  * that will display during a video playback. The informations are received from
- * the YouTube Data API v3.
- * <br />
+ * the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -57,6 +56,12 @@ public class YouTubeInvideoPromotionItem extends BaseEntity {
 
 	public void setPromotedByContentOwner(boolean promotedByContentOwner) {
 		this.promotedByContentOwner = promotedByContentOwner;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeInvideoPromotionItem [id=" + id + ", timing=" + timing + ", customMessage=" + customMessage
+				+ ", promotedByContentOwner=" + promotedByContentOwner + "]";
 	}
 
 }

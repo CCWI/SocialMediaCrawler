@@ -15,5 +15,10 @@ public class YouTubeSnippetAuthorChannelId extends BaseEntity {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YouTubeSnippetAuthorChannelId [value=" + value + "]";
+	}
+
 }

@@ -1,18 +1,14 @@
 package edu.hm.cs.smc.channels.youtube.models;
 
-import java.util.Map;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import edu.hm.cs.smc.database.models.BaseEntity;
 
 /**
  * A <code>YouTubeChannel</code> object represents a channel resource received
- * from the YouTube Data API v3.
- * <br />
+ * from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -41,8 +37,8 @@ public class YouTubeChannel extends BaseEntity {
 	private YouTubeChannelAuditDetails auditDetails;
 	@OneToOne(cascade = CascadeType.ALL)
 	private YouTubeChannelContentOwnerDetails contentOwnerDetails;
-	@OneToMany(cascade = CascadeType.ALL)
-	private Map<String, YouTubeLocalizedInfo> localizations;
+	@OneToOne(cascade = CascadeType.ALL)
+	private YouTubeLocalizations localizations;
 
 	public String getKind() {
 		return kind;
@@ -132,12 +128,21 @@ public class YouTubeChannel extends BaseEntity {
 		this.contentOwnerDetails = contentOwnerDetails;
 	}
 
-	public Map<String, YouTubeLocalizedInfo> getLocalizations() {
+	public YouTubeLocalizations getLocalizations() {
 		return localizations;
 	}
 
-	public void setLocalizations(Map<String, YouTubeLocalizedInfo> localizations) {
+	public void setLocalizations(YouTubeLocalizations localizations) {
 		this.localizations = localizations;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeChannel [kind=" + kind + ", etag=" + etag + ", id=" + id + ", snippet=" + snippet
+				+ ", contentDetails=" + contentDetails + ", statistics=" + statistics + ", status=" + status
+				+ ", brandingSettings=" + brandingSettings + ", invideoPromotion=" + invideoPromotion
+				+ ", auditDetails=" + auditDetails + ", contentOwnerDetails=" + contentOwnerDetails + ", localizations="
+				+ localizations + "]";
 	}
 
 }

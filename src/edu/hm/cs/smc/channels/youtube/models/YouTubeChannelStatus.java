@@ -6,8 +6,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 
 /**
  * A <code>YouTubeChannelStatus</code> object encapsulates information about the
- * privacy status of a channel received from the YouTube Data API v3.
- * <br />
+ * privacy status of a channel received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -43,6 +42,12 @@ public class YouTubeChannelStatus extends BaseEntity {
 
 	public void setLongUploadsStatus(String longUploadsStatus) {
 		this.longUploadsStatus = longUploadsStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeChannelStatus [privacyStatus=" + privacyStatus + ", isLinked=" + isLinked
+				+ ", longUploadsStatus=" + longUploadsStatus + "]";
 	}
 
 }

@@ -20,5 +20,10 @@ public class YouTubeCommentThreadReplies extends BaseEntity {
 	public void setComments(List<YouTubeComment> comments) {
 		this.comments = comments;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YouTubeCommentThreadReplies [comments=" + comments + "]";
+	}
+
 }

@@ -6,8 +6,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 
 /**
  * A <code>YouTubeBrandingSettingsHint</code> object encapsulates additional
- * branding properties received from the YouTube Data API v3.
- * <br />
+ * branding properties received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -34,6 +33,11 @@ public class YouTubeBrandingSettingsHint extends BaseEntity {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeBrandingSettingsHint [property=" + property + ", value=" + value + "]";
 	}
 
 }

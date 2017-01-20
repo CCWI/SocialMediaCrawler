@@ -6,8 +6,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 
 /**
  * A <code>YouTubeChannelStatistics</code> object encapsulates statistics for a
- * channel received from the YouTube Data API v3.
- * <br />
+ * channel received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -61,6 +60,13 @@ public class YouTubeChannelStatistics extends BaseEntity {
 
 	public void setUnsigned(long unsigned) {
 		this.unsigned = unsigned;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeChannelStatistics [viewCount=" + viewCount + ", commentCount=" + commentCount
+				+ ", subscriberCount=" + subscriberCount + ", hiddenSubscriberCount=" + hiddenSubscriberCount
+				+ ", unsigned=" + unsigned + "]";
 	}
 
 }

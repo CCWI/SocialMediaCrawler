@@ -5,9 +5,8 @@ import javax.persistence.Entity;
 import edu.hm.cs.smc.database.models.BaseEntity;
 
 /**
- * A <code>YouTubeLocalizedInfo</code> object encapsulates translated metadata
- * received from the YouTube Data API v3.
- * <br />
+ * A <code>YouTubeLocalization</code> object encapsulates translated metadata
+ * received from the YouTube Data API v3. <br />
  * <br />
  * See <a href=
  * "https://developers.google.com/youtube/v3/docs/channels">https://developers.google.com/youtube/v3/docs/channels</a>
@@ -16,7 +15,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
  *
  */
 @Entity
-public class YouTubeLocalizedInfo extends BaseEntity {
+public class YouTubeLocalization extends BaseEntity {
 	private String title;
 	private String description;
 
@@ -34,6 +33,11 @@ public class YouTubeLocalizedInfo extends BaseEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "YouTubeLocalization [title=" + title + ", description=" + description + "]";
 	}
 
 }
