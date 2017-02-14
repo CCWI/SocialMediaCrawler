@@ -1,5 +1,6 @@
 package edu.hm.cs.smc.channels.youtube.models;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +12,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 
 @Entity
 public class YouTubePlaylistSnippet extends BaseEntity {
-	private String publishedAt;
+	private Date publishedAt;
 	private String channelId;
 	private String title;
 	private String description;
@@ -24,11 +25,11 @@ public class YouTubePlaylistSnippet extends BaseEntity {
 	@OneToOne(cascade = CascadeType.ALL)
 	private YouTubeLocalization localized;
 
-	public String getPublishedAt() {
+	public Date getPublishedAt() {
 		return publishedAt;
 	}
 
-	public void setPublishedAt(String publishedAt) {
+	public void setPublishedAt(Date publishedAt) {
 		this.publishedAt = publishedAt;
 	}
 

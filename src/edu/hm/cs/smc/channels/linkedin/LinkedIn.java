@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import com.github.scribejava.apis.LinkedInApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -482,13 +483,19 @@ public class LinkedIn {
 	
 	private Response request(String url, String... query) {
 		// the request
-		OAuthRequest request = new OAuthRequest(Verb.GET, String.format(url, (Object[]) query), service);
+		OAuthRequest request = new OAuthRequest(Verb.GET, String.format(url, (Object[]) query));
 		request.addHeader("x-li-format", "json");
 		request.addHeader("Accepted-Language", "de-DE, en-US");
 		service.signRequest(accessToken, request);
 
 		// the response
-		Response response = request.send();
+		Response response = null;
+		try {
+			response = service.execute(request);
+		} catch (InterruptedException | ExecutionException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return response;
 	}

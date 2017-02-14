@@ -1,5 +1,7 @@
 package edu.hm.cs.smc.channels.youtube.models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 import edu.hm.cs.smc.database.models.BaseEntity;
@@ -10,7 +12,7 @@ public class YouTubeVideoStatus extends BaseEntity {
 	private String failureReason;
 	private String rejectionReason;
 	private String privacyStatus;
-	private String publishAt;
+	private Date publishAt;
 	private String license;
 	private boolean embeddable;
 	private boolean publicStatsViewable;
@@ -47,11 +49,11 @@ public class YouTubeVideoStatus extends BaseEntity {
 		this.privacyStatus = privacyStatus;
 	}
 
-	public String getPublishAt() {
+	public Date getPublishAt() {
 		return publishAt;
 	}
 
-	public void setPublishAt(String publishAt) {
+	public void setPublishAt(Date publishAt) {
 		this.publishAt = publishAt;
 	}
 

@@ -1,5 +1,7 @@
 package edu.hm.cs.smc.channels.youtube.models;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -22,7 +24,7 @@ public class YouTubeChannelSnippet extends BaseEntity {
 	private String title;
 	private String description;
 	private String customUrl;
-	private String publishedAt;
+	private Date publishedAt;
 	@OneToOne(cascade = CascadeType.ALL)
 	private YouTubeChannelSnippetThumbnails thumbnails;
 	private String defaultLanguage;
@@ -54,11 +56,11 @@ public class YouTubeChannelSnippet extends BaseEntity {
 		this.customUrl = customUrl;
 	}
 
-	public String getPublishedAt() {
+	public Date getPublishedAt() {
 		return publishedAt;
 	}
 
-	public void setPublishedAt(String publishedAt) {
+	public void setPublishedAt(Date publishedAt) {
 		this.publishedAt = publishedAt;
 	}
 

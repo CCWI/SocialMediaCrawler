@@ -1,47 +1,49 @@
 package edu.hm.cs.smc.channels.youtube.models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 import edu.hm.cs.smc.database.models.BaseEntity;
 
 @Entity
 public class YouTubeVideoLiveStreamingDetails extends BaseEntity {
-	private String actualStartTime;
-	private String actualEndTime;
-	private String scheduledStartTime;
-	private String scheduledEndTime;
+	private Date actualStartTime;
+	private Date actualEndTime;
+	private Date scheduledStartTime;
+	private Date scheduledEndTime;
 	private long concurrentViewers;
 	private String activeLiveChatId;
 
-	public String getActualStartTime() {
+	public Date getActualStartTime() {
 		return actualStartTime;
 	}
 
-	public void setActualStartTime(String actualStartTime) {
+	public void setActualStartTime(Date actualStartTime) {
 		this.actualStartTime = actualStartTime;
 	}
 
-	public String getActualEndTime() {
+	public Date getActualEndTime() {
 		return actualEndTime;
 	}
 
-	public void setActualEndTime(String actualEndTime) {
+	public void setActualEndTime(Date actualEndTime) {
 		this.actualEndTime = actualEndTime;
 	}
 
-	public String getScheduledStartTime() {
+	public Date getScheduledStartTime() {
 		return scheduledStartTime;
 	}
 
-	public void setScheduledStartTime(String scheduledStartTime) {
+	public void setScheduledStartTime(Date scheduledStartTime) {
 		this.scheduledStartTime = scheduledStartTime;
 	}
 
-	public String getScheduledEndTime() {
+	public Date getScheduledEndTime() {
 		return scheduledEndTime;
 	}
 
-	public void setScheduledEndTime(String scheduledEndTime) {
+	public void setScheduledEndTime(Date scheduledEndTime) {
 		this.scheduledEndTime = scheduledEndTime;
 	}
 

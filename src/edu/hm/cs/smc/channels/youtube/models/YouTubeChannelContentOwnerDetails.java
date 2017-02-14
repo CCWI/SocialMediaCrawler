@@ -1,5 +1,7 @@
 package edu.hm.cs.smc.channels.youtube.models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 import edu.hm.cs.smc.database.models.BaseEntity;
@@ -18,7 +20,7 @@ import edu.hm.cs.smc.database.models.BaseEntity;
 @Entity
 public class YouTubeChannelContentOwnerDetails extends BaseEntity {
 	private String contentOwner;
-	private String timeLinked;
+	private Date timeLinked;
 
 	public String getContentOwner() {
 		return contentOwner;
@@ -28,11 +30,11 @@ public class YouTubeChannelContentOwnerDetails extends BaseEntity {
 		this.contentOwner = contentOwner;
 	}
 
-	public String getTimeLinked() {
+	public Date getTimeLinked() {
 		return timeLinked;
 	}
 
-	public void setTimeLinked(String timeLinked) {
+	public void setTimeLinked(Date timeLinked) {
 		this.timeLinked = timeLinked;
 	}
 

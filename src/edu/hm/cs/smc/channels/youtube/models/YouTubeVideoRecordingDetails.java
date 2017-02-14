@@ -1,5 +1,7 @@
 package edu.hm.cs.smc.channels.youtube.models;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -11,7 +13,7 @@ public class YouTubeVideoRecordingDetails extends BaseEntity {
 	private String locationDescription;
 	@OneToOne(cascade = CascadeType.ALL)
 	private YouTubeRecordingDetailsLocation location;
-	private String recordingDate;
+	private Date recordingDate;
 
 	public String getLocationDescription() {
 		return locationDescription;
@@ -29,11 +31,11 @@ public class YouTubeVideoRecordingDetails extends BaseEntity {
 		this.location = location;
 	}
 
-	public String getRecordingDate() {
+	public Date getRecordingDate() {
 		return recordingDate;
 	}
 
-	public void setRecordingDate(String recordingDate) {
+	public void setRecordingDate(Date recordingDate) {
 		this.recordingDate = recordingDate;
 	}
 

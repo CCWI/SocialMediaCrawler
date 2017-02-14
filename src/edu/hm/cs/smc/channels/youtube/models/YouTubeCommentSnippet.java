@@ -1,5 +1,7 @@
 package edu.hm.cs.smc.channels.youtube.models;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -22,8 +24,8 @@ public class YouTubeCommentSnippet extends BaseEntity {
 	private String viewerRating;
 	private int likeCount;
 	private String moderationStatus;
-	private String publishedAt;
-	private String updatedAt;
+	private Date publishedAt;
+	private Date updatedAt;
 
 	public String getAuthorDisplayName() {
 		return authorDisplayName;
@@ -129,19 +131,19 @@ public class YouTubeCommentSnippet extends BaseEntity {
 		this.moderationStatus = moderationStatus;
 	}
 
-	public String getPublishedAt() {
+	public Date getPublishedAt() {
 		return publishedAt;
 	}
 
-	public void setPublishedAt(String publishedAt) {
+	public void setPublishedAt(Date publishedAt) {
 		this.publishedAt = publishedAt;
 	}
 
-	public String getUpdatedAt() {
+	public Date getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
+	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
