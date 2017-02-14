@@ -132,7 +132,7 @@ public class Controller implements ServletContextListener {
 						String companyId = String.valueOf(company.getId()); // p. ex. sample id "2414183";
 						LinkedInCompanySharingEnabled companySharing = linkedIn.getIsCompanySharingEnabled(companyId);
 						
-						if(!companySharing.isCompanySharingEnabled()) {
+						if(1 != 1 && !companySharing.isCompanySharingEnabled()) {
 							printMessage("Sharing is disabled for company with id " + company.getId());
 						} else {
 							int count = 0;
@@ -158,6 +158,8 @@ public class Controller implements ServletContextListener {
 							printMessage("Saving company profile for company with id " + company.getId());
 							Request companyProfile = linkedIn.getCompanyProfile(companyId);
 							objectDAO.saveToMariaDb(companyProfile);
+							Request companyProfile2 = linkedIn.getCompanyProfile("2414183");
+							objectDAO.saveToMariaDb(companyProfile2);
 							
 							printMessage("Saving the followers by segment for company with id " + company.getId());
 							List<LinkedInFollowers> companyFollowersBySegments = new ArrayList<>();

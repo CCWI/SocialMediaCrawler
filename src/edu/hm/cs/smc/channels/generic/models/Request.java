@@ -1,5 +1,9 @@
 package edu.hm.cs.smc.channels.generic.models;
 
+import java.math.BigInteger;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,6 +32,8 @@ public class Request extends BaseEntity {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private BaseEntity response;
+	
+	private String hash;
 
 	public RequestType getRequestType() {
 		return requestType;
@@ -67,5 +73,38 @@ public class Request extends BaseEntity {
 
 	public void setResponse(BaseEntity response) {
 		this.response = response;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+	
+	public void calculateHash() {
+		String output;
+		
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+			byte[] hash = toString().getBytes(Charset.forName("UTF-8"));
+			messageDigest.update(hash);
+			
+			byte[] hashcode = messageDigest.digest();
+            BigInteger bi = new BigInteger(1, hashcode);
+            output = bi.toString(16);
+            
+			setHash(output);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Request [requestType=" + requestType + ", network=" + network + ", url=" + url + ", parameters="
+				+ parameters + ", response=" + response + ", hash=" + hash + "]";
 	}
 }

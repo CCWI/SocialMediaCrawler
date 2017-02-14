@@ -24,9 +24,14 @@ public class RequestParameter extends BaseEntity {
 	public void setValue(String value) {
 		this.value = value;
 	}
-
+	
 	public String getRequestNotation() {
 		return name + "=" + value;
+	}
+	
+	@Override
+	public String toString() {
+		return "RequestParameter [name=" + name + ", value=" + value + "]";
 	}
 
 }

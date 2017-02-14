@@ -14,7 +14,7 @@ public class LinkedInPerson extends BaseEntity {
 	private LinkedInApiStandardProfileRequest apiStandardProfileRequst;
 	private String firstName;
 	private String headline;
-	private int id;
+	private String id;
 	private String lastName;
 	private URL pictureUrl;
 	@OneToOne(cascade=CascadeType.ALL)
@@ -38,10 +38,10 @@ public class LinkedInPerson extends BaseEntity {
 	public void setHeadline(String headline) {
 		this.headline = headline;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getLastName() {

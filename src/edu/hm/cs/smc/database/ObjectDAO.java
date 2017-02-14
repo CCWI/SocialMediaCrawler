@@ -22,6 +22,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.TransactionManager;
 
+import edu.hm.cs.smc.channels.linkedin.models.LinkedInCompany;
 import edu.hm.cs.smc.database.models.BingSeiten;
 import edu.hm.cs.smc.database.models.ConfigLinkedInCompanyId;
 import edu.hm.cs.smc.database.models.FacebookpagesFBID;
@@ -82,6 +83,8 @@ public class ObjectDAO {
 			transactionManager.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("Object to save: " + databaseObject.getClass());
+			
 			try {
 				transactionManager.rollback();
 			} catch (IllegalStateException e1) {
@@ -382,4 +385,49 @@ public class ObjectDAO {
 		}
 		return fbid;
 	}
+	
+	public List<LinkedInCompany> getLinkedInCompany() {
+		List<LinkedInCompany> result = new ArrayList<>();
+		
+		TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
+		EntityManager entityManager = null;
+		
+		try {
+			transactionManager.begin();
+			entityManager = HibernateUtil.getHibernateOrmEntityManagerFactory().createEntityManager();
+			
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<LinkedInCompany> cq = cb.createQuery(LinkedInCompany.class);
+	        Metamodel m = entityManager.getMetamodel();
+	        EntityType<LinkedInCompany> LinkedInCompany_ = m.entity(LinkedInCompany.class);
+	        Root<LinkedInCompany> rootEntry = cq.from(LinkedInCompany.class);
+	        
+//	        cq.where(rootEntry.get(LinkedInCompany_.))
+	        
+	        CriteriaQuery<LinkedInCompany> all = cq.select(rootEntry);
+	        TypedQuery<LinkedInCompany> allQuery = entityManager.createQuery(all);
+	        result = allQuery.getResultList();
+	        
+			entityManager.flush();
+			entityManager.close();
+			transactionManager.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				transactionManager.rollback();
+			} catch (IllegalStateException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SystemException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
 }

@@ -119,6 +119,13 @@ public class LinkedIn {
 		LinkedInCompanySharingEnabled result = null;
 		
 		try {
+			System.out.println(response.getBody());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
 			LinkedInCompanySharingEnabled companySharing = new LinkedInCompanySharingEnabled();
 			companySharing.setCompanySharingEnabled(Boolean.valueOf(response.getBody()));
 			result = companySharing;
@@ -211,6 +218,13 @@ public class LinkedIn {
 		request.setRequestType(RequestType.GET);
 		request.setNetwork(RequestNetwork.LINKEDIN);
 		request.setResponse(result);
+		request.calculateHash();
+		
+		LinkedInCompany lastResponse = null;
+		
+		if(result.equals(lastResponse)) {
+			request.setResponse(lastResponse);
+		}
 		
 		return request;
 	}
@@ -239,6 +253,13 @@ public class LinkedIn {
 		Gson gson = builder.create();
 		
 		LinkedInCompanyUpdates result = null;
+		
+		try {
+			System.out.println(response.getBody());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			result = gson.fromJson(response.getBody(), LinkedInCompanyUpdates.class);
